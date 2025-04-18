@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Can You Handle The Truth?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background: #000;
+      font-family: 'OCR A Std', monospace;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .crt {
+      background: repeating-linear-gradient(to bottom, #111, #111 2px, #0d0d0d 4px, #111 6px);
+      border: 2px solid white;
+      border-radius: 12px;
+      padding: 20px;
+      color: white;
+      font-size: 0.8rem;
+      width: 60vw;
+      max-width: 600px;
+      margin-top: 30px;
+      margin-bottom: 60px;
+      position: relative;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: white;
+      animation: blink 0.7s infinite;
+      vertical-align: bottom;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .letters-container {
+      position: relative;
+      width: 60vw;
+      max-width: 600px;
+      height: 30vh;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .draggable-letter {
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: grab;
+      animation: pulse 3s infinite ease-in-out;
+      user-select: none;
+      touch-action: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .drop-zone {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    .drop-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .drop-slot {
+      width: 20px;
+      height: 24px;
+      border-bottom: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .drop-slot.filled {
+      border-bottom: none;
+    }
+
+    @media (max-width: 768px) {
+      .crt {
+        font-size: 0.7rem;
+        width: 90vw;
+      }
+      .letters-container {
+        width: 90vw;
+      }
+      .drop-slot {
+        width: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="crt" id="riddle-box">
+    <div id="riddle-text"></div><span class="cursor" id="riddle-cursor"></span>
+  </div>
+
+  <div class="letters-container" id="letters-container"></div>
+
+  <div class="drop-zone" id="drop-zone">
+    <div class="drop-row" id="row1"></div>
+    <div class="drop-row" id="row2"></div>
+  </div>
+
+  <script>
+    const phrase = "CAN YOU HANDLE THE TRUTH?";
+    const cleanPhrase = phrase.replace(/\s/g, '');
+    const letters = cleanPhrase.split('').sort(() => Math.random() - 0.5);
+    const container = document.getElementById('letters-container');
+    const row1 = document.getElementById('row1');
+    const row2 = document.getElementById('row2');
+    let correctCount = 0;
+
+    function addSlots(row, text) {
+      for (const char of text) {
+        if (char === ' ') {
+          const spacer = document.createElement('div');
+          spacer.style.width = '15px';
+          row.appendChild(spacer);
+        } else {
+          const slot = document.createElement('div');
+          slot.classList.add('drop-slot');
+          row.appendChild(slot);
+        }
+      }
+    }
+
+    addSlots(row1, "CAN YOU HANDLE");
+    addSlots(row2, "THE TRUTH?");
+
+    const slots = document.querySelectorAll('.drop-slot');
+
+    letters.forEach((char, i) => {
+      const letter = document.createElement('div');
+      letter.classList.add('draggable-letter');
+      letter.textContent = char;
+
+      const randomX = Math.random() * 90;
+      const randomY = Math.random() * 90;
+      letter.style.left = `${randomX}%`;
+      letter.style.top = `${randomY}%`;
+
+      // Desktop drag-and-drop events
+      letter.setAttribute('draggable', 'true');
+      letter.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', char);
+        e.dataTransfer.setData('index', i);
+      });
+
+      slots.forEach((slot, index) => {
+        slot.addEventListener('dragover', e => e.preventDefault());
+        slot.addEventListener('drop', e => {
+          const droppedChar = e.dataTransfer.getData('text/plain');
+          const correctChar = cleanPhrase[index];
+          if (droppedChar === correctChar && !slot.classList.contains('filled')) {
+            slot.textContent = droppedChar;
+            slot.classList.add('filled');
+            letter.style.display = 'none';
+            correctCount++;
+            if (correctCount === cleanPhrase.length) {
+              setTimeout(() => alert("Puzzle Completed!"), 500);
+            }
+          }
+        });
+      });
+
+      // Mobile touch events
+      let offsetX, offsetY;
+      letter.addEventListener('touchstart', e => {
+        const touch = e.touches[0];
+        const rect = letter.getBoundingClientRect();
+        offsetX = touch.pageX - rect.left;
+        offsetY = touch.pageY - rect.top;
+        letter.style.zIndex = 1000;
+      });
+
+      letter.addEventListener('touchmove', e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        letter.style.left = `${touch.pageX - offsetX}px`;
+        letter.style.top = `${touch.pageY - offsetY}px`;
+      });
+
+      letter.addEventListener('touchend', e => {
+        const touch = e.changedTouches[0];
+        const dropX = touch.pageX;
+        const dropY = touch.pageY;
+
+        slots.forEach((slot, index) => {
+          const rect = slot.getBoundingClientRect();
+          const correctChar = cleanPhrase[index];
+          if (
+            dropX > rect.left && dropX < rect.right &&
+            dropY > rect.top && dropY < rect.bottom &&
+            !slot.classList.contains('filled') &&
+            letter.textContent === correctChar
+          ) {
+            slot.textContent = letter.textContent;
+            slot.classList.add('filled');
+            letter.style.display = 'none';
+            correctCount++;
+            if (correctCount === cleanPhrase.length) {
+              setTimeout(() => alert("Puzzle Completed!"), 500);
+            }
+          }
+        });
+      });
+
+      container.appendChild(letter);
+    });
+  </script>
+</body>
+</html>
