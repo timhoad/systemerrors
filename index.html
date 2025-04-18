@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Can You Handle The Truth?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet">
+  <style>
+    /* Basic layout and styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background: #000;
+      font-family: 'OCR A Std', monospace;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .crt {
+      background: repeating-linear-gradient(to bottom, #111, #111 2px, #0d0d0d 4px, #111 6px);
+      border: 2px solid white;
+      border-radius: 12px;
+      padding: 20px;
+      color: white;
+      font-size: 0.8rem;
+      width: 60vw;
+      max-width: 600px;
+      margin-top: 30px;
+      margin-bottom: 60px;
+      position: relative;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: white;
+      animation: blink 0.7s infinite;
+      vertical-align: bottom;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .letters-container {
+      position: relative;
+      width: 60vw;
+      max-width: 600px;
+      height: 30vh;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .draggable-letter {
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: grab;
+      animation: pulse 3s infinite ease-in-out;
+      user-select: none;
+      /* touch-action none stops the browser’s default touch handling */
+      touch-action: none;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    .drop-zone {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+    .drop-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .drop-slot {
+      width: 20px;
+      height: 24px;
+      border-bottom: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+    }
+    .drop-slot.filled {
+      border-bottom: none;
+    }
+    .form-container {
+      background: #222;
+      padding: 20px;
+      color: white;
+      border-radius: 8px;
+      border: 1px solid #444;
+      width: 90%;
+      max-width: 400px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+    }
+    .form-container button {
+      background: white;
+      color: black;
+      font-weight: bold;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .completion-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      color: white;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+    .completion-message {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      white-space: pre-wrap;
+      margin-top: -5cm;
+    }
+    .completion-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: white;
+      animation: blink 0.7s infinite;
+      vertical-align: bottom;
+    }
+    @media (max-width: 768px) {
+      .crt {
+        font-size: 0.7rem;
+        width: 90vw;
+      }
+      .letters-container {
+        width: 90vw;
+      }
+      .drop-slot {
+        width: 18px;
+      }
+      .completion-message {
+        font-size: 1.2rem;
+        padding: 0 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="crt" id="riddle-box">
+    <div id="riddle-text"></div><span class="cursor" id="riddle-cursor"></span>
+  </div>
+
+  <div class="letters-container" id="letters-container"></div>
+
+  <div class="drop-zone" id="drop-zone">
+    <div class="drop-row" id="row1"></div>
+    <div class="drop-row" id="row2"></div>
+  </div>
+
+  <div class="form-container" id="form-container">
+    <h3>Start pulling the strings here</h3>
+    <p>access - knowledge, tools for critical thinking, breakdowns, product activism</p>
+    <input type="email" placeholder="Email">
+    <input type="text" placeholder="First Name">
+    <input type="text" placeholder="Surname">
+    <input type="text" placeholder="Country">
+    <button>Stand Together</button>
+  </div>
+
+  <div class="completion-overlay" id="completion-overlay">
+    <div class="completion-message" id="final-message"></div>
+    <span class="completion-cursor"></span>
+  </div>
+
+  <script>
+    // Riddle typewriter functionality
+    const riddle = `They built a house on shifting sand,
+Then sold the myth with sleight of hand.
+Truth trades hands behind closed doors,
+Sanitized for distant shores.
+The loudest claim "It’s all just fine",
+While cracks appear in every line.
+Eyes wide shut, we seek the key,
+Solve the puzzle and begin to see.`;
+
+    const riddleText = document.getElementById('riddle-text');
+    let riddleIndex = 0;
+
+    function typeRiddle() {
+      if (riddleIndex < riddle.length) {
+        riddleText.innerHTML += riddle[riddleIndex] === '\n' ? '<br>' : riddle[riddleIndex];
+        riddleIndex++;
+        setTimeout(typeRiddle, 40);
+      } else {
+        setTimeout(() => {
+          document.getElementById("letters-container").style.display = "block";
+          document.getElementById("drop-zone").style.display = "flex";
+        }, 300);
+      }
+    }
+    typeRiddle();
+
+    // Setup for word scramble game
+    const phrase = "CAN YOU HANDLE THE TRUTH?";
+    const cleanPhrase = phrase.replace(/\s/g, '');
+    // scramble letters randomly
+    const lettersArr = cleanPhrase.split('').sort(() => Math.random() - 0.5);
+    const container = document.getElementById('letters-container');
+    const row1 = document.getElementById('row1');
+    const row2 = document.getElementById('row2');
+    let correctCount = 0;
+
+    // Create drop slots for the phrase
+    function addSlots(row, text) {
+      for (const char of text) {
+        if (char === ' ') {
+          const spacer = document.createElement('div');
+          spacer.style.width = '15px';
+          row.appendChild(spacer);
+        } else {
+          const slot = document.createElement('div');
+          slot.classList.add('drop-slot');
+          row.appendChild(slot);
+        }
+      }
+    }
+    addSlots(row1, "CAN YOU HANDLE");
+    addSlots(row2, "THE TRUTH?");
+
+    // Variables to track dragging
+    let currentLetter = null;
+    let offsetX = 0, offsetY = 0;
+
+    // Add the draggable letters to the container
+    lettersArr.forEach((char, i) => {
+      const letter = document.createElement('div');
+      letter.classList.add('draggable-letter');
+      letter.textContent = char;
+      letter.dataset.index = i;
+      // Place at random positions within the container
+      letter.style.left = `${Math.random() * 80}%`;
+      letter.style.top = `${Math.random() * 80}%`;
+      container.appendChild(letter);
+    });
+
+    // Unified drag start event handler for both desktop and mobile
+    function onDragStart(event) {
+      currentLetter = event.target;
+      const rect = currentLetter.getBoundingClientRect();
+      if (event.type === 'mousedown') {
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+        document.addEventListener('mousemove', onDrag);
+        document.addEventListener('mouseup', onDragEnd);
+      } else if (event.type === 'touchstart') {
+        const touch = event.touches[0];
+        offsetX = touch.clientX - rect.left;
+        offsetY = touch.clientY - rect.top;
+        document.addEventListener('touchmove', onDrag, {passive: false});
+        document.addEventListener('touchend', onDragEnd);
+      }
+      // Bring letter to front for visibility while dragging
+      currentLetter.style.zIndex = 1000;
+    }
+
+    // Unified drag handler for both desktop and mobile
+    function onDrag(event) {
+      if (!currentLetter) return;
+      let clientX, clientY;
+      if (event.type === 'mousemove') {
+        clientX = event.clientX;
+        clientY = event.clientY;
+      } else if (event.type === 'touchmove') {
+        event.preventDefault(); // Prevent scrolling while dragging
+        const touch = event.touches[0];
+        clientX = touch.clientX;
+        clientY = touch.clientY;
+      }
+      currentLetter.style.left = `${clientX - offsetX}px`;
+      currentLetter.style.top = `${clientY - offsetY}px`;
+    }
+
+    // Unified drag end handler for both desktop and mobile
+    function onDragEnd(event) {
+      if (!currentLetter) return;
+      const letterRect = currentLetter.getBoundingClientRect();
+      let dropped = false;
+      // Loop through drop slots to check if the letter is dropped inside one
+      document.querySelectorAll('.drop-slot').forEach((slot, index) => {
+        const slotRect = slot.getBoundingClientRect();
+        // Check if the letter's bounding box is completely within the slot's area
+        if (
+          letterRect.left >= slotRect.left &&
+          letterRect.right <= slotRect.right &&
+          letterRect.top >= slotRect.top &&
+          letterRect.bottom <= slotRect.bottom &&
+          !slot.classList.contains('filled')
+        ) {
+          slot.textContent = currentLetter.textContent;
+          slot.classList.add('filled');
+          currentLetter.style.display = 'none';
+          correctCount++;
+          dropped = true;
+        }
+      });
+      // If not dropped in a slot, reset position (optional: you can store original position to snap-back)
+      if (!dropped) {
+        currentLetter.style.left = "0px";
+        currentLetter.style.top = "0px";
+      }
+      currentLetter.style.zIndex = "";
+      currentLetter = null;
+      if (event.type === 'mouseup') {
+        document.removeEventListener('mousemove', onDrag);
+        document.removeEventListener('mouseup', onDragEnd);
+      } else if (event.type === 'touchend') {
+        document.removeEventListener('touchmove', onDrag);
+        document.removeEventListener('touchend', onDragEnd);
+      }
+      // Check if puzzle complete
+      if (correctCount === cleanPhrase.length) {
+        // Trigger completion (customize as desired)
+        setTimeout(() => {
+          document.getElementById('completion-overlay').style.display = 'flex';
+          const finalMsg = document.getElementById('final-message');
+          const text = "you persevered, where most don’t even try...";
+          let idx = 0;
+          function typeFinal() {
+            if (idx < text.length) {
+              finalMsg.textContent += text[idx];
+              idx++;
+              setTimeout(typeFinal, 70);
+            }
+          }
+          setTimeout(typeFinal, 500);
+        }, 500);
+      }
+    }
+
+    // Attach event listeners to all draggable letters
+    document.querySelectorAll('.draggable-letter').forEach(letter => {
+      letter.addEventListener('mousedown', onDragStart);
+      letter.addEventListener('touchstart', onDragStart, {passive: false});
+    });
+
+    // Audio setup (optional)
+    const audio = new Audio('https://archive.org/download/rumbling/rumbling.mp3');
+    audio.loop = true;
+    function startAudio() {
+      audio.play().catch(err => {
+        console.warn('Autoplay blocked:', err);
+      });
+      window.removeEventListener('click', startAudio);
+      window.removeEventListener('touchstart', startAudio);
+    }
+    window.addEventListener('click', startAudio);
+    window.addEventListener('touchstart', startAudio);
+  </script>
+</body>
+</html>
