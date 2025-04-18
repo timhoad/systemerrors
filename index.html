@@ -248,11 +248,13 @@ Solve the puzzle and begin to see.`;
     let riddleIndex = 0;
 
     function typeRiddle() {
+      console.log("⌨️ Typing riddle...");
       if (riddleIndex < riddle.length) {
         riddleText.innerHTML += riddle[riddleIndex] === '\n' ? '<br>' : riddle[riddleIndex];
         riddleIndex++;
         setTimeout(typeRiddle, 40);
       } else {
+        console.log("✅ Riddle complete");
         setTimeout(() => {
           document.getElementById("letters-container").style.display = "block";
           document.getElementById("drop-zone").style.display = "flex";
@@ -305,23 +307,27 @@ Solve the puzzle and begin to see.`;
 
     const slots = document.querySelectorAll('.drop-slot');
 
+    function triggerFinalMessage() {
+      const overlay = document.getElementById('completion-overlay');
+      const message = document.getElementById('final-message');
+      const text = "you persevered, where most don’t even try...";
+      let index = 0;
+      overlay.style.display = 'flex';
+
+      function typeMessage() {
+        if (index < text.length) {
+          message.textContent += text[index];
+          index++;
+          setTimeout(typeMessage, 70);
+        }
+      }
+
+      setTimeout(typeMessage, 500);
+    }
+
     function handleCompletion() {
       setTimeout(() => {
-        const overlay = document.getElementById('completion-overlay');
-        const message = document.getElementById('final-message');
-        const text = "you persevered, where most don’t even try...";
-        let index = 0;
-        overlay.style.display = 'flex';
-
-        function typeMessage() {
-          if (index < text.length) {
-            message.textContent += text[index];
-            index++;
-            setTimeout(typeMessage, 70);
-          }
-        }
-
-        setTimeout(typeMessage, 500);
+        triggerFinalMessage();
       }, 500);
     }
 
@@ -341,22 +347,28 @@ Solve the puzzle and begin to see.`;
         e.dataTransfer.setData('index', i);
       });
 
-      // Touch support
-      let offsetX = 0;
-      let offsetY = 0;
+      // Mobile drag handling fix
+      let offsetX, offsetY;
 
       letter.addEventListener('touchstart', e => {
         const touch = e.touches[0];
         const rect = letter.getBoundingClientRect();
         offsetX = touch.clientX - rect.left;
         offsetY = touch.clientY - rect.top;
-        letter.style.position = 'fixed';
+
+        // Switch to absolute positioning for correct tracking
+        const left = rect.left + window.scrollX;
+        const top = rect.top + window.scrollY;
+        letter.style.position = 'absolute';
+        letter.style.left = `${left}px`;
+        letter.style.top = `${top}px`;
+
         letter.style.zIndex = 1000;
         letter.style.transition = 'none';
       });
 
       letter.addEventListener('touchmove', e => {
-        e.preventDefault(); // Prevent scrolling
+        e.preventDefault();
         const touch = e.touches[0];
         letter.style.left = `${touch.clientX - offsetX}px`;
         letter.style.top = `${touch.clientY - offsetY}px`;
@@ -394,52 +406,18 @@ Solve the puzzle and begin to see.`;
         });
 
         if (!dropped) {
+          // Snap back to initial position
+          const { x, y } = letterPositions[i];
           letter.style.left = `${x}%`;
           letter.style.top = `${y}%`;
         }
 
         letter.style.zIndex = '';
         letter.style.transition = '';
-        letter.style.position = 'absolute';
       });
 
       container.appendChild(letter);
     });
-
-    slots.forEach((slot, index) => {
-      slot.addEventListener('dragover', e => e.preventDefault());
-      slot.addEventListener('drop', e => {
-        const droppedChar = e.dataTransfer.getData('text/plain');
-        const originalIndex = e.dataTransfer.getData('index');
-        const correctChar = cleanPhrase[index];
-        if (droppedChar === correctChar && !slot.classList.contains('filled')) {
-          slot.textContent = droppedChar;
-          slot.classList.add('filled');
-          slot.style.animation = 'glitch 0.3s ease-out';
-          setTimeout(() => { slot.style.animation = ''; }, 300);
-          const letterDiv = document.querySelector(`.draggable-letter[data-index='${originalIndex}']`);
-          letterDiv.style.display = 'none';
-          correctCount++;
-          if (correctCount === cleanPhrase.length) {
-            handleCompletion();
-          }
-        }
-      });
-    });
-
-    const audio = new Audio('https://archive.org/download/rumbling/rumbling.mp3');
-    audio.loop = true;
-
-    function startAudio() {
-      audio.play().catch(err => {
-        console.warn('Autoplay blocked:', err);
-      });
-      window.removeEventListener('click', startAudio);
-      window.removeEventListener('touchstart', startAudio);
-    }
-
-    window.addEventListener('click', startAudio);
-    window.addEventListener('touchstart', startAudio);
   </script>
 </body>
 </html>
