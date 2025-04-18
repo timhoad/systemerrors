@@ -15,7 +15,7 @@
       width: 100%;
       background: #000;
       font-family: 'OCR A Std', monospace;
-      overflow: hidden;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -59,6 +59,7 @@
       max-width: 600px;
       height: 30vh;
       margin-bottom: 10px;
+      display: none;
     }
 
     .draggable-letter {
@@ -93,7 +94,7 @@
     }
 
     .drop-zone {
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 8px;
       margin-bottom: 20px;
@@ -176,7 +177,7 @@
       font-weight: bold;
       text-align: center;
       white-space: pre-wrap;
-      margin-top: -5cm; /* Adjusted upward position */
+      margin-top: -5cm;
     }
 
     .completion-cursor {
@@ -192,8 +193,6 @@
       .crt {
         font-size: 0.7rem;
         width: 90vw;
-        padding: 20px;
-        box-sizing: border-box;
       }
       .letters-container {
         width: 90vw;
@@ -202,9 +201,8 @@
         width: 18px;
       }
       .completion-message {
-        font-size: 1.2rem; /* Reduced font size for mobile */
-        padding-left: 20px;
-        padding-right: 20px;
+        font-size: 1.2rem;
+        padding: 0 20px;
       }
     }
   </style>
@@ -254,6 +252,11 @@ Solve the puzzle and begin to see.`;
         riddleText.innerHTML += riddle[riddleIndex] === '\n' ? '<br>' : riddle[riddleIndex];
         riddleIndex++;
         setTimeout(typeRiddle, 40);
+      } else {
+        setTimeout(() => {
+          document.getElementById("letters-container").style.display = "block";
+          document.getElementById("drop-zone").style.display = "flex";
+        }, 300);
       }
     }
 
@@ -302,27 +305,23 @@ Solve the puzzle and begin to see.`;
 
     const slots = document.querySelectorAll('.drop-slot');
 
-    function triggerFinalMessage() {
-      const overlay = document.getElementById('completion-overlay');
-      const message = document.getElementById('final-message');
-      const text = "you persevered, where most don’t even try...";
-      let index = 0;
-      overlay.style.display = 'flex';
-
-      function typeMessage() {
-        if (index < text.length) {
-          message.textContent += text[index];
-          index++;
-          setTimeout(typeMessage, 70);
-        }
-      }
-
-      setTimeout(typeMessage, 500);
-    }
-
     function handleCompletion() {
       setTimeout(() => {
-        triggerFinalMessage();
+        const overlay = document.getElementById('completion-overlay');
+        const message = document.getElementById('final-message');
+        const text = "you persevered, where most don’t even try...";
+        let index = 0;
+        overlay.style.display = 'flex';
+
+        function typeMessage() {
+          if (index < text.length) {
+            message.textContent += text[index];
+            index++;
+            setTimeout(typeMessage, 70);
+          }
+        }
+
+        setTimeout(typeMessage, 500);
       }, 500);
     }
 
@@ -394,7 +393,6 @@ Solve the puzzle and begin to see.`;
           }
         });
 
-        // Reset if not dropped successfully
         if (!dropped) {
           letter.style.left = `${x}%`;
           letter.style.top = `${y}%`;
@@ -407,6 +405,41 @@ Solve the puzzle and begin to see.`;
 
       container.appendChild(letter);
     });
+
+    slots.forEach((slot, index) => {
+      slot.addEventListener('dragover', e => e.preventDefault());
+      slot.addEventListener('drop', e => {
+        const droppedChar = e.dataTransfer.getData('text/plain');
+        const originalIndex = e.dataTransfer.getData('index');
+        const correctChar = cleanPhrase[index];
+        if (droppedChar === correctChar && !slot.classList.contains('filled')) {
+          slot.textContent = droppedChar;
+          slot.classList.add('filled');
+          slot.style.animation = 'glitch 0.3s ease-out';
+          setTimeout(() => { slot.style.animation = ''; }, 300);
+          const letterDiv = document.querySelector(`.draggable-letter[data-index='${originalIndex}']`);
+          letterDiv.style.display = 'none';
+          correctCount++;
+          if (correctCount === cleanPhrase.length) {
+            handleCompletion();
+          }
+        }
+      });
+    });
+
+    const audio = new Audio('https://archive.org/download/rumbling/rumbling.mp3');
+    audio.loop = true;
+
+    function startAudio() {
+      audio.play().catch(err => {
+        console.warn('Autoplay blocked:', err);
+      });
+      window.removeEventListener('click', startAudio);
+      window.removeEventListener('touchstart', startAudio);
+    }
+
+    window.addEventListener('click', startAudio);
+    window.addEventListener('touchstart', startAudio);
   </script>
 </body>
 </html>
