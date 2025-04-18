@@ -15,7 +15,7 @@
       width: 100%;
       background: #000;
       font-family: 'OCR A Std', monospace;
-      overflow-x: hidden;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -59,7 +59,6 @@
       max-width: 600px;
       height: 30vh;
       margin-bottom: 10px;
-      display: none;
     }
 
     .draggable-letter {
@@ -94,7 +93,7 @@
     }
 
     .drop-zone {
-      display: none;
+      display: flex;
       flex-direction: column;
       gap: 8px;
       margin-bottom: 20px;
@@ -177,7 +176,7 @@
       font-weight: bold;
       text-align: center;
       white-space: pre-wrap;
-      margin-top: -5cm;
+      margin-top: -5cm; /* Adjusted upward position */
     }
 
     .completion-cursor {
@@ -193,6 +192,8 @@
       .crt {
         font-size: 0.7rem;
         width: 90vw;
+        padding: 20px;
+        box-sizing: border-box;
       }
       .letters-container {
         width: 90vw;
@@ -201,8 +202,9 @@
         width: 18px;
       }
       .completion-message {
-        font-size: 1.2rem;
-        padding: 0 20px;
+        font-size: 1.2rem; /* Reduced font size for mobile */
+        padding-left: 20px;
+        padding-right: 20px;
       }
     }
   </style>
@@ -248,17 +250,10 @@ Solve the puzzle and begin to see.`;
     let riddleIndex = 0;
 
     function typeRiddle() {
-      console.log("⌨️ Typing riddle...");
       if (riddleIndex < riddle.length) {
         riddleText.innerHTML += riddle[riddleIndex] === '\n' ? '<br>' : riddle[riddleIndex];
         riddleIndex++;
         setTimeout(typeRiddle, 40);
-      } else {
-        console.log("✅ Riddle complete");
-        setTimeout(() => {
-          document.getElementById("letters-container").style.display = "block";
-          document.getElementById("drop-zone").style.display = "flex";
-        }, 300);
       }
     }
 
@@ -347,18 +342,22 @@ Solve the puzzle and begin to see.`;
         e.dataTransfer.setData('index', i);
       });
 
-      let offsetX, offsetY;
+      // Touch support
+      let offsetX = 0;
+      let offsetY = 0;
+
       letter.addEventListener('touchstart', e => {
         const touch = e.touches[0];
         const rect = letter.getBoundingClientRect();
         offsetX = touch.clientX - rect.left;
         offsetY = touch.clientY - rect.top;
+        letter.style.position = 'fixed';
         letter.style.zIndex = 1000;
         letter.style.transition = 'none';
       });
 
       letter.addEventListener('touchmove', e => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent scrolling
         const touch = e.touches[0];
         letter.style.left = `${touch.clientX - offsetX}px`;
         letter.style.top = `${touch.clientY - offsetY}px`;
@@ -370,6 +369,8 @@ Solve the puzzle and begin to see.`;
         const dropY = touch.clientY;
         const originalIndex = letter.dataset.index;
         const char = letter.textContent;
+
+        let dropped = false;
 
         slots.forEach((slot, index) => {
           const rect = slot.getBoundingClientRect();
@@ -389,50 +390,23 @@ Solve the puzzle and begin to see.`;
             if (correctCount === cleanPhrase.length) {
               handleCompletion();
             }
+            dropped = true;
           }
         });
 
+        // Reset if not dropped successfully
+        if (!dropped) {
+          letter.style.left = `${x}%`;
+          letter.style.top = `${y}%`;
+        }
+
         letter.style.zIndex = '';
         letter.style.transition = '';
+        letter.style.position = 'absolute';
       });
 
       container.appendChild(letter);
     });
-
-    slots.forEach((slot, index) => {
-      slot.addEventListener('dragover', e => e.preventDefault());
-      slot.addEventListener('drop', e => {
-        const droppedChar = e.dataTransfer.getData('text/plain');
-        const originalIndex = e.dataTransfer.getData('index');
-        const correctChar = cleanPhrase[index];
-        if (droppedChar === correctChar && !slot.classList.contains('filled')) {
-          slot.textContent = droppedChar;
-          slot.classList.add('filled');
-          slot.style.animation = 'glitch 0.3s ease-out';
-          setTimeout(() => { slot.style.animation = ''; }, 300);
-          const letterDiv = document.querySelector(`.draggable-letter[data-index='${originalIndex}']`);
-          letterDiv.style.display = 'none';
-          correctCount++;
-          if (correctCount === cleanPhrase.length) {
-            handleCompletion();
-          }
-        }
-      });
-    });
-
-    const audio = new Audio('https://archive.org/download/rumbling/rumbling.mp3');
-    audio.loop = true;
-
-    function startAudio() {
-      audio.play().catch(err => {
-        console.warn('Autoplay blocked:', err);
-      });
-      window.removeEventListener('click', startAudio);
-      window.removeEventListener('touchstart', startAudio);
-    }
-
-    window.addEventListener('click', startAudio);
-    window.addEventListener('touchstart', startAudio);
   </script>
 </body>
 </html>
