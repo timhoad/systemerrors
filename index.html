@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Can You Handle The Truth?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        background: #000;
+        font-family: 'OCR A Std', monospace;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .crt {
+        background: repeating-linear-gradient(
+          to bottom,
+          #111,
+          #111 2px,
+          #0d0d0d 4px,
+          #111 6px
+        );
+        border: 2px solid white;
+        border-radius: 12px;
+        padding: 20px;
+        color: white;
+        font-size: 0.8rem;
+        width: 60vw;
+        max-width: 600px;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        position: relative;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        text-align: center;
+        box-sizing: border-box;
+      }
+      .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 1em;
+        background-color: white;
+        animation: blink 0.7s infinite;
+        vertical-align: bottom;
+      }
+      @keyframes blink {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .letters-container {
+        position: relative;
+        width: 60vw;
+        max-width: 600px;
+        height: 30vh;
+        margin-bottom: 10px;
+        display: none;
+      }
+      .draggable-letter {
+        position: absolute;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        cursor: grab;
+        animation: pulse 3s infinite ease-in-out;
+        user-select: none;
+        touch-action: none;
+      }
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+      @keyframes glitch {
+        0% { transform: translate(1px, 0); opacity: 1; }
+        20% { transform: translate(-1px, 0); opacity: 0.7; }
+        40% { transform: translate(1px, 0); opacity: 1; }
+        60% { transform: translate(-1px, 0); opacity: 0.7; }
+        80% { transform: translate(1px, 0); opacity: 1; }
+        100% { transform: translate(0, 0); opacity: 1; }
+      }
+      .drop-zone {
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-shrink: 0;
+      }
+      .drop-row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .drop-slot {
+        width: 20px;
+        height: 24px;
+        border-bottom: 2px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+      }
+      .drop-slot.filled {
+        border-bottom: none;
+      }
+      .completion-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        color: white;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 9999;
+      }
+      .completion-message {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        white-space: pre-wrap;
+        margin-top: -5cm;
+      }
+      .completion-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 1em;
+        background-color: white;
+        animation: blink 0.7s infinite;
+        vertical-align: bottom;
+      }
+      @media (max-width: 768px) {
+        .crt {
+          font-size: 0.7rem;
+          width: 90vw;
+        }
+        .letters-container {
+          width: 90vw;
+        }
+        .drop-slot {
+          width: 18px;
+        }
+        .completion-message {
+          font-size: 1.2rem;
+          padding: 0 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="crt" id="riddle-box">
+      <div id="riddle-text"></div><span class="cursor" id="riddle-cursor"></span>
+    </div>
+
+    <div class="letters-container" id="letters-container"></div>
+
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-row" id="row1"></div>
+      <div class="drop-row" id="row2"></div>
+    </div>
+
+    <div class="completion-overlay" id="completion-overlay">
+      <div class="completion-message" id="final-message"></div>
+      <span class="completion-cursor"></span>
+    </div>
+
+    <script>
+      // Typewriter effect for riddle text
+      const riddle = `They built a house on shifting sand,
+Then sold the myth with sleight of hand.
+Truth trades hands behind closed doors,
+Sanitized for distant shores.
+The loudest claim "It’s all just fine",
+While cracks appear in every line.
+Eyes wide shut, we seek the key,
+Solve the puzzle and begin to see.`;
+
+      const riddleText = document.getElementById("riddle-text");
+      const riddleCursor = document.getElementById("riddle-cursor");
+      let riddleIndex = 0;
+      function typeRiddle() {
+        if (riddleIndex < riddle.length) {
+          riddleText.innerHTML +=
+            riddle[riddleIndex] === "\n" ? "<br>" : riddle[riddleIndex];
+          riddleIndex++;
+          setTimeout(typeRiddle, 40);
+        } else {
+          setTimeout(() => {
+            document.getElementById("letters-container").style.display =
+              "block";
+            document.getElementById("drop-zone").style.display = "flex";
+          }, 300);
+        }
+      }
+      typeRiddle();
+
+      // Word Scramble Game Setup
+      const phrase = "CAN YOU HANDLE THE TRUTH?";
+      const cleanPhrase = phrase.replace(/\s/g, "");
+      const letters = cleanPhrase.split("").sort(() => Math.random() - 0.5);
+      const container = document.getElementById("letters-container");
+      const row1 = document.getElementById("row1");
+      const row2 = document.getElementById("row2");
+      let correctCount = 0;
+      function addSlots(row, text) {
+        for (const char of text) {
+          if (char === " ") {
+            const spacer = document.createElement("div");
+            spacer.style.width = "15px";
+            row.appendChild(spacer);
+          } else {
+            const slot = document.createElement("div");
+            slot.classList.add("drop-slot");
+            row.appendChild(slot);
+          }
+        }
+      }
+      addSlots(row1, "CAN YOU HANDLE");
+      addSlots(row2, "THE TRUTH?");
+
+      // Avoid overlapping initial positions
+      const letterPositions = [];
+      function getRandomPosition() {
+        let position;
+        let isOverlap = true;
+        while (isOverlap) {
+          position = {
+            x: Math.random() * 90,
+            y: Math.random() * 90,
+          };
+          isOverlap = letterPositions.some(
+            (p) =>
+              Math.abs(p.x - position.x) < 10 &&
+              Math.abs(p.y - position.y) < 10
+          );
+        }
+        letterPositions.push(position);
+        return position;
+      }
+
+      // Pointer Events for Drag & Drop
+      let currentLetter = null;
+      let pointerOffsetX = 0,
+        pointerOffsetY = 0;
+      // Select all drop slots
+      const slots = document.querySelectorAll(".drop-slot");
+
+      function onPointerDown(event) {
+        currentLetter = event.target;
+        // Record original position for reset if needed.
+        if (!currentLetter.dataset.origLeft) {
+          currentLetter.dataset.origLeft = currentLetter.style.left;
+          currentLetter.dataset.origTop = currentLetter.style.top;
+        }
+        currentLetter.setPointerCapture(event.pointerId);
+        const letterRect = currentLetter.getBoundingClientRect();
+        // Calculate pointer offset relative to the letter.
+        pointerOffsetX = event.clientX - letterRect.left;
+        pointerOffsetY = event.clientY - letterRect.top;
+        currentLetter.style.zIndex = 1000;
+        currentLetter.addEventListener("pointermove", onPointerMove);
+        currentLetter.addEventListener("pointerup", onPointerUp);
+        currentLetter.addEventListener("pointercancel", onPointerUp);
+      }
+
+      function onPointerMove(event) {
+        if (!currentLetter) return;
+        // Use container's rect for positioning relative to the container.
+        const containerRect = container.getBoundingClientRect();
+        let newLeft = event.clientX - containerRect.left - pointerOffsetX;
+        let newTop = event.clientY - containerRect.top - pointerOffsetY;
+        currentLetter.style.left = `${newLeft}px`;
+        currentLetter.style.top = `${newTop}px`;
+      }
+
+      function onPointerUp(event) {
+        if (!currentLetter) return;
+        const letterRect = currentLetter.getBoundingClientRect();
+        // Use the center of the letter for drop detection.
+        const letterCenterX = letterRect.left + letterRect.width / 2;
+        const letterCenterY = letterRect.top + letterRect.height / 2;
+        let dropped = false;
+        slots.forEach((slot, index) => {
+          const slotRect = slot.getBoundingClientRect();
+          // Check if the center of the letter is within the drop slot.
+          if (
+            letterCenterX >= slotRect.left &&
+            letterCenterX <= slotRect.right &&
+            letterCenterY >= slotRect.top &&
+            letterCenterY <= slotRect.bottom &&
+            !slot.classList.contains("filled")
+          ) {
+            const correctChar = cleanPhrase[index];
+            if (currentLetter.textContent === correctChar) {
+              slot.textContent = currentLetter.textContent;
+              slot.classList.add("filled");
+              slot.style.animation = "glitch 0.3s ease-out";
+              setTimeout(() => {
+                slot.style.animation = "";
+              }, 300);
+              currentLetter.style.display = "none";
+              correctCount++;
+              dropped = true;
+            }
+          }
+        });
+        if (!dropped) {
+          // Reset to original position.
+          currentLetter.style.left = currentLetter.dataset.origLeft;
+          currentLetter.style.top = currentLetter.dataset.origTop;
+        }
+        currentLetter.style.zIndex = "";
+        currentLetter.removeEventListener("pointermove", onPointerMove);
+        currentLetter.removeEventListener("pointerup", onPointerUp);
+        currentLetter.removeEventListener("pointercancel", onPointerUp);
+        currentLetter = null;
+
+        // Check for puzzle completion.
+        if (correctCount === cleanPhrase.length) {
+          setTimeout(() => {
+            document.getElementById("completion-overlay").style.display =
+              "flex";
+            const finalMsg = document.getElementById("final-message");
+            const text = "you persevered, where most don’t even try...";
+            let idx = 0;
+            function typeFinal() {
+              if (idx < text.length) {
+                finalMsg.textContent += text[idx];
+                idx++;
+                setTimeout(typeFinal, 70);
+              }
+            }
+            setTimeout(typeFinal, 500);
+          }, 500);
+        }
+      }
+
+      // Create draggable letters and attach pointer events.
+      letters.forEach((char, i) => {
+        const letter = document.createElement("div");
+        letter.classList.add("draggable-letter");
+        letter.textContent = char;
+        letter.dataset.index = i;
+        const { x, y } = getRandomPosition();
+        letter.style.left = `${x}%`;
+        letter.style.top = `${y}%`;
+        container.appendChild(letter);
+        letter.addEventListener("pointerdown", onPointerDown);
+      });
+
+      // Audio setup (optional)
+      const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
+      // Increase volume (value between 0.0 and 1.0)
+      audio.volume = 1.0;
+      audio.loop = true;
+      function startAudio() {
+        audio.play().catch((err) => {
+          console.warn("Autoplay blocked:", err);
+        });
+        window.removeEventListener("click", startAudio);
+        window.removeEventListener("touchstart", startAudio);
+      }
+      window.addEventListener("click", startAudio);
+      window.addEventListener("touchstart", startAudio);
+    </script>
+  </body>
+</html>
