@@ -84,6 +84,29 @@
       }
     }
 
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 0 red, -2px 0 blue;
+        transform: translateX(-1px);
+      }
+      20% {
+        text-shadow: -2px 0 red, 2px 0 blue;
+        transform: translateX(1px);
+      }
+      40% {
+        text-shadow: 2px 0 red, -2px 0 blue;
+        transform: translateX(-1px);
+      }
+      60% {
+        text-shadow: none;
+        transform: none;
+      }
+      100% {
+        text-shadow: none;
+        transform: none;
+      }
+    }
+
     .drop-zone {
       display: none;
       flex-direction: column;
@@ -239,13 +262,11 @@ Solve the puzzle and begin to see.`;
     let riddleIndex = 0;
 
     function typeRiddle() {
-      console.log("⌨️ Typing riddle...");
       if (riddleIndex < riddle.length) {
         riddleText.innerHTML += riddle[riddleIndex] === '\n' ? '<br>' : riddle[riddleIndex];
         riddleIndex++;
         setTimeout(typeRiddle, 40);
       } else {
-        console.log("✅ Riddle complete");
         setTimeout(() => {
           document.getElementById("letters-container").style.display = "block";
           document.getElementById("drop-zone").style.display = "flex";
@@ -373,8 +394,8 @@ Solve the puzzle and begin to see.`;
           ) {
             slot.textContent = char;
             slot.classList.add('filled');
-            slot.style.animation = 'glitch 0.3s ease-out';
-            setTimeout(() => { slot.style.animation = ''; }, 300);
+            slot.style.animation = 'glitch 0.4s linear';
+            setTimeout(() => { slot.style.animation = ''; }, 400);
             letter.style.display = 'none';
             correctCount++;
             if (correctCount === cleanPhrase.length) {
@@ -399,8 +420,8 @@ Solve the puzzle and begin to see.`;
         if (droppedChar === correctChar && !slot.classList.contains('filled')) {
           slot.textContent = droppedChar;
           slot.classList.add('filled');
-          slot.style.animation = 'glitch 0.3s ease-out';
-          setTimeout(() => { slot.style.animation = ''; }, 300);
+          slot.style.animation = 'glitch 0.4s linear';
+          setTimeout(() => { slot.style.animation = ''; }, 400);
           const letterDiv = document.querySelector(`.draggable-letter[data-index='${originalIndex}']`);
           letterDiv.style.display = 'none';
           correctCount++;
