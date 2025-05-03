@@ -26,7 +26,6 @@
         align-items: center;
         justify-content: flex-start;
       }
-      /* Restored riddle box sizing for mobile and desktop */
       .crt {
         background: repeating-linear-gradient(
           to bottom,
@@ -39,24 +38,15 @@
         border-radius: 12px;
         padding: 20px;
         color: white;
-        font-size: 1rem;
-        width: 98vw;
-        max-width: 1200px;
+        font-size: 0.8rem;
+        width: 60vw;
+        max-width: 600px;
         margin-top: 30px;
         margin-bottom: 60px;
         position: relative;
         box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         text-align: center;
         box-sizing: border-box;
-        word-break: keep-all;
-      }
-      @media (max-width: 600px) {
-        .crt {
-          font-size: 0.98rem;
-          width: 99vw;
-          max-width: 100vw;
-          padding: 10px 3vw;
-        }
       }
       .cursor {
         display: inline-block;
@@ -236,8 +226,7 @@
       <!-- ZOHO FORM EMBED STARTS HERE -->
       <div id="zoho-campaigns-form" style="display:none;">
         <div class="zoho-form-inner-wrapper">
-<!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
-
+          <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
 <script type="text/javascript">
@@ -245,8 +234,8 @@
     /*Before submit, if you want to trigger your event, "include your code here"*/
   };
 </script>
-
 <style>
+/* -- Zoho form CSS as pasted from your code -- */
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #customForm *:not(.dateClass){
 -webkit-box-sizing: border-box !important;
 -moz-box-sizing: border-box !important;
@@ -326,9 +315,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm_hover{background-color:#f9f9f9; padding:10px;}
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm{padding:10px }
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
-
 </style>
-
 <!--Zoho Campaigns Web-Optin Form's Header Code Ends Here--><!--Zoho Campaigns Web-Optin Form Starts Here-->
 
 <div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
@@ -373,43 +360,32 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000015">
                         <div style=""><!-- check to mark emailid field as type email, and other mandatory fields as type required -->
                           <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;
-                          
-                          
-                          
                           <span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
                         </div>
-                        
-                        
-                        
-                        
                         <div style="clear:both"></div>
-                      
-                      
-                      
-                      
                       </div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000019">
-                        <div style=""><!-- check to mark emailid field as type email, and other mandatory fields as type required -->
+                        <div style="">
                           <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="First Name" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_FIRSTNAME">1,true,1,First Name,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000021">
-                        <div style=""><!-- check to mark emailid field as type email, and other mandatory fields as type required -->
+                        <div style="">
                           <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="Last Name" name="LASTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_LASTNAME">1,true,1,Last Name,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000041">
-                        <div style=""><!-- check to mark emailid field as type email, and other mandatory fields as type required -->
+                        <div style="">
                           <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Country" name="COUNTRY" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_COUNTRY">1,true,1,Country,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000027">
-                        <div style=""><!-- check to mark emailid field as type email, and other mandatory fields as type required -->
+                        <div style="">
                           <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="20" placeholder="Mobile Phone" name="PHONE" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;
                           <span style="display:none" id="dt_PHONE">1,false,1,Phone,2</span>
                         </div><div style="clear:both"></div></div>
-                    </div><!-- Captcha for Signup -->
+                    </div>
                     <div style="padding: 10px 0px 10px 10px;display:none " id="captchaOld" name="captchaContainer">
                       <div style="">
                         <div style="width: 59%; float: left; min-width: 170px; max-width: 70%;" id="captchaParent">
@@ -421,7 +397,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
                       </div>
                       <div style="clear: both"></div>
                     </div>
-                    <input type="hidden" id="secretid" value="6LdNeDUUAAAAAG5l7cJfv1AA5OKLslkrOa_xXxLs"><!-- Captcha for Signup End--><!-- Other Lists Subscription Start-->
+                    <input type="hidden" id="secretid" value="6LdNeDUUAAAAAG5l7cJfv1AA5OKLslkrOa_xXxLs">
                     <div style=" border-bottom:#ebebeb dotted 1px; margin-top:10px; clear:both;"></div>
                     <div id="REQUIRED_FIELD_TEXT" changetype="REQUIRED_FIELD_TEXT" name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New; padding: 10px 10px 10px 0px;">*Required Fields</div>
                     <div style="padding:10px; text-align:center;">
@@ -429,7 +405,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
                     </div>
                   </div>
                 </div>
-              </div><!-- Do not edit the below Zoho Campaigns hidden tags -->
+              </div>
               <input type="hidden" id="fieldBorder" value="">
               <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW" onload="">
               <input type="hidden" name="viewFrom" id="viewFrom" value="URL_ACTION">
@@ -446,7 +422,8 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
               <input type="hidden" id="zc_Url" value="zcv2-zcmp.maillist-manage.eu">
               <input type="hidden" id="new_optin_response_in" value="2">
               <input type="hidden" id="duplicate_optin_response_in" value="2">
-              <input type="hidden" id="zc_formIx" name="zc_formIx" value="3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf"><!-- End of the campaigns hidden tags --></div>
+              <input type="hidden" id="zc_formIx" name="zc_formIx" value="3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf">
+            </div>
           </form>
         </div>
         <div style="margin 0px auto;margin-top:20px;text-align:left;height:76px; font-size:8px;" id="privacyNotes" identity="privacyNotes">
@@ -466,7 +443,6 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
   </span>
   <div id="zcOptinSuccessPanel"></div>
 </div>
-
 <!--Zoho Campaigns Web-Optin Form Ends Here-->
         </div>
       </div>
