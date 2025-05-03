@@ -52,19 +52,17 @@
         .crt {
           width: 99vw;
           max-width: 99vw;
-          min-width: 320px;
-          padding: 12px 4vw;
+          min-width: 0;
+          padding: 16px 5vw !important;
           font-size: 0.74rem;
-          margin-left: 0;
-          margin-right: 0;
         }
       }
       @media (max-width: 420px) {
         .crt {
           font-size: 0.69rem;
-          min-width: 220px;
-          padding-left: 2vw;
-          padding-right: 2vw;
+          min-width: 0;
+          padding-left: 5vw !important;
+          padding-right: 5vw !important;
         }
       }
       .cursor {
@@ -244,8 +242,8 @@
       <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
       <div id="zoho-campaigns-form" style="display:none;">
         <div class="zoho-form-inner-wrapper">
-          <!-- BEGIN ZOHO EMBED -->
-          <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
+<!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
+
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
 <script type="text/javascript">
@@ -253,8 +251,9 @@
     /*Before submit, if you want to trigger your event, "include your code here"*/
   };
 </script>
+
 <style>
-/* ... YOUR ZOHO EMBED STYLES ... */
+/* ... (Your Zoho styles as pasted, unchanged) ... */
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #customForm *:not(.dateClass){
 -webkit-box-sizing: border-box !important;
 -moz-box-sizing: border-box !important;
@@ -269,10 +268,76 @@ box-sizing: unset !important;
 word-break:break-word;
 overflow-wrap: break-word;
 }
-/* ... (all your Zoho responsive and custom styles as pasted above) ... */
+/*** RESPONSIVE START */
+@media only screen and (max-width: 200px){
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+width:220px !important;
+min-width:220px !important;
+margin: 0px auto !important;
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #SIGNUP_PAGE{
+padding:0px !important  
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+transform:scale(0.55);-webkit-transform:scale(0.45);transform-origin:0 0;-webkit-transform-origin:0 0;}
+}
+@media only screen and (min-width: 440px) and (max-width:600px){
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+width:440px !important;
+min-width:440px !important;
+margin: 0px auto !important;  
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+transform:scale(0.72);-webkit-transform:scale(0.55);transform-origin:0 0;-webkit-transform-origin:0 0;}
+}
+@media only screen and (min-width: 320px) and (max-width:440px){
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+width:320px !important;
+min-width:320px !important;
+margin: 0px auto !important;    
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+transform:scale(0.72);-webkit-transform:scale(0.55);transform-origin:0 0;-webkit-transform-origin:0 0;}
+}
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+width:600px !important;
+min-width:600px !important;
+margin: 0px auto !important;  
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
+}
+/* Large Screens */
+@media only screen  and (min-width : 1824px) {
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+width:600px !important;
+min-width:600px !important;
+margin: 0px auto !important;  
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
+}
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 601px) and (max-device-width : 1024px) {
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+width:600px !important;
+min-width:600px !important;
+margin: 0px auto !important;  
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit-transform-origin:0 0;}
+}
+/*** RESPONSIVE END */
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm_hover{background-color:#f9f9f9; padding:10px;}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm{padding:10px }
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
+
 </style>
-<!-- ... (rest of Zoho embed code as pasted above) ... -->
-<!-- END ZOHO EMBED -->
+
+<!--Zoho Campaigns Web-Optin Form's Header Code Ends Here--><!--Zoho Campaigns Web-Optin Form Starts Here-->
+<!-- ... (the rest of your Zoho embed, exactly as you pasted) ... -->
         </div>
       </div>
     </div>
