@@ -58,12 +58,12 @@
         animation: blink 0.7s infinite;
         vertical-align: bottom;
       }
-      /* --- Only change: force riddle lines to single line --- */
+      /* --- Only change: force riddle lines to single line on mobile --- */
       @media (max-width: 600px) {
         #riddle-text {
           overflow-x: auto;
         }
-        #riddle-text span {
+        #riddle-text .riddle-line {
           display: block;
           white-space: nowrap;
           text-align: left;
@@ -470,9 +470,9 @@ Solve the puzzle and begin to see.`;
       let riddleIndex = 0;
       let riddleTyped = "";
       function updateRiddleDisplay() {
-        // wrap each line in a span for CSS
+        // Each line is wrapped in a span with class for mobile styling
         const lines = riddleTyped.replace(/\n/g, "\n").split('\n');
-        riddleText.innerHTML = lines.map(line => `<span>${line}</span>`).join('<br>') +
+        riddleText.innerHTML = lines.map(line => `<span class="riddle-line">${line}</span>`).join('<br>') +
           '<span class="cursor" id="riddle-cursor"></span>';
       }
       function typeRiddle() {
