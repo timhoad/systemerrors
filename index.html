@@ -12,7 +12,7 @@
     />
     <style>
       @font-face { font-family:OCR A Std; src: url('ocr-a-std.ttf'); }
-      div {font-family:OCR A Std;}
+      div {font-family:OCR A Std:}
       html,
       body {
         margin: 0;
@@ -48,28 +48,13 @@
         text-align: center;
         box-sizing: border-box;
       }
-      .typewriter-container {
+      .cursor {
         display: inline-block;
-        white-space: pre-line;
-        text-align: left;
-        width: 100%;
-        vertical-align: top;
-      }
-      .blink-cursor {
-        display: inline;
-        font-family: inherit;
-        color: white;
-        font-weight: bold;
-        font-size: 1em;
-        animation: blink-cursor 1s steps(1) infinite;
+        width: 10px;
+        height: 1em;
+        background-color: white;
+        animation: blink 0.7s infinite;
         vertical-align: bottom;
-        margin-left: 2px;
-        user-select: none;
-        pointer-events: none;
-      }
-      @keyframes blink-cursor {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
       }
       .letters-container {
         position: relative;
@@ -98,6 +83,10 @@
           transform: scale(1.1);
           opacity: 1;
         }
+      }
+      @keyframes blink {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
       }
       @keyframes glitch {
         0% { transform: translate(1px, 0); opacity: 1; }
@@ -187,24 +176,21 @@
         font-size: 1.5rem;
         font-weight: bold;
         text-align: center;
-        white-space: pre-line;
+        white-space: pre-wrap;
+        margin-top: -2cm;
         margin-bottom: 2em;
         z-index: 2;
+        position: relative;
         display: inline-block;
       }
-      /* Center the final text line on the overlay for desktop and mobile */
-      .completion-overlay .typewriter-container {
-        width: 100%;
-        max-width: 600px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      .completion-overlay .typewriter-container > * {
-        /* Ensure inline flow for message+cursor */
+      .completion-cursor {
         display: inline-block;
-        vertical-align: middle;
+        width: 10px;
+        height: 1em;
+        background-color: white;
+        animation: blink 0.7s infinite;
+        vertical-align: bottom;
+        margin-left: 2px;
       }
       /* Fade in for zoho form */
       #zoho-campaigns-form {
@@ -290,13 +276,25 @@
       #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm{padding:10px }
       #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
       /* --- End Zoho Form Responsive --- */
+      @media (max-width: 768px) {
+        .crt {
+          font-size: 0.65rem;
+          width: 90vw;
+          padding: 15px;
+          line-height: 1.4;
+          word-spacing: -0.5px;
+        }
+        .letters-container {
+          width: 90vw;
+          height: 35vh;
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="crt" id="riddle-box">
-      <span class="typewriter-container">
-        <span id="riddle-text"></span><span id="riddle-cursor" class="blink-cursor">|</span>
-      </span>
+      <div style="font-family:OCR A Std" id="riddle-text"></div>
     </div>
 
     <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
@@ -320,18 +318,12 @@
     </div>
 
     <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
-      <span class="typewriter-container">
-        <span class="completion-message" id="final-message"></span><span id="final-cursor" class="blink-cursor">|</span>
-      </span>
-      <!-- ZOHO CAMPAIGNS FORM (hidden by default, revealed after fade) -->
-      <div id="zoho-campaigns-form" style="display:none; width:100%; max-width:600px; margin:0 auto;">
-        <!-- YOUR FULL ZOHO FORM GOES HERE -->
-      </div>
+      <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
       <!-- END ZOHO FORM -->
     </div>
 
     <script>
-      // Typewriter effect for riddle text
+      // Typewriter effect for riddle text WITH FOLLOWING BLINKING CURSOR
       const riddle = `They built a house on shifting sand,
 Then sold the myth with sleight of hand.
 Truth trades hands behind closed doors,
@@ -340,21 +332,32 @@ The loudest claim "It’s all just fine",
 While cracks appear in every line.
 Eyes wide shut, we seek the key,
 Solve the puzzle and begin to see.`;
+
       const riddleText = document.getElementById("riddle-text");
       let riddleIndex = 0;
+      let riddleTyped = "";
+      let riddleCursor;
+      function updateRiddleDisplay() {
+        riddleText.innerHTML = riddleTyped.replace(/\n/g, "<br>") + '<span class="cursor" id="riddle-cursor"></span>';
+        riddleCursor = document.getElementById("riddle-cursor");
+      }
       function typeRiddle() {
         if (riddleIndex < riddle.length) {
-          riddleText.textContent += riddle[riddleIndex];
+          riddleTyped += riddle[riddleIndex];
+          updateRiddleDisplay();
           riddleIndex++;
           setTimeout(typeRiddle, 40);
         } else {
+          updateRiddleDisplay();
+          // Only show letters-container and drop-zone after the riddle is fully displayed
           setTimeout(() => {
             const lettersContainer = document.getElementById("letters-container");
             const dropZone = document.getElementById("drop-zone");
+
             lettersContainer.style.display = "block"; // Reveal scrambled letters
             initializeDropZones(); // Initialize drop zones for mobile or desktop
             dropZone.style.display = "flex"; // Show the drop zone
-          }, 300);
+          }, 300); // Slight delay after riddle completion for better UX
         }
       }
       typeRiddle();
@@ -509,7 +512,39 @@ Solve the puzzle and begin to see.`;
         if (correctCount === cleanPhrase.length) {
           setTimeout(() => {
             document.getElementById("completion-overlay").style.display = "flex";
-            showFinalMessage();
+            const finalMsg = document.getElementById("final-message");
+            // Cursor will be inserted as part of the typewriter effect below
+            const text = "you persevered, where most don’t even try...";
+            let idx = 0;
+
+            function updateFinalDisplay(typed) {
+              finalMsg.innerHTML = typed + '<span class="completion-cursor" id="final-cursor"></span>';
+            }
+
+            function typeFinal() {
+              if (idx < text.length) {
+                updateFinalDisplay(text.slice(0, idx + 1));
+                idx++;
+                setTimeout(typeFinal, 70);
+              } else {
+                updateFinalDisplay(text);
+                setTimeout(() => {
+                  document.getElementById("completion-overlay").classList.add("faded");
+                  const zohoForm = document.getElementById('zoho-campaigns-form');
+                  if (zohoForm) {
+                    zohoForm.style.display = 'block';
+                    setTimeout(() => {
+                      zohoForm.classList.add('visible');
+                    }, 50);
+                  }
+                  setTimeout(() => {
+                    const finalCursor = document.getElementById("final-cursor");
+                    if (finalCursor) finalCursor.style.display = "none";
+                  }, 1200);
+                }, 1500);
+              }
+            }
+            typeFinal();
           }, 500);
         }
       }
@@ -539,35 +574,6 @@ Solve the puzzle and begin to see.`;
       }
       window.addEventListener("click", startAudio);
       window.addEventListener("touchstart", startAudio);
-
-      // FINAL MESSAGE TYPEWRITER
-      function showFinalMessage() {
-        const finalMsg = document.getElementById("final-message");
-        const text = "you persevered, where most don’t even try...";
-        let idx = 0;
-        finalMsg.textContent = "";
-        document.getElementById("final-cursor").style.display = "inline";
-        function typeFinal() {
-          if (idx < text.length) {
-            finalMsg.textContent += text[idx];
-            idx++;
-            setTimeout(typeFinal, 70);
-          } else {
-            setTimeout(() => {
-              document.getElementById("completion-overlay").classList.add("faded");
-              const zohoForm = document.getElementById('zoho-campaigns-form');
-              zohoForm.style.display = 'block';
-              setTimeout(() => {
-                zohoForm.classList.add('visible');
-              }, 50);
-              setTimeout(() => {
-                document.getElementById("final-cursor").style.display = "none";
-              }, 1200);
-            }, 1500);
-          }
-        }
-        typeFinal();
-      }
     </script>
   </body>
 </html>
