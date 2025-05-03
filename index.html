@@ -286,7 +286,7 @@
       <!-- ZOHO FORM EMBED STARTS HERE -->
       <div id="zoho-campaigns-form" style="display:none;">
         <div class="zoho-form-inner-wrapper">
-          <!-- === Begin Zoho embed code. If you ever need to update, paste the entire embed code here, unchanged. === -->
+          <!-- ==== Zoho Embed pasted directly below ==== -->
           <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
@@ -296,14 +296,28 @@
   };
 </script>
 <style>
-/* (Zoho's internal form CSS pasted here, unchanged for brevity) */
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #customForm *:not(.dateClass){
+-webkit-box-sizing: border-box !important;
+-moz-box-sizing: border-box !important;
+box-sizing: border-box !important;
+word-break:break-word;
+overflow-wrap: break-word;
+}
+#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .dateClass{
+-webkit-box-sizing: unset!important;
+-moz-box-sizing: unset !important;
+box-sizing: unset !important;
+word-break:break-word;
+overflow-wrap: break-word;
+}
 </style>
 <!--Zoho Campaigns Web-Optin Form's Header Code Ends Here-->
 <!--Zoho Campaigns Web-Optin Form Starts Here-->
-
-<!-- Full Zoho form HTML (inputs, CAPTCHA, etc.) --!>
-<!-- ... Your Zoho form markup as provided above ... -->
-
+<!-- (Your full Zoho form HTML, as before, should be here) -->
+<div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
+<!-- ... Zoho form HTML continues ... -->
+<!-- (Paste your full Zoho HTML form here exactly as before, no changes required for CSS to work) -->
+</div>
 <!--Zoho Campaigns Web-Optin Form Ends Here-->
         </div>
       </div>
@@ -311,7 +325,6 @@
     </div>
 
     <script>
-      // ...all your previous JS up to and including typeFinal()...
       // Typewriter effect for riddle text WITH FOLLOWING BLINKING CURSOR, NO LAYOUT CHANGES
       const riddle = `They built a house on shifting sand,
 Then sold the myth with sleight of hand.
@@ -326,7 +339,6 @@ Solve the puzzle and begin to see.`;
       let riddleIndex = 0;
       let riddleTyped = "";
       function updateRiddleDisplay() {
-        // This will ensure lines break as in the original, and text stays centered
         riddleText.innerHTML = riddleTyped.replace(/\n/g, "<br>") + '<span class="cursor" id="riddle-cursor"></span>';
       }
       function typeRiddle() {
