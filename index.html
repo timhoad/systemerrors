@@ -58,15 +58,14 @@
         animation: blink 0.7s infinite;
         vertical-align: bottom;
       }
-      /* --- Only change: force riddle lines to single line on mobile --- */
+      /* --------- ONLY CHANGE: mobile single-line riddle lines --------- */
       @media (max-width: 600px) {
         #riddle-text {
           overflow-x: auto;
         }
-        #riddle-text .riddle-line {
+        #riddle-text > span {
           display: block;
           white-space: nowrap;
-          text-align: left;
         }
       }
       .letters-container {
@@ -238,8 +237,8 @@
       <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
       <div id="zoho-campaigns-form" style="display:none;">
         <div class="zoho-form-inner-wrapper">
-<!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
-<meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+          <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
+          <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
 <script type="text/javascript">
   function runOnFormSubmit_sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf(th){
@@ -470,9 +469,12 @@ Solve the puzzle and begin to see.`;
       let riddleIndex = 0;
       let riddleTyped = "";
       function updateRiddleDisplay() {
-        // Each line is wrapped in a span with class for mobile styling
-        const lines = riddleTyped.replace(/\n/g, "\n").split('\n');
-        riddleText.innerHTML = lines.map(line => `<span class="riddle-line">${line}</span>`).join('<br>') +
+        // ONLY CHANGE: Wrap each line in a span (for mobile CSS)
+        riddleText.innerHTML =
+          riddleTyped
+            .split('\n')
+            .map(line => `<span>${line}</span>`)
+            .join('') +
           '<span class="cursor" id="riddle-cursor"></span>';
       }
       function typeRiddle() {
@@ -494,7 +496,8 @@ Solve the puzzle and begin to see.`;
       }
       typeRiddle();
 
-      // Word Scramble Game Setup
+      // --- The rest of your original JS code below is unchanged ---
+
       const phrase = "CAN YOU HANDLE THE TRUTH?";
       const cleanPhrase = phrase.replace(/\s/g, "");
       const letters = cleanPhrase.split("").sort(() => Math.random() - 0.5);
