@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet"/>
     <style>
       @font-face { font-family:OCR A Std; src: url('ocr-a-std.ttf'); }
-      div {font-family:OCR A Std;}
+      div { font-family: OCR A Std; }
       html, body {
         margin: 0;
         padding: 0;
@@ -441,9 +441,6 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
   <div id="zcOptinSuccessPanel"></div>
 </div>
 <!--Zoho Campaigns Web-Optin Form Ends Here-->
-        </div>
-      </div>
-    </div>
     <script>
       // Typewriter effect for riddle text
       const riddle = `They built a house on shifting sand,
@@ -459,7 +456,14 @@ Solve the puzzle and begin to see.`;
       let riddleIndex = 0;
       let riddleTyped = "";
       function updateRiddleDisplay() {
-        riddleText.innerHTML = riddleTyped.replace(/\n/g, "<br>") + '<span class="cursor" id="riddle-cursor"></span>';
+        // Instead of replacing newline with <br>, split on newline and wrap each line in a span 
+        // with inline style to force the line to stay on one line.
+        riddleText.innerHTML =
+          riddleTyped
+            .split('\n')
+            .map(line => `<span style="white-space: nowrap;">${line}</span>`)
+            .join('') +
+          '<span class="cursor" id="riddle-cursor"></span>';
       }
       function typeRiddle() {
         if (riddleIndex < riddle.length) {
