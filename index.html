@@ -198,39 +198,37 @@
         transition: opacity 1.2s;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         width: 100vw;
         min-height: 100vh;
         box-sizing: border-box;
         overflow: auto;
+        padding: 2vw 0;
       }
       #zoho-campaigns-form.visible {
         opacity: 1;
       }
       .zoho-form-inner-wrapper {
-        max-width: 98vw;
-        width: 100%;
-        padding: 2vw;
-        box-sizing: border-box;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        width: 100%;
       }
-      @media (max-width: 768px) {
-        .crt {
-          font-size: 0.65rem;
-          width: 90vw;
-          padding: 15px;
-          line-height: 1.4;
-          word-spacing: -0.5px;
+      /* Scaling and centering the Zoho form for both desktop & mobile */
+      #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
+        transform: scale(0.9);
+        transform-origin: top center;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 600px;
+      }
+      @media (max-width: 600px) {
+        #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
+          transform: scale(0.75);
+          max-width: 100vw;
         }
-        .letters-container {
-          width: 90vw;
-          height: 35vh;
-          display: none;
-        }
-        .zoho-form-inner-wrapper {
-          padding: 1vw;
+        #zoho-campaigns-form {
+          padding: 0 0vw !important;
         }
       }
     </style>
@@ -359,7 +357,6 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
 
 </style>
-
 <!--Zoho Campaigns Web-Optin Form's Header Code Ends Here--><!--Zoho Campaigns Web-Optin Form Starts Here-->
 
 <div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
