@@ -4,82 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Can You Handle The Truth?</title>
-  <link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet"/>
   <style>
-    @font-face { font-family:OCR A Std; src: url('ocr-a-std.ttf'); }
-    div {font-family:OCR A Std;}
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      background: #000;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .crt {
-      background: repeating-linear-gradient(
-        to bottom,
-        #111, #111 2px, #0d0d0d 4px, #111 6px
-      );
-      border: 2px solid white;
-      border-radius: 12px;
-      padding: 20px 5vw;
-      color: white;
-      font-size: 0.8rem;
-      width: 90vw;
-      max-width: 600px;
-      margin: 30px auto 60px auto;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
-      text-align: center;
-      box-sizing: border-box;
-      display: block;
-    }
-    #riddle-text {
-      font-family: OCR A Std, monospace;
-      white-space: pre;
-      text-align: left;
-      display: inline-block;
-      width: 100%;
-    }
     @media (max-width: 480px) {
-      .crt {
-        width: 340px;
-        min-width: 220px;
-        max-width: 99vw;
-        padding-left: 2vw;
-        padding-right: 2vw;
-        font-size: 0.80rem;
+      #riddle-box {
+        max-width: 98vw;
+        min-width: 0;
+        width: 345px;
+        font-size: 0.87rem;
+        padding-right: 0;
+        padding-left: 0;
       }
-      #riddle-text {
-        font-size: 0.93rem;
+      #riddle-text .riddle-line {
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+        font-size: 0.99rem;
+        text-align: left;
       }
     }
-    @media (max-width: 370px) {
-      .crt {
-        width: 98vw;
-        min-width: 160px;
+    @media (max-width: 380px) {
+      #riddle-box {
+        width: 99vw;
         font-size: 0.78rem;
       }
-      #riddle-text {
-        font-size: 0.89rem;
+      #riddle-text .riddle-line {
+        font-size: 0.83rem;
       }
     }
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      height: 1em;
-      background-color: white;
-      animation: blink 0.7s infinite;
-      vertical-align: bottom;
-    }
-    /* --- ZOHO embed custom tweaks --- */
     #SIGNUP_PAGE {
       padding-top: 2px !important;
-      padding-bottom: 10px !important;
     }
     #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input[type="text"],
     #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input[type="email"],
@@ -93,108 +46,32 @@
     @media (max-width: 480px) {
       #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input#zcWebOptin {
         min-width: 220px !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
         width: 100% !important;
         font-size: 16px !important;
         letter-spacing: 0.02em;
         white-space: nowrap;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box;
       }
     }
-    /* --- END ZOHO embed custom tweaks --- */
-    .letters-container {
-      position: relative;
-      width: 60vw;
+    .crt {
+      border: 2px solid white;
+      border-radius: 12px;
+      padding: 20px 5vw;
+      color: white;
+      font-size: 0.8rem;
+      width: 90vw;
       max-width: 600px;
-      height: 30vh;
-      margin-bottom: 10px;
-      display: none;
-    }
-    .draggable-letter {
-      position: absolute;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      cursor: grab;
-      animation: pulse 3s infinite ease-in-out;
-      user-select: none;
-      touch-action: none;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-    }
-    @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-    @keyframes glitch {
-      0% { transform: translate(1px, 0); opacity: 1; }
-      20% { transform: translate(-1px, 0); opacity: 0.7; }
-      40% { transform: translate(1px, 0); opacity: 1; }
-      60% { transform: translate(-1px, 0); opacity: 0.7; }
-      80% { transform: translate(1px, 0); opacity: 1; }
-      100% { transform: translate(0, 0); opacity: 1; }
-    }
-    .drop-zone {
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-shrink: 0;
-    }
-    .drop-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .drop-slot {
-      width: 20px;
-      height: 24px;
-      border-bottom: 2px solid white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: white;
-    }
-    .drop-slot.filled {
-      border-bottom: none;
-    }
-    .form-container { display: none; }
-    .completion-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      color: white;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 9999;
-      transition: background 0.8s;
-    }
-    .completion-overlay.faded {
-      background: #000;
-      transition: background 1.2s;
-    }
-    .completion-message {
-      font-size: 1.5rem;
-      font-weight: bold;
+      margin: 30px auto 60px auto;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
       text-align: center;
-      white-space: pre-wrap;
-      margin-top: -2cm;
-      margin-bottom: 2em;
-      z-index: 2;
-      position: relative;
-      display: inline-block;
+      box-sizing: border-box;
+      display: block;
+      background: #111;
+      font-family: 'Courier New', Courier, monospace;
     }
-    .completion-cursor {
+    .cursor, .completion-cursor {
       display: inline-block;
       width: 10px;
       height: 1em;
@@ -203,537 +80,380 @@
       vertical-align: bottom;
       margin-left: 2px;
     }
-    #zoho-campaigns-form {
-      opacity: 0;
-      transition: opacity 1.2s;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      width: 100vw;
-      min-height: 100vh;
-      box-sizing: border-box;
-      overflow: auto;
-      padding: 2vw 0;
-    }
-    #zoho-campaigns-form.visible {
-      opacity: 1;
-    }
-    .zoho-form-inner-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      width: 100%;
-    }
-    #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-      width: 100vw !important;
-      max-width: 100vw !important;
-      min-width: 300px !important;
-      margin: 0 auto !important;
-      transform: scale(1.07);
-      transform-origin: top center;
-    }
-    @media (max-width: 900px) {
-      #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-        transform: scale(1.13);
-        max-width: 100vw !important;
-      }
-    }
-    @media (max-width: 600px) {
-      #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-        transform: scale(1.22);
-        max-width: 100vw !important;
-        min-width: 210px !important;
-        margin-top: 0.5vh;
-      }
-      #zoho-campaigns-form {
-        padding: 0 0vw !important;
-        align-items: flex-start !important;
-      }
-    }
-    @media (max-width: 400px) {
-      #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-        transform: scale(1.09);
-      }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
     }
   </style>
 </head>
 <body>
   <div class="crt" id="riddle-box">
     <div id="riddle-text">
-They built a house on shifting sand,
-Then sold the myth with sleight of hand.
-Truth trades hands behind closed doors,
-Sanitized for distant shores.
-The loudest claim "It’s all just fine",
-While cracks appear in every line.
-Eyes wide shut, we seek the key,
-Solve the puzzle and begin to see.
+      <span class="riddle-line">They built a house on shifting sand,</span><br>
+      <span class="riddle-line">Then sold the myth with sleight of hand.</span><br>
+      <span class="riddle-line">Truth trades hands behind closed doors,</span><br>
+      <span class="riddle-line">Sanitized for distant shores.</span><br>
+      <span class="riddle-line">The loudest claim "It’s all just fine",</span><br>
+      <span class="riddle-line">While cracks appear in every line.</span><br>
+      <span class="riddle-line">Eyes wide shut, we seek the key,</span><br>
+      <span class="riddle-line">Solve the puzzle and begin to see.</span>
     </div>
   </div>
-  <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
-  <div style="font-family:OCR A Std" class="drop-zone" id="drop-zone">
-    <div style="font-family:OCR A Std" class="drop-row" id="row1"></div>
-    <div style="font-family:OCR A Std" class="drop-row" id="row2"></div>
+  <div class="letters-container" id="letters-container" style="display:none"></div>
+  <div class="drop-zone" id="drop-zone" style="display:none">
+    <div class="drop-row" id="row1"></div>
+    <div class="drop-row" id="row2"></div>
   </div>
   <div class="form-container" id="form-container" style="display:none"></div>
-  <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
-    <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
+  <div class="completion-overlay" id="completion-overlay" style="display:none;">
+    <div class="completion-message" id="final-message"></div>
     <div id="zoho-campaigns-form" style="display:none;">
       <div class="zoho-form-inner-wrapper">
-<!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
-<meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-<script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
-<script type="text/javascript">
-  function runOnFormSubmit_sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf(th){
-    /*Before submit, if you want to trigger your event, "include your code here"*/
-  };
-</script>
-<style>
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #customForm *:not(.dateClass){
--webkit-box-sizing: border-box !important;
--moz-box-sizing: border-box !important;
-box-sizing: border-box !important;
-word-break:break-word;
-overflow-wrap: break-word;
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .dateClass{
--webkit-box-sizing: unset!important;
--moz-box-sizing: unset !important;
-box-sizing: unset !important;
-word-break:break-word;
-overflow-wrap: break-word;
-}
-/*** RESPONSIVE START */
-@media only screen and (max-width: 200px){
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
-width:220px !important;
-min-width:220px !important;
-margin: 0px auto !important;
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #SIGNUP_PAGE{
-padding:0px !important  
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
-transform:scale(0.55);-webkit-transform:scale(0.45);transform-origin:0 0;-webkit-transform-origin:0 0;}
-}
-@media only screen and (min-width: 440px) and (max-width:600px){
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
-width:440px !important;
-min-width:440px !important;
-margin: 0px auto !important;  
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
-transform:scale(0.72);-webkit-transform:scale(0.55);transform-origin:0 0;-webkit-transform-origin:0 0;}
-}
-@media only screen and (min-width: 320px) and (max-width:440px){
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
-width:320px !important;
-min-width:320px !important;
-margin: 0px auto !important;    
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
-transform:scale(0.72);-webkit-transform:scale(0.55);transform-origin:0 0;-webkit-transform-origin:0 0;}
-}
-/* Desktops and laptops ----------- */
-@media only screen  and (min-width : 1224px) {
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
-width:600px !important;
-min-width:600px !important;
-margin: 0px auto !important;  
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
-transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
-}
-/* Large Screens */
-@media only screen  and (min-width : 1824px) {
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
-width:600px !important;
-min-width:600px !important;
-margin: 0px auto !important;  
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
-transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
-}
-/* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 601px) and (max-device-width : 1024px) {
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
-width:600px !important;
-min-width:600px !important;
-margin: 0px auto !important;  
-}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
-transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit-transform-origin:0 0;}
-}
-/*** RESPONSIVE END */
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm_hover{background-color:#f9f9f9; padding:10px;}
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm{padding:10px }
-#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
-</style>
-<div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
-  <input type="hidden" id="recapTheme" value="2">
-  <input type="hidden" id="isRecapIntegDone" value="false">
-  <input type="hidden" id="signupFormType" value="LargeForm_Vertical">
-  <div id="customForm">
-    <div name="SIGNUP_PAGE" class="large_form_3_css" id="SIGNUP_PAGE" style="padding: 2px 30px 10px; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); text-align: center; font-size: 14px; min-width: 240px;">
-      <div name="" changeid="" changename="" style="margin:0px auto">
-        <div id="imgBlock" name="LOGO_DIV" logo="true" style="width: 600px; margin: 0px auto; padding-bottom: 10px; font-family: Arial, Helvetica, sans-serif; color: rgb(68, 68, 68); text-align: center; font-size: 12px; padding-top: 10px; font-weight: bold;"></div>
-      </div>
-      <br>
-      <div id="signupMainDiv" style="margin: 0px auto; width: 100%; min-width: 230px; max-width: 600px;" name="SIGNUPFORM" changeid="SIGNUPFORM" changename="SIGNUPFORM">
-        <div>
-          <div style="position:relative;">
-            <div id="Zc_SignupSuccess" style="display:none;position:absolute;margin-left:4%;width:90%;background-color: white; padding: 3px; border: 3px solid rgb(194, 225, 154);  margin-top: 10px;margin-bottom:10px;word-break:break-all">
-              <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tbody>
-                  <tr>
-                    <td width="10%">
-                      <img class="successicon" src="https://zcv2-zcmp.maillist-manage.eu/images/challangeiconenable.jpg" align="absmiddle">
-                    </td>
-                    <td>
-                      <span id="signupSuccessMsg" style="color: rgb(73, 140, 132); font-family: sans-serif; font-size: 14px;word-break:break-word">&nbsp;&nbsp;Thank you for Signing Up</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <form method="POST" id="zcampaignOptinForm" style="margin:0px;" action="https://zcv2-zcmp.maillist-manage.eu/weboptin.zc" target="_zcSignup">
-            <div id="SIGNUP_BODY_ALL" name="SIGNUP_BODY_ALL" style="border-color: rgb(0, 0, 0); border-width: 3px; border-style: solid;">
-              <h1 style="border: 1px rgb(91, 91, 91); color: rgb(255, 255, 255); font-size: 17px; font-family: Courier New; margin: 0px; text-align: center; padding: 20px; background-color: rgb(0, 0, 0); word-break: break-word;" id="SIGNUP_HEADING" name="SIGNUP_HEADING" changeid="SIGNUP_MSG" changetype="SIGNUP_HEADER">
-                <span>Start Pulling The Strings Here...</span>
-              </h1>
-              <div style="padding: 20px; text-align: center; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); bottom: 2px; font-size: 13px; opacity: 1;" id="SIGNUP_BODY" name="SIGNUP_BODY">
-                <div style="margin:0px auto;text-align:left;">
-                  <div style="line-height:1.6;" class="" changeid="SIGNUP_MSG" id="SIGNUP_DESCRIPTION" changetype="SIGNUP_DESCRIPTION">Be The First To Access - member exclusives | knowledge base | critical thinking tools | product activism</div>
-                  <div style="display:none;background-color:#FFEBE8;padding:10px 10px; color:#d20000; font-size:11px; margin:10px 0px;border:solid 1px #ffd9d3; margin-top:20px;" id="errorMsgDiv">&nbsp;&nbsp;Please correct the marked field(s) below.</div>
-                  <div>
-                    <div style="font-size:12px; margin-top:10px;" name="fieldsdivSf" class="zcsffieldsdiv">
-                      <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000015">
-                        <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
-                          <span style="display:none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
-                        </div>
-                        <div style="clear:both"></div>
-                      </div>
-                      <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000019">
-                        <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="First Name" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
-                          <span style="display:none" id="dt_FIRSTNAME">1,true,1,First Name,2</span>
-                        </div><div style="clear:both"></div></div>
-                      <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000021">
-                        <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="Last Name" name="LASTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
-                          <span style="display:none" id="dt_LASTNAME">1,true,1,Last Name,2</span>
-                        </div><div style="clear:both"></div></div>
-                      <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000041">
-                        <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Country" name="COUNTRY" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
-                          <span style="display:none" id="dt_COUNTRY">1,true,1,Country,2</span>
-                        </div><div style="clear:both"></div></div>
-                      <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000027">
-                        <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="20" placeholder="Mobile Phone" name="PHONE" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;
-                          <span style="display:none" id="dt_PHONE">1,false,1,Phone,2</span>
-                        </div><div style="clear:both"></div></div>
-                    </div>
-                    <div style="padding: 10px 0px 10px 10px;display:none " id="captchaOld" name="captchaContainer">
-                      <div style="">
-                        <div style="width: 59%; float: left; min-width: 170px; max-width: 70%;" id="captchaParent">
-                          <img src="//campaigns.zoho.eu/images/refresh_icon.png" style="cursor: pointer;float:right;margin-right:4px" onclick="loadCaptcha('https://campaigns.zoho.eu/campaigns/CaptchaVerify.zc?mode=generate',this,'#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf');" id="relCaptcha">
-                          <div id="captchaDiv" captcha="true" name="" style="padding: 20px;background:#fff;border: 1px solid rgb(222, 222, 222);box-sizing: border-box;width:98.8%"></div>
-                          <input placeholder="Captcha" id="captchaText" name="captchaText" changeitem="SIGNUP_FORM_FIELD" style="margin-top: 5px; height: 28px; padding: 10px; width: 98.7%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-size: 13px; box-sizing: border-box; font-family: Courier New; text-indent: 5px;" maxlength="100" type="text">
-                          <span name="SIGNUP_REQUIRED" id="capRequired" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New; margin-top: -16px; margin-right: -2px; float: right;">*</span>
-                        </div>
-                      </div>
-                      <div style="clear: both"></div>
-                    </div>
-                    <input type="hidden" id="secretid" value="6LdNeDUUAAAAAG5l7cJfv1AA5OKLslkrOa_xXxLs">
-                    <div style=" border-bottom:#ebebeb dotted 1px; margin-top:10px; clear:both;"></div>
-                    <div id="REQUIRED_FIELD_TEXT" changetype="REQUIRED_FIELD_TEXT" name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New; padding: 10px 10px 10px 0px;">*Required Fields</div>
-                    <div style="padding:10px; text-align:center;">
-                      <input type="button" action="Save" id="zcWebOptin" name="SIGNUP_SUBMIT_BUTTON" changetype="SIGNUP_SUBMIT_BUTTON_TEXT" style="cursor: pointer; appearance: none; border-radius: 3px; background-position: center bottom; background-repeat: repeat-x; outline: none; padding: 10px 40px; text-align: center; color: rgb(255, 255, 255); font-size: 16px; background-color: rgb(0, 0, 0); border-style: solid; border-color: rgb(255, 255, 255); font-family: Courier New; border-width: 3px; white-space: normal;" value=">Sign Up.Stand Up<">
+        <!-- BEGIN ZOHO EMBED FORM -->
+        <!-- (Paste your full Zoho embed HTML here; see below for example) -->
+        <div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
+          <input type="hidden" id="recapTheme" value="2">
+          <input type="hidden" id="isRecapIntegDone" value="false">
+          <input type="hidden" id="signupFormType" value="LargeForm_Vertical">
+          <div id="customForm">
+            <div name="SIGNUP_PAGE" class="large_form_3_css" id="SIGNUP_PAGE" style="padding: 2px 30px 10px; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); text-align: center; font-size: 14px; min-width: 240px;">
+              <div name="" changeid="" changename="" style="margin:0px auto">
+                <div id="imgBlock" name="LOGO_DIV" logo="true" style="width: 600px; margin: 0px auto; padding-bottom: 10px; font-family: Arial, Helvetica, sans-serif; color: rgb(68, 68, 68); text-align: center; font-size: 12px; padding-top: 10px; font-weight: bold;"></div>
+              </div>
+              <br>
+              <div id="signupMainDiv" style="margin: 0px auto; width: 100%; min-width: 230px; max-width: 600px;" name="SIGNUPFORM" changeid="SIGNUPFORM" changename="SIGNUPFORM">
+                <div>
+                  <div style="position:relative;">
+                    <div id="Zc_SignupSuccess" style="display:none;position:absolute;margin-left:4%;width:90%;background-color: white; padding: 3px; border: 3px solid rgb(194, 225, 154);  margin-top: 10px;margin-bottom:10px;word-break:break-all">
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tbody>
+                          <tr>
+                            <td width="10%">
+                              <img class="successicon" src="https://zcv2-zcmp.maillist-manage.eu/images/challangeiconenable.jpg" align="absmiddle">
+                            </td>
+                            <td>
+                              <span id="signupSuccessMsg" style="color: rgb(73, 140, 132); font-family: sans-serif; font-size: 14px;word-break:break-word">&nbsp;&nbsp;Thank you for Signing Up</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
+                  <form method="POST" id="zcampaignOptinForm" style="margin:0px;" action="https://zcv2-zcmp.maillist-manage.eu/weboptin.zc" target="_zcSignup">
+                    <div id="SIGNUP_BODY_ALL" name="SIGNUP_BODY_ALL" style="border-color: rgb(0, 0, 0); border-width: 3px; border-style: solid;">
+                      <h1 style="border: 1px rgb(91, 91, 91); color: rgb(255, 255, 255); font-size: 17px; font-family: Courier New; margin: 0px; text-align: center; padding: 20px; background-color: rgb(0, 0, 0); word-break: break-word;" id="SIGNUP_HEADING" name="SIGNUP_HEADING" changeid="SIGNUP_MSG" changetype="SIGNUP_HEADER">
+                        <span>Start Pulling The Strings Here...</span>
+                      </h1>
+                      <div style="padding: 20px; text-align: center; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); bottom: 2px; font-size: 13px; opacity: 1;" id="SIGNUP_BODY" name="SIGNUP_BODY">
+                        <div style="margin:0px auto;text-align:left;">
+                          <div style="line-height:1.6;" class="" changeid="SIGNUP_MSG" id="SIGNUP_DESCRIPTION" changetype="SIGNUP_DESCRIPTION">Be The First To Access - member exclusives | knowledge base | critical thinking tools | product activism</div>
+                          <div style="display:none;background-color:#FFEBE8;padding:10px 10px; color:#d20000; font-size:11px; margin:10px 0px;border:solid 1px #ffd9d3; margin-top:20px;" id="errorMsgDiv">&nbsp;&nbsp;Please correct the marked field(s) below.</div>
+                          <div>
+                            <div style="font-size:12px; margin-top:10px;" name="fieldsdivSf" class="zcsffieldsdiv">
+                              <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000015">
+                                <div style="">
+                                  <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                                  <span style="display:none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
+                                </div>
+                                <div style="clear:both"></div>
+                              </div>
+                              <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000019">
+                                <div style="">
+                                  <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="First Name" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                                  <span style="display:none" id="dt_FIRSTNAME">1,true,1,First Name,2</span>
+                                </div><div style="clear:both"></div></div>
+                              <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000021">
+                                <div style="">
+                                  <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="Last Name" name="LASTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                                  <span style="display:none" id="dt_LASTNAME">1,true,1,Last Name,2</span>
+                                </div><div style="clear:both"></div></div>
+                              <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000041">
+                                <div style="">
+                                  <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Country" name="COUNTRY" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                                  <span style="display:none" id="dt_COUNTRY">1,true,1,Country,2</span>
+                                </div><div style="clear:both"></div></div>
+                              <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000027">
+                                <div style="">
+                                  <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="20" placeholder="Mobile Phone" name="PHONE" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;
+                                  <span style="display:none" id="dt_PHONE">1,false,1,Phone,2</span>
+                                </div><div style="clear:both"></div></div>
+                            </div>
+                            <div style="padding: 10px 0px 10px 10px;display:none " id="captchaOld" name="captchaContainer">
+                              <div style="">
+                                <div style="width: 59%; float: left; min-width: 170px; max-width: 70%;" id="captchaParent">
+                                  <img src="//campaigns.zoho.eu/images/refresh_icon.png" style="cursor: pointer;float:right;margin-right:4px" onclick="loadCaptcha('https://campaigns.zoho.eu/campaigns/CaptchaVerify.zc?mode=generate',this,'#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf');" id="relCaptcha">
+                                  <div id="captchaDiv" captcha="true" name="" style="padding: 20px;background:#fff;border: 1px solid rgb(222, 222, 222);box-sizing: border-box;width:98.8%"></div>
+                                  <input placeholder="Captcha" id="captchaText" name="captchaText" changeitem="SIGNUP_FORM_FIELD" style="margin-top: 5px; height: 28px; padding: 10px; width: 98.7%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-size: 13px; box-sizing: border-box; font-family: Courier New; text-indent: 5px;" maxlength="100" type="text">
+                                  <span name="SIGNUP_REQUIRED" id="capRequired" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New; margin-top: -16px; margin-right: -2px; float: right;">*</span>
+                                </div>
+                              </div>
+                              <div style="clear: both"></div>
+                            </div>
+                            <input type="hidden" id="secretid" value="6LdNeDUUAAAAAG5l7cJfv1AA5OKLslkrOa_xXxLs">
+                            <div style=" border-bottom:#ebebeb dotted 1px; margin-top:10px; clear:both;"></div>
+                            <div id="REQUIRED_FIELD_TEXT" changetype="REQUIRED_FIELD_TEXT" name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New; padding: 10px 10px 10px 0px;">*Required Fields</div>
+                            <div style="padding:10px; text-align:center;">
+                              <input type="button" action="Save" id="zcWebOptin" name="SIGNUP_SUBMIT_BUTTON" changetype="SIGNUP_SUBMIT_BUTTON_TEXT" style="cursor: pointer; appearance: none; border-radius: 3px; background-position: center bottom; background-repeat: repeat-x; outline: none; padding: 10px 40px; text-align: center; color: rgb(255, 255, 255); font-size: 16px; background-color: rgb(0, 0, 0); border-style: solid; border-color: rgb(255, 255, 255); font-family: Courier New; border-width: 3px; white-space: normal;" value=">Sign Up.Stand Up<">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <input type="hidden" id="fieldBorder" value="">
+                      <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW" onload="">
+                      <input type="hidden" name="viewFrom" id="viewFrom" value="URL_ACTION">
+                      <input type="hidden" id="submitType" name="submitType" value="optinCustomView">
+                      <input type="hidden" id="lD" name="lD" value="13444998884292b5">
+                      <input type="hidden" name="emailReportId" id="emailReportId" value="">
+                      <input type="hidden" name="zx" id="cmpZuid" value="14ae64fa4a">
+                      <input type="hidden" name="zcvers" value="2.0">
+                      <input type="hidden" name="oldListIds" id="allCheckedListIds" value="">
+                      <input type="hidden" id="mode" name="mode" value="OptinCreateView">
+                      <input type="hidden" id="zcld" name="zcld" value="13444998884292b5">
+                      <input type="hidden" id="zctd" name="zctd" value="">
+                      <input type="hidden" id="document_domain" value="">
+                      <input type="hidden" id="zc_Url" value="zcv2-zcmp.maillist-manage.eu">
+                      <input type="hidden" id="new_optin_response_in" value="2">
+                      <input type="hidden" id="duplicate_optin_response_in" value="2">
+                      <input type="hidden" id="zc_formIx" name="zc_formIx" value="3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf">
+                    </div>
+                  </form>
+                </div>
+                <div style="margin 0px auto;margin-top:20px;text-align:center;height:76px; font-size:8px;" id="privacyNotes" identity="privacyNotes">
+                  <span> We guarantee that your data will not be shared and will remain completely confidential.</span>
                 </div>
               </div>
-              <input type="hidden" id="fieldBorder" value="">
-              <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW" onload="">
-              <input type="hidden" name="viewFrom" id="viewFrom" value="URL_ACTION">
-              <input type="hidden" id="submitType" name="submitType" value="optinCustomView">
-              <input type="hidden" id="lD" name="lD" value="13444998884292b5">
-              <input type="hidden" name="emailReportId" id="emailReportId" value="">
-              <input type="hidden" name="zx" id="cmpZuid" value="14ae64fa4a">
-              <input type="hidden" name="zcvers" value="2.0">
-              <input type="hidden" name="oldListIds" id="allCheckedListIds" value="">
-              <input type="hidden" id="mode" name="mode" value="OptinCreateView">
-              <input type="hidden" id="zcld" name="zcld" value="13444998884292b5">
-              <input type="hidden" id="zctd" name="zctd" value="">
-              <input type="hidden" id="document_domain" value="">
-              <input type="hidden" id="zc_Url" value="zcv2-zcmp.maillist-manage.eu">
-              <input type="hidden" id="new_optin_response_in" value="2">
-              <input type="hidden" id="duplicate_optin_response_in" value="2">
-              <input type="hidden" id="zc_formIx" name="zc_formIx" value="3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf">
             </div>
-          </form>
+            <input type="hidden" id="isCaptchaNeeded" value="false">
+            <input type="hidden" id="superAdminCap" value="0">
+            <img src="https://zcv2-zcmp.maillist-manage.eu/images/spacer.gif" onload="referenceSetter(this)" id="refImage" style="display:none;">
+          </div>
         </div>
-        <div style="margin 0px auto;margin-top:20px;text-align:center;height:76px; font-size:8px;" id="privacyNotes" identity="privacyNotes">
-          <span> We guarantee that your data will not be shared and will remain completely confidential.</span>
+        <div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
+        <div id="zcOptinSuccessPopup" style="display:none;z-index: 9999;width: 800px; height: 40%;top: 84px;position: fixed; left: 26%;background-color: #FFFFFF;border-color: #E6E6E6; border-style: solid; border-width: 1px;  box-shadow: 0 1px 10px #424242;padding: 35px;">
+          <span style="position: absolute;top: -16px;right:-14px;z-index:99999;cursor: pointer;" id="closeSuccess">
+            <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
+          </span>
+          <div id="zcOptinSuccessPanel"></div>
         </div>
-      </div>
-    </div>
-    <input type="hidden" id="isCaptchaNeeded" value="false">
-    <input type="hidden" id="superAdminCap" value="0">
-    <img src="https://zcv2-zcmp.maillist-manage.eu/images/spacer.gif" onload="referenceSetter(this)" id="refImage" style="display:none;">
-  </div>
-</div>
-<div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
-<div id="zcOptinSuccessPopup" style="display:none;z-index: 9999;width: 800px; height: 40%;top: 84px;position: fixed; left: 26%;background-color: #FFFFFF;border-color: #E6E6E6; border-style: solid; border-width: 1px;  box-shadow: 0 1px 10px #424242;padding: 35px;">
-  <span style="position: absolute;top: -16px;right:-14px;z-index:99999;cursor: pointer;" id="closeSuccess">
-    <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
-  </span>
-  <div id="zcOptinSuccessPanel"></div>
-</div>
-<!--Zoho Campaigns Web-Optin Form Ends Here-->
+        <!-- END ZOHO EMBED FORM -->
       </div>
     </div>
   </div>
-  <script>
-    // Typewriter effect for riddle text (but since we use pre-formatted, it's instant)
-    // If you still want the typewriter effect, replace the #riddle-text above with a blank div and uncomment this block:
-    /*
-    const riddle = `They built a house on shifting sand,
-Then sold the myth with sleight of hand.
-Truth trades hands behind closed doors,
-Sanitized for distant shores.
-The loudest claim "It’s all just fine",
-While cracks appear in every line.
-Eyes wide shut, we seek the key,
-Solve the puzzle and begin to see.`;
-    const riddleText = document.getElementById("riddle-text");
-    let riddleIndex = 0;
-    let riddleTyped = "";
-    function updateRiddleDisplay() {
-      riddleText.innerHTML = riddleTyped.replace(/\n/g, "<br>") + '<span class="cursor" id="riddle-cursor"></span>';
-    }
-    function typeRiddle() {
-      if (riddleIndex < riddle.length) {
-        riddleTyped += riddle[riddleIndex];
-        updateRiddleDisplay();
-        riddleIndex++;
-        setTimeout(typeRiddle, 40);
-      } else {
-        updateRiddleDisplay();
-        setTimeout(() => {
-          const lettersContainer = document.getElementById("letters-container");
-          const dropZone = document.getElementById("drop-zone");
-          lettersContainer.style.display = "block";
-          initializeDropZones();
-          dropZone.style.display = "flex";
-        }, 300);
+      <script>
+      // Word Scramble Game Setup
+      const phrase = "CAN YOU HANDLE THE TRUTH?";
+      const cleanPhrase = phrase.replace(/\s/g, "");
+      const letters = cleanPhrase.split("").sort(() => Math.random() - 0.5);
+      const container = document.getElementById("letters-container");
+      let correctCount = 0;
+
+      function addSlots(row, text) {
+        for (const char of text) {
+          if (char === " ") {
+            const spacer = document.createElement("div");
+            spacer.style.width = "15px";
+            row.appendChild(spacer);
+          } else {
+            const slot = document.createElement("div");
+            slot.classList.add("drop-slot");
+            row.appendChild(slot);
+          }
+        }
       }
-    }
-    typeRiddle();
-    */
-    // --- Scramble logic ---
-    const phrase = "CAN YOU HANDLE THE TRUTH?";
-    const cleanPhrase = phrase.replace(/\s/g, "");
-    const letters = cleanPhrase.split("").sort(() => Math.random() - 0.5);
-    const container = document.getElementById("letters-container");
-    let correctCount = 0;
-    function addSlots(row, text) {
-      for (const char of text) {
-        if (char === " ") {
-          const spacer = document.createElement("div");
-          spacer.style.width = "15px";
-          row.appendChild(spacer);
+
+      function initializeDropZones() {
+        const dropZone = document.getElementById("drop-zone");
+        dropZone.innerHTML = "";
+        if (window.innerWidth < 768) {
+          const row1 = document.createElement("div");
+          row1.classList.add("drop-row");
+          row1.id = "row1";
+          const row2 = document.createElement("div");
+          row2.classList.add("drop-row");
+          row2.id = "row2";
+          const row3 = document.createElement("div");
+          row3.classList.add("drop-row");
+          row3.id = "row3";
+          dropZone.appendChild(row1);
+          dropZone.appendChild(row2);
+          dropZone.appendChild(row3);
+          addSlots(row1, "CAN YOU");
+          addSlots(row2, "HANDLE");
+          addSlots(row3, "THE TRUTH?");
         } else {
-          const slot = document.createElement("div");
-          slot.classList.add("drop-slot");
-          row.appendChild(slot);
+          const row1 = document.createElement("div");
+          row1.classList.add("drop-row");
+          row1.id = "row1";
+          const row2 = document.createElement("div");
+          row2.classList.add("drop-row");
+          row2.id = "row2";
+          dropZone.appendChild(row1);
+          dropZone.appendChild(row2);
+          addSlots(row1, "CAN YOU HANDLE");
+          addSlots(row2, "THE TRUTH?");
         }
       }
-    }
-    function initializeDropZones() {
-      const dropZone = document.getElementById("drop-zone");
-      dropZone.innerHTML = "";
-      if (window.innerWidth < 768) {
-        const row1 = document.createElement("div");
-        row1.classList.add("drop-row");
-        row1.id = "row1";
-        const row2 = document.createElement("div");
-        row2.classList.add("drop-row");
-        row2.id = "row2";
-        const row3 = document.createElement("div");
-        row3.classList.add("drop-row");
-        row3.id = "row3";
-        dropZone.appendChild(row1);
-        dropZone.appendChild(row2);
-        dropZone.appendChild(row3);
-        addSlots(row1, "CAN YOU");
-        addSlots(row2, "HANDLE");
-        addSlots(row3, "THE TRUTH?");
-      } else {
-        const row1 = document.createElement("div");
-        row1.classList.add("drop-row");
-        row1.id = "row1";
-        const row2 = document.createElement("div");
-        row2.classList.add("drop-row");
-        row2.id = "row2";
-        dropZone.appendChild(row1);
-        dropZone.appendChild(row2);
-        addSlots(row1, "CAN YOU HANDLE");
-        addSlots(row2, "THE TRUTH?");
-      }
-    }
-    const letterPositions = [];
-    function getRandomPosition() {
-      let position;
-      let isOverlap = true;
-      while (isOverlap) {
-        position = {
-          x: Math.random() * 90,
-          y: Math.random() * 90,
-        };
-        isOverlap = letterPositions.some(
-          (p) =>
-            Math.abs(p.x - position.x) < 10 &&
-            Math.abs(p.y - position.y) < 10
-        );
-      }
-      letterPositions.push(position);
-      return position;
-    }
-    let currentLetter = null;
-    let pointerOffsetX = 0, pointerOffsetY = 0;
-    function onPointerDown(event) {
-      currentLetter = event.target;
-      if (!currentLetter.dataset.origLeft) {
-        currentLetter.dataset.origLeft = currentLetter.style.left;
-        currentLetter.dataset.origTop = currentLetter.style.top;
-      }
-      currentLetter.setPointerCapture(event.pointerId);
-      const letterRect = currentLetter.getBoundingClientRect();
-      pointerOffsetX = event.clientX - letterRect.left;
-      pointerOffsetY = event.clientY - letterRect.top;
-      currentLetter.style.zIndex = 1000;
-      currentLetter.addEventListener("pointermove", onPointerMove);
-      currentLetter.addEventListener("pointerup", onPointerUp);
-      currentLetter.addEventListener("pointercancel", onPointerUp);
-    }
-    function onPointerMove(event) {
-      if (!currentLetter) return;
-      const containerRect = container.getBoundingClientRect();
-      let newLeft = event.clientX - containerRect.left - pointerOffsetX;
-      let newTop = event.clientY - containerRect.top - pointerOffsetY;
-      currentLetter.style.left = `${newLeft}px`;
-      currentLetter.style.top = `${newTop}px`;
-    }
-    function onPointerUp(event) {
-      if (!currentLetter) return;
-      const letterRect = currentLetter.getBoundingClientRect();
-      const letterCenterX = letterRect.left + letterRect.width / 2;
-      const letterCenterY = letterRect.top + letterRect.height / 2;
-      let dropped = false;
-      const slots = document.querySelectorAll(".drop-slot");
-      slots.forEach((slot, index) => {
-        const slotRect = slot.getBoundingClientRect();
-        if (
-          letterCenterX >= slotRect.left &&
-          letterCenterX <= slotRect.right &&
-          letterCenterY >= slotRect.top &&
-          letterCenterY <= slotRect.bottom &&
-          !slot.classList.contains("filled")
-        ) {
-          const correctChar = cleanPhrase[index];
-          if (currentLetter.textContent === correctChar) {
-            slot.textContent = currentLetter.textContent;
-            slot.classList.add("filled");
-            slot.style.animation = "glitch 0.3s ease-out";
-            setTimeout(() => {
-              slot.style.animation = "";
-            }, 300);
-            currentLetter.style.display = "none";
-            correctCount++;
-            dropped = true;
-          }
+
+      const letterPositions = [];
+      function getRandomPosition() {
+        let position;
+        let isOverlap = true;
+        while (isOverlap) {
+          position = {
+            x: Math.random() * 90,
+            y: Math.random() * 90,
+          };
+          isOverlap = letterPositions.some(
+            (p) =>
+              Math.abs(p.x - position.x) < 10 &&
+              Math.abs(p.y - position.y) < 10
+          );
         }
-      });
-      if (!dropped) {
-        currentLetter.style.left = currentLetter.dataset.origLeft;
-        currentLetter.style.top = currentLetter.dataset.origTop;
+        letterPositions.push(position);
+        return position;
       }
-      currentLetter.style.zIndex = "";
-      currentLetter.removeEventListener("pointermove", onPointerMove);
-      currentLetter.removeEventListener("pointerup", onPointerUp);
-      currentLetter.removeEventListener("pointercancel", onPointerUp);
-      currentLetter = null;
-      if (correctCount === cleanPhrase.length) {
-        setTimeout(() => {
-          document.getElementById("completion-overlay").style.display = "flex";
-          const finalMsg = document.getElementById("final-message");
-          const text = "you persevered, where most don’t even try...";
-          let idx = 0;
-          function updateFinalDisplay(typed) {
-            finalMsg.innerHTML = typed + '<span class="completion-cursor" id="final-cursor"></span>';
-          }
-          function typeFinal() {
-            if (idx < text.length) {
-              updateFinalDisplay(text.slice(0, idx + 1));
-              idx++;
-              setTimeout(typeFinal, 70);
-            } else {
-              updateFinalDisplay(text);
+
+      let currentLetter = null;
+      let pointerOffsetX = 0, pointerOffsetY = 0;
+      function onPointerDown(event) {
+        currentLetter = event.target;
+        if (!currentLetter.dataset.origLeft) {
+          currentLetter.dataset.origLeft = currentLetter.style.left;
+          currentLetter.dataset.origTop = currentLetter.style.top;
+        }
+        currentLetter.setPointerCapture(event.pointerId);
+        const letterRect = currentLetter.getBoundingClientRect();
+        pointerOffsetX = event.clientX - letterRect.left;
+        pointerOffsetY = event.clientY - letterRect.top;
+        currentLetter.style.zIndex = 1000;
+        currentLetter.addEventListener("pointermove", onPointerMove);
+        currentLetter.addEventListener("pointerup", onPointerUp);
+        currentLetter.addEventListener("pointercancel", onPointerUp);
+      }
+
+      function onPointerMove(event) {
+        if (!currentLetter) return;
+        const containerRect = container.getBoundingClientRect();
+        let newLeft = event.clientX - containerRect.left - pointerOffsetX;
+        let newTop = event.clientY - containerRect.top - pointerOffsetY;
+        currentLetter.style.left = `${newLeft}px`;
+        currentLetter.style.top = `${newTop}px`;
+      }
+
+      function onPointerUp(event) {
+        if (!currentLetter) return;
+        const letterRect = currentLetter.getBoundingClientRect();
+        const letterCenterX = letterRect.left + letterRect.width / 2;
+        const letterCenterY = letterRect.top + letterRect.height / 2;
+        let dropped = false;
+        const slots = document.querySelectorAll(".drop-slot");
+        slots.forEach((slot, index) => {
+          const slotRect = slot.getBoundingClientRect();
+          if (
+            letterCenterX >= slotRect.left &&
+            letterCenterX <= slotRect.right &&
+            letterCenterY >= slotRect.top &&
+            letterCenterY <= slotRect.bottom &&
+            !slot.classList.contains("filled")
+          ) {
+            const correctChar = cleanPhrase[index];
+            if (currentLetter.textContent === correctChar) {
+              slot.textContent = currentLetter.textContent;
+              slot.classList.add("filled");
+              slot.style.animation = "glitch 0.3s ease-out";
               setTimeout(() => {
-                document.getElementById("completion-overlay").classList.add("faded");
-                setTimeout(() => {
-                  showZohoFormAfterFade();
-                  setTimeout(() => {
-                    const finalCursor = document.getElementById("final-cursor");
-                    if (finalCursor) finalCursor.style.display = "none";
-                  }, 1200);
-                }, 800);
-              }, 1000);
+                slot.style.animation = "";
+              }, 300);
+              currentLetter.style.display = "none";
+              correctCount++;
+              dropped = true;
             }
           }
-          typeFinal();
-        }, 500);
+        });
+        if (!dropped) {
+          currentLetter.style.left = currentLetter.dataset.origLeft;
+          currentLetter.style.top = currentLetter.dataset.origTop;
+        }
+        currentLetter.style.zIndex = "";
+        currentLetter.removeEventListener("pointermove", onPointerMove);
+        currentLetter.removeEventListener("pointerup", onPointerUp);
+        currentLetter.removeEventListener("pointercancel", onPointerUp);
+        currentLetter = null;
+        if (correctCount === cleanPhrase.length) {
+          setTimeout(() => {
+            document.getElementById("completion-overlay").style.display = "flex";
+            const finalMsg = document.getElementById("final-message");
+            const text = "you persevered, where most don’t even try...";
+            let idx = 0;
+            function updateFinalDisplay(typed) {
+              finalMsg.innerHTML = typed + '<span class="completion-cursor" id="final-cursor"></span>';
+            }
+            function typeFinal() {
+              if (idx < text.length) {
+                updateFinalDisplay(text.slice(0, idx + 1));
+                idx++;
+                setTimeout(typeFinal, 70);
+              } else {
+                updateFinalDisplay(text);
+                setTimeout(() => {
+                  document.getElementById("completion-overlay").classList.add("faded");
+                  setTimeout(() => {
+                    showZohoFormAfterFade();
+                    setTimeout(() => {
+                      const finalCursor = document.getElementById("final-cursor");
+                      if (finalCursor) finalCursor.style.display = "none";
+                    }, 1200);
+                  }, 800);
+                }, 1000);
+              }
+            }
+            typeFinal();
+          }, 500);
+        }
       }
-    }
-    function showZohoFormAfterFade() {
-      var zohoForm = document.getElementById('zoho-campaigns-form');
-      if (zohoForm) {
-        zohoForm.style.display = 'flex';
-        setTimeout(() => {
-          zohoForm.classList.add('visible');
-          window.scrollTo({top: 0, behavior: 'auto'});
-          var firstInput = zohoForm.querySelector('input,select,textarea,button');
-          if (firstInput) firstInput.focus();
-        }, 50);
+
+      function showZohoFormAfterFade() {
+        var zohoForm = document.getElementById('zoho-campaigns-form');
+        if (zohoForm) {
+          zohoForm.style.display = 'flex';
+          setTimeout(() => {
+            zohoForm.classList.add('visible');
+            window.scrollTo({top: 0, behavior: 'auto'});
+            var firstInput = zohoForm.querySelector('input,select,textarea,button');
+            if (firstInput) firstInput.focus();
+          }, 50);
+        }
       }
-    }
-    // Add pointer events to letters
-    letters.forEach((char, i) => {
-      const letter = document.createElement("div");
-      letter.classList.add("draggable-letter");
-      letter.textContent = char;
-      letter.dataset.index = i;
-      const { x, y } = getRandomPosition();
-      letter.style.left = `${x}%`;
-      letter.style.top = `${y}%`;
-      container.appendChild(letter);
-      letter.addEventListener("pointerdown", onPointerDown);
-    });
-    const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
-    audio.loop = true;
-    function startAudio() {
-      audio.play().catch((err) => {
-        console.warn("Autoplay blocked:", err);
+
+      // Add pointer events to letters
+      letters.forEach((char, i) => {
+        const letter = document.createElement("div");
+        letter.classList.add("draggable-letter");
+        letter.textContent = char;
+        letter.dataset.index = i;
+        const { x, y } = getRandomPosition();
+        letter.style.left = `${x}%`;
+        letter.style.top = `${y}%`;
+        container.appendChild(letter);
+        letter.addEventListener("pointerdown", onPointerDown);
       });
-      window.removeEventListener("click", startAudio);
-      window.removeEventListener("touchstart", startAudio);
-    }
-    window.addEventListener("click", startAudio);
-    window.addEventListener("touchstart", startAudio);
-  </script>
-</body>
+
+      const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
+      audio.loop = true;
+      function startAudio() {
+        audio.play().catch((err) => {
+          console.warn("Autoplay blocked:", err);
+        });
+        window.removeEventListener("click", startAudio);
+        window.removeEventListener("touchstart", startAudio);
+      }
+      window.addEventListener("click", startAudio);
+      window.addEventListener("touchstart", startAudio);
+
+      // On page load, initialize the puzzle UI
+      window.onload = function() {
+        initializeDropZones();
+      };
+    </script>
+  </body>
 </html>
