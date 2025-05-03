@@ -57,14 +57,6 @@
         animation: blink 0.7s infinite;
         vertical-align: bottom;
       }
-      @keyframes blink {
-        0%, 100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
-      }
       .letters-container {
         position: relative;
         width: 60vw;
@@ -190,23 +182,16 @@
       }
       @media (max-width: 768px) {
         .crt {
-          font-size: 0.7rem;
-          width: 90vw;
+          font-size: 0.65rem; /* Reduce font size slightly */
+          width: 90vw; /* Ensure the box takes maximum available width */
+          padding: 15px; /* Adjust padding to provide more space */
+          line-height: 1.4; /* Add spacing between lines for readability */
+          word-spacing: -0.5px; /* Fine-tune spacing if needed */
         }
         .letters-container {
-          width: 90vw;
-          /* Increase container height to provide more vertical space */
-          height: 40vh;
-        }
-        .draggable-letter {
-          /* Increase letter font size for better touch targeting */
-          font-size: 1.5rem;
-        }
-        .drop-slot {
-          /* Increase drop slot dimensions and font-size to match larger letters */
-          width: 28px;
-          height: 36px;
-          font-size: 1.5rem;
+          width: 90vw; /* Keep the letter container consistent */
+          height: 35vh; /* Ensure the bounding box for letters remains unaffected */
+          display: block; /* Ensure no changes to layout or overlap */
         }
       }
     </style>
