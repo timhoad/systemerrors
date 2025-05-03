@@ -48,20 +48,13 @@
         text-align: center;
         box-sizing: border-box;
       }
-      .cursor,
-      .completion-cursor {
+      .cursor {
         display: inline-block;
         width: 10px;
         height: 1em;
         background-color: white;
         animation: blink 0.7s infinite;
         vertical-align: bottom;
-        margin-left: 2px;
-      }
-      @keyframes blink {
-        0% { opacity: 1; }
-        50% { opacity: 0; }
-        100% { opacity: 1; }
       }
       .letters-container {
         position: relative;
@@ -170,7 +163,6 @@
         flex-direction: column;
         z-index: 9999;
         transition: background 0.8s;
-        overflow: hidden !important;
       }
       .completion-overlay.faded {
         background: #000;
@@ -187,59 +179,14 @@
         position: relative;
         display: inline-block;
       }
-      /* Responsive Zoho form overlay: Desktop */
-      @media (min-width: 768px) {
-        #zoho-campaigns-form {
-          display: flex !important;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          min-height: 0;
-          padding: 24px 0;
-        }
-        #zoho-campaigns-form > div[id^="sf"] {
-          max-width: 480px;
-          width: 100%;
-          max-height: 90vh;
-          box-sizing: border-box;
-          overflow-y: auto;
-          margin: 0 auto;
-          padding: 24px 12px 24px 12px !important;
-          background: #000;
-          border-radius: 12px;
-        }
-        #zoho-campaigns-form #SIGNUP_PAGE,
-        #zoho-campaigns-form #customForm {
-          padding-top: 0 !important;
-          padding-bottom: 0 !important;
-        }
-      }
-      /* Responsive Zoho form overlay: Mobile */
-      @media (max-width: 767px) {
-        #zoho-campaigns-form {
-          display: flex !important;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          min-height: 0;
-          padding: 12px 0;
-        }
-        #zoho-campaigns-form > div[id^="sf"] {
-          max-width: 98vw;
-          width: 100%;
-          max-height: 90vh;
-          box-sizing: border-box;
-          overflow-y: auto;
-          margin: 0 auto;
-          padding: 12px 6px 12px 6px !important;
-          background: #000;
-          border-radius: 8px;
-        }
-        #zoho-campaigns-form #SIGNUP_PAGE,
-        #zoho-campaigns-form #customForm {
-          padding-top: 0 !important;
-          padding-bottom: 0 !important;
-        }
+      .completion-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 1em;
+        background-color: white;
+        animation: blink 0.7s infinite;
+        vertical-align: bottom;
+        margin-left: 2px;
       }
       /* Fade in for zoho form */
       #zoho-campaigns-form {
@@ -249,12 +196,101 @@
       #zoho-campaigns-form.visible {
         opacity: 1;
       }
-      /* ...NO OTHER CSS CHANGES... */
+      /* --- Start Zoho Form Responsive (from your embed) --- */
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #customForm *:not(.dateClass){
+      -webkit-box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      box-sizing: border-box !important;
+      word-break:break-word;
+      overflow-wrap: break-word;
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .dateClass{
+      -webkit-box-sizing: unset!important;
+      -moz-box-sizing: unset !important;
+      box-sizing: unset !important;
+      word-break:break-word;
+      overflow-wrap: break-word;
+      }
+      @media only screen and (max-width: 200px){
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+      width:220px !important;
+      min-width:220px !important;
+      margin: 0px auto !important;
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #SIGNUP_PAGE{
+      padding:0px !important  
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+      transform:scale(0.55);-webkit-transform:scale(0.45);transform-origin:0 0;-webkit-transform-origin:0 0;}
+      }
+      @media only screen and (min-width: 440px) and (max-width:600px){
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+      width:440px !important;
+      min-width:440px !important;
+      margin: 0px auto !important;  
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+      transform:scale(0.72);-webkit-transform:scale(0.55);transform-origin:0 0;-webkit-transform-origin:0 0;}
+      }
+      @media only screen and (min-width: 320px) and (max-width:440px){
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+      width:320px !important;
+      min-width:320px !important;
+      margin: 0px auto !important;    
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+      transform:scale(0.72);-webkit-transform:scale(0.55);transform-origin:0 0;-webkit-transform-origin:0 0;}
+      }
+      @media only screen  and (min-width : 1224px) {
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+      width:600px !important;
+      min-width:600px !important;
+      margin: 0px auto !important;  
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+      transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
+      }
+      @media only screen  and (min-width : 1824px) {
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+      width:600px !important;
+      min-width:600px !important;
+      margin: 0px auto !important;  
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+      transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
+      }
+      @media only screen and (min-device-width : 601px) and (max-device-width : 1024px) {
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
+      width:600px !important;
+      min-width:600px !important;
+      margin: 0px auto !important;  
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
+      transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit-transform-origin:0 0;}
+      }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm_hover{background-color:#f9f9f9; padding:10px;}
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm{padding:10px }
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
+      /* --- End Zoho Form Responsive --- */
+      @media (max-width: 768px) {
+        .crt {
+          font-size: 0.65rem;
+          width: 90vw;
+          padding: 15px;
+          line-height: 1.4;
+          word-spacing: -0.5px;
+        }
+        .letters-container {
+          width: 90vw;
+          height: 35vh;
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="crt" id="riddle-box">
-      <span id="riddle-text" style="font-family:OCR A Std"></span><span class="cursor" id="riddle-cursor"></span>
+      <div style="font-family:OCR A Std" id="riddle-text"></div><span class="cursor" id="riddle-cursor"></span>
     </div>
 
     <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
@@ -278,11 +314,13 @@
     </div>
 
     <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
-      <span style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></span><span class="completion-cursor" id="final-cursor"></span>
+      <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
+      <span class="completion-cursor" id="final-cursor"></span>
       <!-- ZOHO CAMPAIGNS FORM (hidden by default, revealed after fade) -->
       <div id="zoho-campaigns-form" style="display:none; width:100%; max-width:600px; margin:0 auto;">
         <!-- BEGIN: YOUR UPDATED ZOHO EMBED FORM -->
         <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
+
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
 <script type="text/javascript">
@@ -290,7 +328,13 @@
     /*Before submit, if you want to trigger your event, "include your code here"*/
   };
 </script>
+
+<style>
+/* All your Zoho custom CSS is already at document-level above */
+</style>
+
 <!--Zoho Campaigns Web-Optin Form's Header Code Ends Here--><!--Zoho Campaigns Web-Optin Form Starts Here-->
+
 <div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
   <input type="hidden" id="recapTheme" value="2">
   <input type="hidden" id="isRecapIntegDone" value="false">
@@ -416,13 +460,15 @@
   </span>
   <div id="zcOptinSuccessPanel"></div>
 </div>
+
 <!--Zoho Campaigns Web-Optin Form Ends Here-->
+        <!-- END: YOUR UPDATED ZOHO EMBED FORM -->
       </div>
       <!-- END ZOHO FORM -->
     </div>
 
     <script>
-      // --- RIDDLE TYPEWRITER WITH FLASHING CURSOR ---
+      // Typewriter effect for riddle text
       const riddle = `They built a house on shifting sand,
 Then sold the myth with sleight of hand.
 Truth trades hands behind closed doors,
@@ -435,24 +481,26 @@ Solve the puzzle and begin to see.`;
       const riddleText = document.getElementById("riddle-text");
       const riddleCursor = document.getElementById("riddle-cursor");
       let riddleIndex = 0;
-      let riddleInterval = null;
       function typeRiddle() {
-        riddleText.innerHTML = "";
-        riddleCursor.style.display = "inline-block";
-        riddleInterval = setInterval(() => {
-          if (riddleIndex < riddle.length) {
-            riddleText.innerHTML += riddle[riddleIndex] === "\n" ? "<br>" : riddle[riddleIndex];
-            riddleIndex++;
-          } else {
-            clearInterval(riddleInterval);
-            // After the riddle is done, cursor stays visible at end
-            setTimeout(() => {
-              document.getElementById("letters-container").style.display = "block";
-              initializeDropZones();
-              document.getElementById("drop-zone").style.display = "flex";
-            }, 300);
-          }
-        }, 40);
+        if (riddleIndex < riddle.length) {
+          riddleText.innerHTML +=
+            riddle[riddleIndex] === "\n" ? "<br>" : riddle[riddleIndex];
+          // move cursor after the text and keep it flashing
+          riddleText.parentNode.appendChild(riddleCursor);
+          riddleCursor.style.display = "inline-block";
+          riddleIndex++;
+          setTimeout(typeRiddle, 40);
+        } else {
+          riddleCursor.style.display = "inline-block";
+          setTimeout(() => {
+            const lettersContainer = document.getElementById("letters-container");
+            const dropZone = document.getElementById("drop-zone");
+
+            lettersContainer.style.display = "block"; // Reveal scrambled letters
+            initializeDropZones(); // Initialize drop zones for mobile or desktop
+            dropZone.style.display = "flex"; // Show the drop zone
+          }, 300); // Slight delay after riddle completion for better UX
+        }
       }
       typeRiddle();
 
@@ -611,15 +659,15 @@ Solve the puzzle and begin to see.`;
             const text = "you persevered, where most don’t even try...";
             let idx = 0;
             finalMsg.textContent = "";
-            finalCursor.style.display = "inline-block";
-            // Typewriter effect with cursor always after text
-            let interval = setInterval(() => {
+            function typeFinal() {
               if (idx < text.length) {
                 finalMsg.textContent += text[idx];
+                // move cursor after the text and keep it flashing
+                finalMsg.parentNode.appendChild(finalCursor);
                 finalCursor.style.display = "inline-block";
                 idx++;
+                setTimeout(typeFinal, 70);
               } else {
-                clearInterval(interval);
                 finalCursor.style.display = "inline-block";
                 setTimeout(() => {
                   document.getElementById("completion-overlay").classList.add("faded");
@@ -633,7 +681,8 @@ Solve the puzzle and begin to see.`;
                   }, 1200);
                 }, 1500);
               }
-            }, 70);
+            }
+            typeFinal();
           }, 500);
         }
       }
