@@ -6,15 +6,11 @@
     <title>Can You Handle The Truth?</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet"/>
     <style>
       @font-face { font-family:OCR A Std; src: url('ocr-a-std.ttf'); }
       div {font-family:OCR A Std;}
-      html,
-      body {
+      html, body {
         margin: 0;
         padding: 0;
         height: 100%;
@@ -29,24 +25,30 @@
       .crt {
         background: repeating-linear-gradient(
           to bottom,
-          #111,
-          #111 2px,
-          #0d0d0d 4px,
-          #111 6px
+          #111, #111 2px, #0d0d0d 4px, #111 6px
         );
         border: 2px solid white;
         border-radius: 12px;
-        padding: 20px;
+        padding: 20px 5vw;
         color: white;
         font-size: 0.8rem;
-        width: 60vw;
+        width: 90vw;
         max-width: 600px;
-        margin-top: 30px;
-        margin-bottom: 60px;
-        position: relative;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        margin: 30px auto 60px auto;
+        box-shadow: 0 0 15px rgba(255,255,255,0.2);
         text-align: center;
         box-sizing: border-box;
+        display: block;
+      }
+      @media (max-width: 650px) {
+        .crt {
+          font-size: 0.74rem;
+        }
+      }
+      @media (max-width: 420px) {
+        .crt {
+          font-size: 0.69rem;
+        }
       }
       .cursor {
         display: inline-block;
@@ -75,14 +77,8 @@
         touch-action: none;
       }
       @keyframes pulse {
-        0%, 100% {
-          transform: scale(1);
-          opacity: 0.8;
-        }
-        50% {
-          transform: scale(1.1);
-          opacity: 1;
-        }
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.1); opacity: 1; }
       }
       @keyframes blink {
         0%, 49% { opacity: 1; }
@@ -123,36 +119,7 @@
       .drop-slot.filled {
         border-bottom: none;
       }
-      .form-container {
-        background: #222;
-        padding: 20px;
-        color: white;
-        border-radius: 8px;
-        border: 1px solid #444;
-        width: 90%;
-        max-width: 400px;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .form-container input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        background: transparent;
-        border: 1px solid white;
-        color: white;
-      }
-      .form-container button {
-        background: white;
-        color: black;
-        font-weight: bold;
-        border: none;
-        padding: 10px;
-        width: 100%;
-        cursor: pointer;
-      }
+      .form-container { display: none; }
       .completion-overlay {
         position: fixed;
         top: 0;
@@ -255,25 +222,12 @@
       <div style="font-family:OCR A Std" class="drop-row" id="row1"></div>
       <div style="font-family:OCR A Std" class="drop-row" id="row2"></div>
     </div>
-    <div class="form-container" id="form-container">
-      <h3>Start pulling the strings here</h3>
-      <p>
-        access - knowledge, tools for critical thinking, breakdowns, product
-        activism
-      </p>
-      <input type="email" placeholder="Email" />
-      <input type="text" placeholder="First Name" />
-      <input type="text" placeholder="Surname" />
-      <input type="text" placeholder="Country" />
-      <button>Stand Together</button>
-    </div>
+    <div class="form-container" id="form-container" style="display:none"></div>
     <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
       <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
-      <!-- ZOHO FORM EMBED STARTS HERE -->
       <div id="zoho-campaigns-form" style="display:none;">
         <div class="zoho-form-inner-wrapper">
-          <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
-
+<!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
 <script type="text/javascript">
@@ -281,7 +235,6 @@
     /*Before submit, if you want to trigger your event, "include your code here"*/
   };
 </script>
-
 <style>
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #customForm *:not(.dateClass){
 -webkit-box-sizing: border-box !important;
@@ -362,14 +315,13 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm_hover{background-color:#f9f9f9; padding:10px;}
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm{padding:10px }
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
-
 </style>
 <div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
   <input type="hidden" id="recapTheme" value="2">
   <input type="hidden" id="isRecapIntegDone" value="false">
   <input type="hidden" id="signupFormType" value="LargeForm_Vertical">
   <div id="customForm">
-    <div name="SIGNUP_PAGE" class="large_form_3_css" id="SIGNUP_PAGE" style="padding: 40px 30px 30px; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); text-align: center; font-size: 14px; min-width: 240px;">
+    <div name="SIGNUP_PAGE" class="large_form_3_css" id="SIGNUP_PAGE" style="padding: 10px 30px 10px; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); text-align: center; font-size: 14px; min-width: 240px;">
       <div name="" changeid="" changename="" style="margin:0px auto">
         <div id="imgBlock" name="LOGO_DIV" logo="true" style="width: 600px; margin: 0px auto; padding-bottom: 10px; font-family: Arial, Helvetica, sans-serif; color: rgb(68, 68, 68); text-align: center; font-size: 12px; padding-top: 10px; font-weight: bold;"></div>
       </div>
@@ -405,39 +357,38 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
                     <div style="font-size:12px; margin-top:10px;" name="fieldsdivSf" class="zcsffieldsdiv">
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000015">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); font-family: Courier New; text-indent: 5px; font-size: 12px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;
-                          <span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
                         </div>
                         <div style="clear:both"></div>
                       </div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000019">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); font-family: Courier New; text-indent: 5px; font-size: 12px; box-sizing: border-box;" maxlength="50" placeholder="First Name" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="First Name" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_FIRSTNAME">1,true,1,First Name,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000021">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); font-family: Courier New; text-indent: 5px; font-size: 12px; box-sizing: border-box;" maxlength="50" placeholder="Last Name" name="LASTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="Last Name" name="LASTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_LASTNAME">1,true,1,Last Name,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000041">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); font-family: Courier New; text-indent: 5px; font-size: 12px; box-sizing: border-box;" maxlength="100" placeholder="Country" name="COUNTRY" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Country" name="COUNTRY" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_COUNTRY">1,true,1,Country,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000027">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); font-family: Courier New; text-indent: 5px; font-size: 12px; box-sizing: border-box;" maxlength="20" placeholder="Mobile Phone" name="PHONE" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;
+                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="20" placeholder="Mobile Phone" name="PHONE" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;
                           <span style="display:none" id="dt_PHONE">1,false,1,Phone,2</span>
                         </div><div style="clear:both"></div></div>
                     </div>
-                    <div style="padding: 10px 0px 10px 10px;" id="captchaOld" name="captchaContainer">
+                    <div style="padding: 10px 0px 10px 10px;display:none " id="captchaOld" name="captchaContainer">
                       <div style="">
                         <div style="width: 59%; float: left; min-width: 170px; max-width: 70%;" id="captchaParent">
                           <img src="//campaigns.zoho.eu/images/refresh_icon.png" style="cursor: pointer;float:right;margin-right:4px" onclick="loadCaptcha('https://campaigns.zoho.eu/campaigns/CaptchaVerify.zc?mode=generate',this,'#sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf');" id="relCaptcha">
                           <div id="captchaDiv" captcha="true" name="" style="padding: 20px;background:#fff;border: 1px solid rgb(222, 222, 222);box-sizing: border-box;width:98.8%"></div>
-                          <input placeholder="Captcha" id="captchaText" name="captchaText" changeitem="SIGNUP_FORM_FIELD" style="margin-top: 5px; height: 28px; padding: 10px; width: 98.7%; color: rgb(0, 0, 0); background-color: rgb(220, 220, 220); border: 1px solid rgb(255, 255, 255); font-size: 12px; box-sizing: border-box; font-family: Courier New; text-indent: 5px;" maxlength="100" type="text">
+                          <input placeholder="Captcha" id="captchaText" name="captchaText" changeitem="SIGNUP_FORM_FIELD" style="margin-top: 5px; height: 28px; padding: 10px; width: 98.7%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-size: 13px; box-sizing: border-box; font-family: Courier New; text-indent: 5px;" maxlength="100" type="text">
                           <span name="SIGNUP_REQUIRED" id="capRequired" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New; margin-top: -16px; margin-right: -2px; float: right;">*</span>
                         </div>
                       </div>
@@ -447,12 +398,12 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
                     <div style=" border-bottom:#ebebeb dotted 1px; margin-top:10px; clear:both;"></div>
                     <div id="REQUIRED_FIELD_TEXT" changetype="REQUIRED_FIELD_TEXT" name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New; padding: 10px 10px 10px 0px;">*Required Fields</div>
                     <div style="padding:10px; text-align:center;">
-                      <input type="button" action="Save" id="zcWebOptin" name="SIGNUP_SUBMIT_BUTTON" changetype="SIGNUP_SUBMIT_BUTTON_TEXT" style="cursor: pointer; appearance: none; border-radius: 3px; background-position: center bottom; background-repeat: repeat-x; outline: none; padding: 10px 40px; text-align: center; color: rgb(255, 255, 255); font-size: 20px; background-color: rgb(0, 0, 0); border-style: solid; border-color: rgb(255, 255, 255); font-family: Courier New; border-width: 3px; white-space: normal;" value=">Sign Up.Stand Up<">
+                      <input type="button" action="Save" id="zcWebOptin" name="SIGNUP_SUBMIT_BUTTON" changetype="SIGNUP_SUBMIT_BUTTON_TEXT" style="cursor: pointer; appearance: none; border-radius: 3px; background-position: center bottom; background-repeat: repeat-x; outline: none; padding: 10px 40px; text-align: center; color: rgb(255, 255, 255); font-size: 16px; background-color: rgb(0, 0, 0); border-style: solid; border-color: rgb(255, 255, 255); font-family: Courier New; border-width: 3px; white-space: normal;" value=">Sign Up.Stand Up<">
                     </div>
                   </div>
                 </div>
               </div>
-              <input type="hidden" id="fieldBorder" value="rgb(255, 255, 255)">
+              <input type="hidden" id="fieldBorder" value="">
               <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW" onload="">
               <input type="hidden" name="viewFrom" id="viewFrom" value="URL_ACTION">
               <input type="hidden" id="submitType" name="submitType" value="optinCustomView">
@@ -464,7 +415,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
               <input type="hidden" id="mode" name="mode" value="OptinCreateView">
               <input type="hidden" id="zcld" name="zcld" value="13444998884292b5">
               <input type="hidden" id="zctd" name="zctd" value="">
-              <input type="hidden" id="document_domain" value="campaigns.zoho.eu">
+              <input type="hidden" id="document_domain" value="">
               <input type="hidden" id="zc_Url" value="zcv2-zcmp.maillist-manage.eu">
               <input type="hidden" id="new_optin_response_in" value="2">
               <input type="hidden" id="duplicate_optin_response_in" value="2">
@@ -472,12 +423,12 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
             </div>
           </form>
         </div>
-        <div style="margin: 0px auto;margin-top:20px;text-align:left;height:76px;" id="privacyNotes" identity="privacyNotes">
-          <span>Note: It is our responsibility to protect your privacy and we guarantee that your data will be completely confidential.</span>
+        <div style="margin 0px auto;margin-top:20px;text-align:center;height:76px; font-size:8px;" id="privacyNotes" identity="privacyNotes">
+          <span> We guarantee that your data will not be shared and will remain completely confidential.</span>
         </div>
       </div>
     </div>
-    <input type="hidden" id="isCaptchaNeeded" value="true">
+    <input type="hidden" id="isCaptchaNeeded" value="false">
     <input type="hidden" id="superAdminCap" value="0">
     <img src="https://zcv2-zcmp.maillist-manage.eu/images/spacer.gif" onload="referenceSetter(this)" id="refImage" style="display:none;">
   </div>
@@ -493,7 +444,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
         </div>
       </div>
     </div>
-        <script>
+    <script>
       // Typewriter effect for riddle text
       const riddle = `They built a house on shifting sand,
 Then sold the myth with sleight of hand.
@@ -668,7 +619,6 @@ Solve the puzzle and begin to see.`;
         currentLetter.removeEventListener("pointerup", onPointerUp);
         currentLetter.removeEventListener("pointercancel", onPointerUp);
         currentLetter = null;
-
         if (correctCount === cleanPhrase.length) {
           setTimeout(() => {
             document.getElementById("completion-overlay").style.display = "flex";
