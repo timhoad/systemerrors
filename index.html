@@ -20,7 +20,6 @@
         height: 100%;
         width: 100%;
         background: #000;
-        /*font-family: 'OCR A Std', monospace;*/
         overflow-x: hidden;
         display: flex;
         flex-direction: column;
@@ -73,7 +72,6 @@
         cursor: grab;
         animation: pulse 3s infinite ease-in-out;
         user-select: none;
-        /* Disable default touch handling */
         touch-action: none;
       }
       @keyframes pulse {
@@ -191,7 +189,7 @@
         .letters-container {
           width: 90vw; /* Keep the letter container consistent */
           height: 35vh; /* Ensure the bounding box for letters remains unaffected */
-          display: block; /* Ensure no changes to layout or overlap */
+          display: none; /* Ensure letters are hidden initially */
         }
       }
     </style>
@@ -203,8 +201,6 @@
 
     <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
 
-    <!-- In desktop this drop-zone uses the two rows in the HTML.
-         On mobile this will be re-initialized by the script to 3 rows -->
     <div style="font-family:OCR A Std" class="drop-zone" id="drop-zone">
       <div style="font-family:OCR A Std" class="drop-row" id="row1"></div>
       <div style="font-family:OCR A Std" class="drop-row" id="row2"></div>
@@ -249,12 +245,15 @@ Solve the puzzle and begin to see.`;
           riddleIndex++;
           setTimeout(typeRiddle, 40);
         } else {
+          // Only show letters-container and drop-zone after the riddle is fully displayed
           setTimeout(() => {
-            document.getElementById("letters-container").style.display = "block";
-            // Reinitialize drop-zone based on device:
-            initializeDropZones();
-            document.getElementById("drop-zone").style.display = "flex";
-          }, 300);
+            const lettersContainer = document.getElementById("letters-container");
+            const dropZone = document.getElementById("drop-zone");
+
+            lettersContainer.style.display = "block"; // Reveal scrambled letters
+            initializeDropZones(); // Initialize drop zones for mobile or desktop
+            dropZone.style.display = "flex"; // Show the drop zone
+          }, 300); // Slight delay after riddle completion for better UX
         }
       }
       typeRiddle();
@@ -284,11 +283,10 @@ Solve the puzzle and begin to see.`;
       // Initialize drop zones:
       function initializeDropZones() {
         const dropZone = document.getElementById("drop-zone");
-        // Clear any existing rows:
-        dropZone.innerHTML = "";
-        // Check if on mobile
+        dropZone.innerHTML = ""; // Clear any existing rows
+
         if (window.innerWidth < 768) {
-          // On mobile, setup three rows:
+          // Mobile: Setup three rows
           const row1 = document.createElement("div");
           row1.classList.add("drop-row");
           row1.id = "row1";
@@ -305,7 +303,7 @@ Solve the puzzle and begin to see.`;
           addSlots(row2, "HANDLE");
           addSlots(row3, "THE TRUTH?");
         } else {
-          // Desktop remains as two rows.
+          // Desktop: Two rows
           const row1 = document.createElement("div");
           row1.classList.add("drop-row");
           row1.id = "row1";
@@ -342,10 +340,8 @@ Solve the puzzle and begin to see.`;
       // Pointer Events for Drag & Drop
       let currentLetter = null;
       let pointerOffsetX = 0, pointerOffsetY = 0;
-      // Note: We use querySelectorAll each time in onPointerUp to re-check available slots.
       function onPointerDown(event) {
         currentLetter = event.target;
-        // Record initial position for resetting if needed.
         if (!currentLetter.dataset.origLeft) {
           currentLetter.dataset.origLeft = currentLetter.style.left;
           currentLetter.dataset.origTop = currentLetter.style.top;
