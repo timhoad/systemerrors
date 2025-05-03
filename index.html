@@ -1,232 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Can You Handle The Truth?</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet"/>
-    <style>
-      @font-face { font-family:OCR A Std; src: url('ocr-a-std.ttf'); }
-      div {font-family:OCR A Std;}
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        background: #000;
-        overflow-x: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Can You Handle The Truth?</title>
+  <link href="https://fonts.googleapis.com/css2?family=OCR+A+Std&display=swap" rel="stylesheet"/>
+  <style>
+    @font-face { font-family:OCR A Std; src: url('ocr-a-std.ttf'); }
+    div {font-family:OCR A Std;}
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background: #000;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .crt {
+      background: repeating-linear-gradient(
+        to bottom,
+        #111, #111 2px, #0d0d0d 4px, #111 6px
+      );
+      border: 2px solid white;
+      border-radius: 12px;
+      padding: 20px 5vw;
+      color: white;
+      font-size: 0.8rem;
+      width: 90vw;
+      max-width: 600px;
+      margin: 30px auto 60px auto;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      text-align: center;
+      box-sizing: border-box;
+      display: block;
+    }
+    #riddle-text {
+      font-family: OCR A Std, monospace;
+      white-space: pre;
+      text-align: left;
+      display: inline-block;
+      width: 100%;
+    }
+    @media (max-width: 480px) {
       .crt {
-        background: repeating-linear-gradient(
-          to bottom,
-          #111, #111 2px, #0d0d0d 4px, #111 6px
-        );
-        border: 2px solid white;
-        border-radius: 12px;
-        padding: 20px 5vw;
-        color: white;
-        font-size: 0.8rem;
-        width: 90vw;
-        max-width: 600px;
-        margin: 30px auto 60px auto;
-        box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        text-align: center;
-        box-sizing: border-box;
-        display: block;
+        width: 340px;
+        min-width: 220px;
+        max-width: 99vw;
+        padding-left: 2vw;
+        padding-right: 2vw;
+        font-size: 0.80rem;
       }
-      @media (max-width: 650px) {
-        .crt {
-          font-size: 0.74rem;
-        }
+      #riddle-text {
+        font-size: 0.93rem;
       }
-      @media (max-width: 420px) {
-        .crt {
-          font-size: 0.69rem;
-        }
+    }
+    @media (max-width: 370px) {
+      .crt {
+        width: 98vw;
+        min-width: 160px;
+        font-size: 0.78rem;
       }
-      .cursor {
-        display: inline-block;
-        width: 10px;
-        height: 1em;
-        background-color: white;
-        animation: blink 0.7s infinite;
-        vertical-align: bottom;
+      #riddle-text {
+        font-size: 0.89rem;
       }
-      .letters-container {
-        position: relative;
-        width: 60vw;
-        max-width: 600px;
-        height: 30vh;
-        margin-bottom: 10px;
-        display: none;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: white;
+      animation: blink 0.7s infinite;
+      vertical-align: bottom;
+    }
+    /* --- ZOHO embed custom tweaks --- */
+    #SIGNUP_PAGE {
+      padding-top: 2px !important;
+      padding-bottom: 10px !important;
+    }
+    #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input[type="text"],
+    #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input[type="email"],
+    #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input[type="tel"] {
+      color: #111 !important;
+    }
+    #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input::placeholder {
+      color: #111 !important;
+      opacity: 1 !important;
+    }
+    @media (max-width: 480px) {
+      #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf input#zcWebOptin {
+        min-width: 220px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100% !important;
+        font-size: 16px !important;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
       }
-      .draggable-letter {
-        position: absolute;
-        color: white;
-        font-weight: bold;
-        font-size: 1.2rem;
-        cursor: grab;
-        animation: pulse 3s infinite ease-in-out;
-        user-select: none;
-        touch-action: none;
+    }
+    /* --- END ZOHO embed custom tweaks --- */
+    .letters-container {
+      position: relative;
+      width: 60vw;
+      max-width: 600px;
+      height: 30vh;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .draggable-letter {
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: grab;
+      animation: pulse 3s infinite ease-in-out;
+      user-select: none;
+      touch-action: none;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    @keyframes glitch {
+      0% { transform: translate(1px, 0); opacity: 1; }
+      20% { transform: translate(-1px, 0); opacity: 0.7; }
+      40% { transform: translate(1px, 0); opacity: 1; }
+      60% { transform: translate(-1px, 0); opacity: 0.7; }
+      80% { transform: translate(1px, 0); opacity: 1; }
+      100% { transform: translate(0, 0); opacity: 1; }
+    }
+    .drop-zone {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+    .drop-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .drop-slot {
+      width: 20px;
+      height: 24px;
+      border-bottom: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+    }
+    .drop-slot.filled {
+      border-bottom: none;
+    }
+    .form-container { display: none; }
+    .completion-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      color: white;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      transition: background 0.8s;
+    }
+    .completion-overlay.faded {
+      background: #000;
+      transition: background 1.2s;
+    }
+    .completion-message {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      white-space: pre-wrap;
+      margin-top: -2cm;
+      margin-bottom: 2em;
+      z-index: 2;
+      position: relative;
+      display: inline-block;
+    }
+    .completion-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: white;
+      animation: blink 0.7s infinite;
+      vertical-align: bottom;
+      margin-left: 2px;
+    }
+    #zoho-campaigns-form {
+      opacity: 0;
+      transition: opacity 1.2s;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100vw;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow: auto;
+      padding: 2vw 0;
+    }
+    #zoho-campaigns-form.visible {
+      opacity: 1;
+    }
+    .zoho-form-inner-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+    }
+    #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 300px !important;
+      margin: 0 auto !important;
+      transform: scale(1.07);
+      transform-origin: top center;
+    }
+    @media (max-width: 900px) {
+      #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
+        transform: scale(1.13);
+        max-width: 100vw !important;
       }
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.1); opacity: 1; }
-      }
-      @keyframes blink {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
-      }
-      @keyframes glitch {
-        0% { transform: translate(1px, 0); opacity: 1; }
-        20% { transform: translate(-1px, 0); opacity: 0.7; }
-        40% { transform: translate(1px, 0); opacity: 1; }
-        60% { transform: translate(-1px, 0); opacity: 0.7; }
-        80% { transform: translate(1px, 0); opacity: 1; }
-        100% { transform: translate(0, 0); opacity: 1; }
-      }
-      .drop-zone {
-        display: none;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 20px;
-        flex-shrink: 0;
-      }
-      .drop-row {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .drop-slot {
-        width: 20px;
-        height: 24px;
-        border-bottom: 2px solid white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: white;
-      }
-      .drop-slot.filled {
-        border-bottom: none;
-      }
-      .form-container { display: none; }
-      .completion-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: black;
-        color: white;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        z-index: 9999;
-        transition: background 0.8s;
-      }
-      .completion-overlay.faded {
-        background: #000;
-        transition: background 1.2s;
-      }
-      .completion-message {
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-align: center;
-        white-space: pre-wrap;
-        margin-top: -2cm;
-        margin-bottom: 2em;
-        z-index: 2;
-        position: relative;
-        display: inline-block;
-      }
-      .completion-cursor {
-        display: inline-block;
-        width: 10px;
-        height: 1em;
-        background-color: white;
-        animation: blink 0.7s infinite;
-        vertical-align: bottom;
-        margin-left: 2px;
+    }
+    @media (max-width: 600px) {
+      #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
+        transform: scale(1.22);
+        max-width: 100vw !important;
+        min-width: 210px !important;
+        margin-top: 0.5vh;
       }
       #zoho-campaigns-form {
-        opacity: 0;
-        transition: opacity 1.2s;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        width: 100vw;
-        min-height: 100vh;
-        box-sizing: border-box;
-        overflow: auto;
-        padding: 2vw 0;
+        padding: 0 0vw !important;
+        align-items: flex-start !important;
       }
-      #zoho-campaigns-form.visible {
-        opacity: 1;
-      }
-      .zoho-form-inner-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        width: 100%;
-      }
+    }
+    @media (max-width: 400px) {
       #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        min-width: 300px !important;
-        margin: 0 auto !important;
-        transform: scale(1.07);
-        transform-origin: top center;
+        transform: scale(1.09);
       }
-      @media (max-width: 900px) {
-        #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-          transform: scale(1.13);
-          max-width: 100vw !important;
-        }
-      }
-      @media (max-width: 600px) {
-        #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-          transform: scale(1.22);
-          max-width: 100vw !important;
-          min-width: 210px !important;
-          margin-top: 0.5vh;
-        }
-        #zoho-campaigns-form {
-          padding: 0 0vw !important;
-          align-items: flex-start !important;
-        }
-      }
-      @media (max-width: 400px) {
-        #zoho-campaigns-form .zoho-form-inner-wrapper > div[id^="sf"] {
-          transform: scale(1.09);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="crt" id="riddle-box">
-      <div style="font-family:OCR A Std; text-align: center;" id="riddle-text"></div>
+    }
+  </style>
+</head>
+<body>
+  <div class="crt" id="riddle-box">
+    <div id="riddle-text">
+They built a house on shifting sand,
+Then sold the myth with sleight of hand.
+Truth trades hands behind closed doors,
+Sanitized for distant shores.
+The loudest claim "It’s all just fine",
+While cracks appear in every line.
+Eyes wide shut, we seek the key,
+Solve the puzzle and begin to see.
     </div>
-    <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
-    <div style="font-family:OCR A Std" class="drop-zone" id="drop-zone">
-      <div style="font-family:OCR A Std" class="drop-row" id="row1"></div>
-      <div style="font-family:OCR A Std" class="drop-row" id="row2"></div>
-    </div>
-    <div class="form-container" id="form-container" style="display:none"></div>
-    <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
-      <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
-      <div id="zoho-campaigns-form" style="display:none;">
-        <div class="zoho-form-inner-wrapper">
+  </div>
+  <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
+  <div style="font-family:OCR A Std" class="drop-zone" id="drop-zone">
+    <div style="font-family:OCR A Std" class="drop-row" id="row1"></div>
+    <div style="font-family:OCR A Std" class="drop-row" id="row2"></div>
+  </div>
+  <div class="form-container" id="form-container" style="display:none"></div>
+  <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
+    <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
+    <div id="zoho-campaigns-form" style="display:none;">
+      <div class="zoho-form-inner-wrapper">
 <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
@@ -321,7 +374,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
   <input type="hidden" id="isRecapIntegDone" value="false">
   <input type="hidden" id="signupFormType" value="LargeForm_Vertical">
   <div id="customForm">
-    <div name="SIGNUP_PAGE" class="large_form_3_css" id="SIGNUP_PAGE" style="padding: 10px 30px 10px; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); text-align: center; font-size: 14px; min-width: 240px;">
+    <div name="SIGNUP_PAGE" class="large_form_3_css" id="SIGNUP_PAGE" style="padding: 2px 30px 10px; background-color: rgb(0, 0, 0); font-family: Courier New; color: rgb(255, 255, 255); text-align: center; font-size: 14px; min-width: 240px;">
       <div name="" changeid="" changename="" style="margin:0px auto">
         <div id="imgBlock" name="LOGO_DIV" logo="true" style="width: 600px; margin: 0px auto; padding-bottom: 10px; font-family: Arial, Helvetica, sans-serif; color: rgb(68, 68, 68); text-align: center; font-size: 12px; padding-top: 10px; font-weight: bold;"></div>
       </div>
@@ -357,29 +410,29 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
                     <div style="font-size:12px; margin-top:10px;" name="fieldsdivSf" class="zcsffieldsdiv">
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000015">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
                         </div>
                         <div style="clear:both"></div>
                       </div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000019">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="First Name" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="First Name" name="FIRSTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_FIRSTNAME">1,true,1,First Name,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000021">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="Last Name" name="LASTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="50" placeholder="Last Name" name="LASTNAME" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_LASTNAME">1,true,1,Last Name,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000041">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Country" name="COUNTRY" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
+                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Country" name="COUNTRY" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;<span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_COUNTRY">1,true,1,Country,2</span>
                         </div><div style="clear:both"></div></div>
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000027">
                         <div style="">
-                          <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="20" placeholder="Mobile Phone" name="PHONE" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;
+                          <input style="height: 28px; padding: 10px; width: 97%; color: #111; background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="20" placeholder="Mobile Phone" name="PHONE" changeitem="SIGNUP_FORM_FIELD" type="text">&nbsp;
                           <span style="display:none" id="dt_PHONE">1,false,1,Phone,2</span>
                         </div><div style="clear:both"></div></div>
                     </div>
@@ -441,12 +494,14 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
   <div id="zcOptinSuccessPanel"></div>
 </div>
 <!--Zoho Campaigns Web-Optin Form Ends Here-->
-        </div>
       </div>
     </div>
-    <script>
-      // Typewriter effect for riddle text
-      const riddle = `They built a house on shifting sand,
+  </div>
+  <script>
+    // Typewriter effect for riddle text (but since we use pre-formatted, it's instant)
+    // If you still want the typewriter effect, replace the #riddle-text above with a blank div and uncomment this block:
+    /*
+    const riddle = `They built a house on shifting sand,
 Then sold the myth with sleight of hand.
 Truth trades hands behind closed doors,
 Sanitized for distant shores.
@@ -454,241 +509,231 @@ The loudest claim "It’s all just fine",
 While cracks appear in every line.
 Eyes wide shut, we seek the key,
 Solve the puzzle and begin to see.`;
-
-      const riddleText = document.getElementById("riddle-text");
-      let riddleIndex = 0;
-      let riddleTyped = "";
-      function updateRiddleDisplay() {
-        riddleText.innerHTML = riddleTyped.replace(/\n/g, "<br>") + '<span class="cursor" id="riddle-cursor"></span>';
+    const riddleText = document.getElementById("riddle-text");
+    let riddleIndex = 0;
+    let riddleTyped = "";
+    function updateRiddleDisplay() {
+      riddleText.innerHTML = riddleTyped.replace(/\n/g, "<br>") + '<span class="cursor" id="riddle-cursor"></span>';
+    }
+    function typeRiddle() {
+      if (riddleIndex < riddle.length) {
+        riddleTyped += riddle[riddleIndex];
+        updateRiddleDisplay();
+        riddleIndex++;
+        setTimeout(typeRiddle, 40);
+      } else {
+        updateRiddleDisplay();
+        setTimeout(() => {
+          const lettersContainer = document.getElementById("letters-container");
+          const dropZone = document.getElementById("drop-zone");
+          lettersContainer.style.display = "block";
+          initializeDropZones();
+          dropZone.style.display = "flex";
+        }, 300);
       }
-      function typeRiddle() {
-        if (riddleIndex < riddle.length) {
-          riddleTyped += riddle[riddleIndex];
-          updateRiddleDisplay();
-          riddleIndex++;
-          setTimeout(typeRiddle, 40);
+    }
+    typeRiddle();
+    */
+    // --- Scramble logic ---
+    const phrase = "CAN YOU HANDLE THE TRUTH?";
+    const cleanPhrase = phrase.replace(/\s/g, "");
+    const letters = cleanPhrase.split("").sort(() => Math.random() - 0.5);
+    const container = document.getElementById("letters-container");
+    let correctCount = 0;
+    function addSlots(row, text) {
+      for (const char of text) {
+        if (char === " ") {
+          const spacer = document.createElement("div");
+          spacer.style.width = "15px";
+          row.appendChild(spacer);
         } else {
-          updateRiddleDisplay();
-          setTimeout(() => {
-            const lettersContainer = document.getElementById("letters-container");
-            const dropZone = document.getElementById("drop-zone");
-            lettersContainer.style.display = "block";
-            initializeDropZones();
-            dropZone.style.display = "flex";
-          }, 300);
+          const slot = document.createElement("div");
+          slot.classList.add("drop-slot");
+          row.appendChild(slot);
         }
       }
-      typeRiddle();
-
-      // Word Scramble Game Setup
-      const phrase = "CAN YOU HANDLE THE TRUTH?";
-      const cleanPhrase = phrase.replace(/\s/g, "");
-      const letters = cleanPhrase.split("").sort(() => Math.random() - 0.5);
-      const container = document.getElementById("letters-container");
-      let correctCount = 0;
-
-      function addSlots(row, text) {
-        for (const char of text) {
-          if (char === " ") {
-            const spacer = document.createElement("div");
-            spacer.style.width = "15px";
-            row.appendChild(spacer);
-          } else {
-            const slot = document.createElement("div");
-            slot.classList.add("drop-slot");
-            row.appendChild(slot);
+    }
+    function initializeDropZones() {
+      const dropZone = document.getElementById("drop-zone");
+      dropZone.innerHTML = "";
+      if (window.innerWidth < 768) {
+        const row1 = document.createElement("div");
+        row1.classList.add("drop-row");
+        row1.id = "row1";
+        const row2 = document.createElement("div");
+        row2.classList.add("drop-row");
+        row2.id = "row2";
+        const row3 = document.createElement("div");
+        row3.classList.add("drop-row");
+        row3.id = "row3";
+        dropZone.appendChild(row1);
+        dropZone.appendChild(row2);
+        dropZone.appendChild(row3);
+        addSlots(row1, "CAN YOU");
+        addSlots(row2, "HANDLE");
+        addSlots(row3, "THE TRUTH?");
+      } else {
+        const row1 = document.createElement("div");
+        row1.classList.add("drop-row");
+        row1.id = "row1";
+        const row2 = document.createElement("div");
+        row2.classList.add("drop-row");
+        row2.id = "row2";
+        dropZone.appendChild(row1);
+        dropZone.appendChild(row2);
+        addSlots(row1, "CAN YOU HANDLE");
+        addSlots(row2, "THE TRUTH?");
+      }
+    }
+    const letterPositions = [];
+    function getRandomPosition() {
+      let position;
+      let isOverlap = true;
+      while (isOverlap) {
+        position = {
+          x: Math.random() * 90,
+          y: Math.random() * 90,
+        };
+        isOverlap = letterPositions.some(
+          (p) =>
+            Math.abs(p.x - position.x) < 10 &&
+            Math.abs(p.y - position.y) < 10
+        );
+      }
+      letterPositions.push(position);
+      return position;
+    }
+    let currentLetter = null;
+    let pointerOffsetX = 0, pointerOffsetY = 0;
+    function onPointerDown(event) {
+      currentLetter = event.target;
+      if (!currentLetter.dataset.origLeft) {
+        currentLetter.dataset.origLeft = currentLetter.style.left;
+        currentLetter.dataset.origTop = currentLetter.style.top;
+      }
+      currentLetter.setPointerCapture(event.pointerId);
+      const letterRect = currentLetter.getBoundingClientRect();
+      pointerOffsetX = event.clientX - letterRect.left;
+      pointerOffsetY = event.clientY - letterRect.top;
+      currentLetter.style.zIndex = 1000;
+      currentLetter.addEventListener("pointermove", onPointerMove);
+      currentLetter.addEventListener("pointerup", onPointerUp);
+      currentLetter.addEventListener("pointercancel", onPointerUp);
+    }
+    function onPointerMove(event) {
+      if (!currentLetter) return;
+      const containerRect = container.getBoundingClientRect();
+      let newLeft = event.clientX - containerRect.left - pointerOffsetX;
+      let newTop = event.clientY - containerRect.top - pointerOffsetY;
+      currentLetter.style.left = `${newLeft}px`;
+      currentLetter.style.top = `${newTop}px`;
+    }
+    function onPointerUp(event) {
+      if (!currentLetter) return;
+      const letterRect = currentLetter.getBoundingClientRect();
+      const letterCenterX = letterRect.left + letterRect.width / 2;
+      const letterCenterY = letterRect.top + letterRect.height / 2;
+      let dropped = false;
+      const slots = document.querySelectorAll(".drop-slot");
+      slots.forEach((slot, index) => {
+        const slotRect = slot.getBoundingClientRect();
+        if (
+          letterCenterX >= slotRect.left &&
+          letterCenterX <= slotRect.right &&
+          letterCenterY >= slotRect.top &&
+          letterCenterY <= slotRect.bottom &&
+          !slot.classList.contains("filled")
+        ) {
+          const correctChar = cleanPhrase[index];
+          if (currentLetter.textContent === correctChar) {
+            slot.textContent = currentLetter.textContent;
+            slot.classList.add("filled");
+            slot.style.animation = "glitch 0.3s ease-out";
+            setTimeout(() => {
+              slot.style.animation = "";
+            }, 300);
+            currentLetter.style.display = "none";
+            correctCount++;
+            dropped = true;
           }
         }
-      }
-
-      function initializeDropZones() {
-        const dropZone = document.getElementById("drop-zone");
-        dropZone.innerHTML = "";
-        if (window.innerWidth < 768) {
-          const row1 = document.createElement("div");
-          row1.classList.add("drop-row");
-          row1.id = "row1";
-          const row2 = document.createElement("div");
-          row2.classList.add("drop-row");
-          row2.id = "row2";
-          const row3 = document.createElement("div");
-          row3.classList.add("drop-row");
-          row3.id = "row3";
-          dropZone.appendChild(row1);
-          dropZone.appendChild(row2);
-          dropZone.appendChild(row3);
-          addSlots(row1, "CAN YOU");
-          addSlots(row2, "HANDLE");
-          addSlots(row3, "THE TRUTH?");
-        } else {
-          const row1 = document.createElement("div");
-          row1.classList.add("drop-row");
-          row1.id = "row1";
-          const row2 = document.createElement("div");
-          row2.classList.add("drop-row");
-          row2.id = "row2";
-          dropZone.appendChild(row1);
-          dropZone.appendChild(row2);
-          addSlots(row1, "CAN YOU HANDLE");
-          addSlots(row2, "THE TRUTH?");
-        }
-      }
-
-      const letterPositions = [];
-      function getRandomPosition() {
-        let position;
-        let isOverlap = true;
-        while (isOverlap) {
-          position = {
-            x: Math.random() * 90,
-            y: Math.random() * 90,
-          };
-          isOverlap = letterPositions.some(
-            (p) =>
-              Math.abs(p.x - position.x) < 10 &&
-              Math.abs(p.y - position.y) < 10
-          );
-        }
-        letterPositions.push(position);
-        return position;
-      }
-
-      let currentLetter = null;
-      let pointerOffsetX = 0, pointerOffsetY = 0;
-      function onPointerDown(event) {
-        currentLetter = event.target;
-        if (!currentLetter.dataset.origLeft) {
-          currentLetter.dataset.origLeft = currentLetter.style.left;
-          currentLetter.dataset.origTop = currentLetter.style.top;
-        }
-        currentLetter.setPointerCapture(event.pointerId);
-        const letterRect = currentLetter.getBoundingClientRect();
-        pointerOffsetX = event.clientX - letterRect.left;
-        pointerOffsetY = event.clientY - letterRect.top;
-        currentLetter.style.zIndex = 1000;
-        currentLetter.addEventListener("pointermove", onPointerMove);
-        currentLetter.addEventListener("pointerup", onPointerUp);
-        currentLetter.addEventListener("pointercancel", onPointerUp);
-      }
-
-      function onPointerMove(event) {
-        if (!currentLetter) return;
-        const containerRect = container.getBoundingClientRect();
-        let newLeft = event.clientX - containerRect.left - pointerOffsetX;
-        let newTop = event.clientY - containerRect.top - pointerOffsetY;
-        currentLetter.style.left = `${newLeft}px`;
-        currentLetter.style.top = `${newTop}px`;
-      }
-
-      function onPointerUp(event) {
-        if (!currentLetter) return;
-        const letterRect = currentLetter.getBoundingClientRect();
-        const letterCenterX = letterRect.left + letterRect.width / 2;
-        const letterCenterY = letterRect.top + letterRect.height / 2;
-        let dropped = false;
-        const slots = document.querySelectorAll(".drop-slot");
-        slots.forEach((slot, index) => {
-          const slotRect = slot.getBoundingClientRect();
-          if (
-            letterCenterX >= slotRect.left &&
-            letterCenterX <= slotRect.right &&
-            letterCenterY >= slotRect.top &&
-            letterCenterY <= slotRect.bottom &&
-            !slot.classList.contains("filled")
-          ) {
-            const correctChar = cleanPhrase[index];
-            if (currentLetter.textContent === correctChar) {
-              slot.textContent = currentLetter.textContent;
-              slot.classList.add("filled");
-              slot.style.animation = "glitch 0.3s ease-out";
-              setTimeout(() => {
-                slot.style.animation = "";
-              }, 300);
-              currentLetter.style.display = "none";
-              correctCount++;
-              dropped = true;
-            }
-          }
-        });
-        if (!dropped) {
-          currentLetter.style.left = currentLetter.dataset.origLeft;
-          currentLetter.style.top = currentLetter.dataset.origTop;
-        }
-        currentLetter.style.zIndex = "";
-        currentLetter.removeEventListener("pointermove", onPointerMove);
-        currentLetter.removeEventListener("pointerup", onPointerUp);
-        currentLetter.removeEventListener("pointercancel", onPointerUp);
-        currentLetter = null;
-        if (correctCount === cleanPhrase.length) {
-          setTimeout(() => {
-            document.getElementById("completion-overlay").style.display = "flex";
-            const finalMsg = document.getElementById("final-message");
-            const text = "you persevered, where most don’t even try...";
-            let idx = 0;
-            function updateFinalDisplay(typed) {
-              finalMsg.innerHTML = typed + '<span class="completion-cursor" id="final-cursor"></span>';
-            }
-            function typeFinal() {
-              if (idx < text.length) {
-                updateFinalDisplay(text.slice(0, idx + 1));
-                idx++;
-                setTimeout(typeFinal, 70);
-              } else {
-                updateFinalDisplay(text);
-                setTimeout(() => {
-                  document.getElementById("completion-overlay").classList.add("faded");
-                  setTimeout(() => {
-                    showZohoFormAfterFade();
-                    setTimeout(() => {
-                      const finalCursor = document.getElementById("final-cursor");
-                      if (finalCursor) finalCursor.style.display = "none";
-                    }, 1200);
-                  }, 800);
-                }, 1000);
-              }
-            }
-            typeFinal();
-          }, 500);
-        }
-      }
-
-      function showZohoFormAfterFade() {
-        var zohoForm = document.getElementById('zoho-campaigns-form');
-        if (zohoForm) {
-          zohoForm.style.display = 'flex';
-          setTimeout(() => {
-            zohoForm.classList.add('visible');
-            window.scrollTo({top: 0, behavior: 'auto'});
-            var firstInput = zohoForm.querySelector('input,select,textarea,button');
-            if (firstInput) firstInput.focus();
-          }, 50);
-        }
-      }
-
-      // Add pointer events to letters
-      letters.forEach((char, i) => {
-        const letter = document.createElement("div");
-        letter.classList.add("draggable-letter");
-        letter.textContent = char;
-        letter.dataset.index = i;
-        const { x, y } = getRandomPosition();
-        letter.style.left = `${x}%`;
-        letter.style.top = `${y}%`;
-        container.appendChild(letter);
-        letter.addEventListener("pointerdown", onPointerDown);
       });
-
-      const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
-      audio.loop = true;
-      function startAudio() {
-        audio.play().catch((err) => {
-          console.warn("Autoplay blocked:", err);
-        });
-        window.removeEventListener("click", startAudio);
-        window.removeEventListener("touchstart", startAudio);
+      if (!dropped) {
+        currentLetter.style.left = currentLetter.dataset.origLeft;
+        currentLetter.style.top = currentLetter.dataset.origTop;
       }
-      window.addEventListener("click", startAudio);
-      window.addEventListener("touchstart", startAudio);
-    </script>
-  </body>
+      currentLetter.style.zIndex = "";
+      currentLetter.removeEventListener("pointermove", onPointerMove);
+      currentLetter.removeEventListener("pointerup", onPointerUp);
+      currentLetter.removeEventListener("pointercancel", onPointerUp);
+      currentLetter = null;
+      if (correctCount === cleanPhrase.length) {
+        setTimeout(() => {
+          document.getElementById("completion-overlay").style.display = "flex";
+          const finalMsg = document.getElementById("final-message");
+          const text = "you persevered, where most don’t even try...";
+          let idx = 0;
+          function updateFinalDisplay(typed) {
+            finalMsg.innerHTML = typed + '<span class="completion-cursor" id="final-cursor"></span>';
+          }
+          function typeFinal() {
+            if (idx < text.length) {
+              updateFinalDisplay(text.slice(0, idx + 1));
+              idx++;
+              setTimeout(typeFinal, 70);
+            } else {
+              updateFinalDisplay(text);
+              setTimeout(() => {
+                document.getElementById("completion-overlay").classList.add("faded");
+                setTimeout(() => {
+                  showZohoFormAfterFade();
+                  setTimeout(() => {
+                    const finalCursor = document.getElementById("final-cursor");
+                    if (finalCursor) finalCursor.style.display = "none";
+                  }, 1200);
+                }, 800);
+              }, 1000);
+            }
+          }
+          typeFinal();
+        }, 500);
+      }
+    }
+    function showZohoFormAfterFade() {
+      var zohoForm = document.getElementById('zoho-campaigns-form');
+      if (zohoForm) {
+        zohoForm.style.display = 'flex';
+        setTimeout(() => {
+          zohoForm.classList.add('visible');
+          window.scrollTo({top: 0, behavior: 'auto'});
+          var firstInput = zohoForm.querySelector('input,select,textarea,button');
+          if (firstInput) firstInput.focus();
+        }, 50);
+      }
+    }
+    // Add pointer events to letters
+    letters.forEach((char, i) => {
+      const letter = document.createElement("div");
+      letter.classList.add("draggable-letter");
+      letter.textContent = char;
+      letter.dataset.index = i;
+      const { x, y } = getRandomPosition();
+      letter.style.left = `${x}%`;
+      letter.style.top = `${y}%`;
+      container.appendChild(letter);
+      letter.addEventListener("pointerdown", onPointerDown);
+    });
+    const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
+    audio.loop = true;
+    function startAudio() {
+      audio.play().catch((err) => {
+        console.warn("Autoplay blocked:", err);
+      });
+      window.removeEventListener("click", startAudio);
+      window.removeEventListener("touchstart", startAudio);
+    }
+    window.addEventListener("click", startAudio);
+    window.addEventListener("touchstart", startAudio);
+  </script>
+</body>
 </html>
