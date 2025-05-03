@@ -294,7 +294,8 @@
   </head>
   <body>
     <div class="crt" id="riddle-box">
-      <div style="font-family:OCR A Std" id="riddle-text"></div>
+      <div style="font-family:OCR A Std; text-align: center;" id="riddle-text"></div>
+      <!-- cursor will be injected by JS -->
     </div>
 
     <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
@@ -319,11 +320,11 @@
 
     <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
       <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
-      <!-- END ZOHO FORM -->
+      <!-- ZOHO FORM, etc. (unchanged) -->
     </div>
 
     <script>
-      // Typewriter effect for riddle text WITH FOLLOWING BLINKING CURSOR
+      // Typewriter effect for riddle text WITH FOLLOWING BLINKING CURSOR, NO LAYOUT CHANGES
       const riddle = `They built a house on shifting sand,
 Then sold the myth with sleight of hand.
 Truth trades hands behind closed doors,
@@ -336,10 +337,9 @@ Solve the puzzle and begin to see.`;
       const riddleText = document.getElementById("riddle-text");
       let riddleIndex = 0;
       let riddleTyped = "";
-      let riddleCursor;
       function updateRiddleDisplay() {
+        // This will ensure lines break as in the original, and text stays centered
         riddleText.innerHTML = riddleTyped.replace(/\n/g, "<br>") + '<span class="cursor" id="riddle-cursor"></span>';
-        riddleCursor = document.getElementById("riddle-cursor");
       }
       function typeRiddle() {
         if (riddleIndex < riddle.length) {
@@ -349,15 +349,13 @@ Solve the puzzle and begin to see.`;
           setTimeout(typeRiddle, 40);
         } else {
           updateRiddleDisplay();
-          // Only show letters-container and drop-zone after the riddle is fully displayed
           setTimeout(() => {
             const lettersContainer = document.getElementById("letters-container");
             const dropZone = document.getElementById("drop-zone");
-
-            lettersContainer.style.display = "block"; // Reveal scrambled letters
-            initializeDropZones(); // Initialize drop zones for mobile or desktop
-            dropZone.style.display = "flex"; // Show the drop zone
-          }, 300); // Slight delay after riddle completion for better UX
+            lettersContainer.style.display = "block";
+            initializeDropZones();
+            dropZone.style.display = "flex";
+          }, 300);
         }
       }
       typeRiddle();
@@ -369,7 +367,6 @@ Solve the puzzle and begin to see.`;
       const container = document.getElementById("letters-container");
       let correctCount = 0;
 
-      // Function to add drop slots to a row based on the text provided
       function addSlots(row, text) {
         for (const char of text) {
           if (char === " ") {
@@ -384,13 +381,10 @@ Solve the puzzle and begin to see.`;
         }
       }
 
-      // Initialize drop zones:
       function initializeDropZones() {
         const dropZone = document.getElementById("drop-zone");
-        dropZone.innerHTML = ""; // Clear any existing rows
-
+        dropZone.innerHTML = "";
         if (window.innerWidth < 768) {
-          // Mobile: Setup three rows
           const row1 = document.createElement("div");
           row1.classList.add("drop-row");
           row1.id = "row1";
@@ -407,7 +401,6 @@ Solve the puzzle and begin to see.`;
           addSlots(row2, "HANDLE");
           addSlots(row3, "THE TRUTH?");
         } else {
-          // Desktop: Two rows
           const row1 = document.createElement("div");
           row1.classList.add("drop-row");
           row1.id = "row1";
@@ -421,7 +414,6 @@ Solve the puzzle and begin to see.`;
         }
       }
 
-      // Avoid overlapping initial positions for letters:
       const letterPositions = [];
       function getRandomPosition() {
         let position;
@@ -441,7 +433,6 @@ Solve the puzzle and begin to see.`;
         return position;
       }
 
-      // Pointer Events for Drag & Drop
       let currentLetter = null;
       let pointerOffsetX = 0, pointerOffsetY = 0;
       function onPointerDown(event) {
@@ -513,14 +504,11 @@ Solve the puzzle and begin to see.`;
           setTimeout(() => {
             document.getElementById("completion-overlay").style.display = "flex";
             const finalMsg = document.getElementById("final-message");
-            // Cursor will be inserted as part of the typewriter effect below
             const text = "you persevered, where most don’t even try...";
             let idx = 0;
-
             function updateFinalDisplay(typed) {
               finalMsg.innerHTML = typed + '<span class="completion-cursor" id="final-cursor"></span>';
             }
-
             function typeFinal() {
               if (idx < text.length) {
                 updateFinalDisplay(text.slice(0, idx + 1));
@@ -549,7 +537,6 @@ Solve the puzzle and begin to see.`;
         }
       }
 
-      // Create draggable letters.
       letters.forEach((char, i) => {
         const letter = document.createElement("div");
         letter.classList.add("draggable-letter");
@@ -562,7 +549,6 @@ Solve the puzzle and begin to see.`;
         letter.addEventListener("pointerdown", onPointerDown);
       });
 
-      // Audio setup remains as before.
       const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
       audio.loop = true;
       function startAudio() {
