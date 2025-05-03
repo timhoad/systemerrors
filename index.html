@@ -39,14 +39,31 @@
         padding: 20px;
         color: white;
         font-size: 0.8rem;
-        width: 60vw;
-        max-width: 600px;
-        margin-top: 30px;
-        margin-bottom: 60px;
+        width: 600px;
+        max-width: 90vw;
+        margin: 30px auto 60px auto;
         position: relative;
         box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         text-align: center;
         box-sizing: border-box;
+        display: block;
+      }
+      @media (max-width: 650px) {
+        .crt {
+          width: 99vw;
+          max-width: 99vw;
+          min-width: 320px;
+          padding: 12px 2vw;
+          font-size: 0.74rem;
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+      @media (max-width: 420px) {
+        .crt {
+          font-size: 0.69rem;
+          min-width: 220px;
+        }
       }
       .cursor {
         display: inline-block;
@@ -223,10 +240,9 @@
     <div class="form-container" id="form-container" style="display:none"></div>
     <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
       <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
-      <!-- ZOHO FORM EMBED STARTS HERE -->
       <div id="zoho-campaigns-form" style="display:none;">
         <div class="zoho-form-inner-wrapper">
-          <!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
+          <!-- Start Zoho Embed -->
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
 <script type="text/javascript">
@@ -235,7 +251,6 @@
   };
 </script>
 <style>
-/* -- Zoho form CSS as pasted from your code -- */
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #customForm *:not(.dateClass){
 -webkit-box-sizing: border-box !important;
 -moz-box-sizing: border-box !important;
@@ -250,7 +265,6 @@ box-sizing: unset !important;
 word-break:break-word;
 overflow-wrap: break-word;
 }
-/*** RESPONSIVE START */
 @media only screen and (max-width: 200px){
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
 width:220px !important;
@@ -281,7 +295,6 @@ margin: 0px auto !important;
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
 transform:scale(0.72);-webkit-transform:scale(0.55);transform-origin:0 0;-webkit-transform-origin:0 0;}
 }
-/* Desktops and laptops ----------- */
 @media only screen  and (min-width : 1224px) {
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
 width:600px !important;
@@ -291,7 +304,6 @@ margin: 0px auto !important;
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
 transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
 }
-/* Large Screens */
 @media only screen  and (min-width : 1824px) {
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
 width:600px !important;
@@ -301,7 +313,6 @@ margin: 0px auto !important;
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
 transform:scale(1.03);-webkit-transform:scale(1.08);transform-origin:0 0;-webkit-transform-origin:0 0;}
 }
-/* iPads (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 601px) and (max-device-width : 1024px) {
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf #signupMainDiv{
 width:600px !important;
@@ -311,13 +322,10 @@ margin: 0px auto !important;
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .recaptcha{
 transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit-transform-origin:0 0;}
 }
-/*** RESPONSIVE END */
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm_hover{background-color:#f9f9f9; padding:10px;}
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .bdr_btm{padding:10px }
 #sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf .f14{font-size:14px}
 </style>
-<!--Zoho Campaigns Web-Optin Form's Header Code Ends Here--><!--Zoho Campaigns Web-Optin Form Starts Here-->
-
 <div id="sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf" data-type="signupform">
   <input type="hidden" id="recapTheme" value="2">
   <input type="hidden" id="isRecapIntegDone" value="false">
@@ -358,7 +366,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
                   <div>
                     <div style="font-size:12px; margin-top:10px;" name="fieldsdivSf" class="zcsffieldsdiv">
                       <div style="padding:10px 0px 10px 0px;" class="zcsffield " fieldid="235394000000000015">
-                        <div style=""><!-- check to mark emailid field as type email, and other mandatory fields as type required -->
+                        <div style="">
                           <input style="height: 28px; padding: 10px; width: 97%; color: rgb(0, 0, 0); background-color: rgb(206, 206, 206); border: 1px solid rgb(206, 206, 206); font-family: Courier New; text-indent: 5px; font-size: 13px; box-sizing: border-box;" maxlength="100" placeholder="Email" name="CONTACT_EMAIL" changeitem="SIGNUP_FORM_FIELD" type="email">&nbsp;
                           <span name="SIGNUP_REQUIRED" style="color: rgb(255, 0, 0); font-size: 13px; font-family: Courier New;">*</span>
                           <span style="display:none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
@@ -443,7 +451,7 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
   </span>
   <div id="zcOptinSuccessPanel"></div>
 </div>
-<!--Zoho Campaigns Web-Optin Form Ends Here-->
+<!-- End Zoho Embed -->
         </div>
       </div>
     </div>
