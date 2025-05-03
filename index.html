@@ -55,17 +55,19 @@
         width: 100%;
         vertical-align: top;
       }
-      .cursor,
-      .completion-cursor {
-        display: inline-block;
-        width: 10px;
-        height: 1em;
-        background-color: white;
-        animation: blink 0.7s infinite;
+      .blink-cursor {
+        display: inline;
+        font-family: inherit;
+        color: white;
+        font-weight: bold;
+        font-size: 1em;
+        animation: blink-cursor 1s steps(1) infinite;
         vertical-align: bottom;
         margin-left: 2px;
+        user-select: none;
+        pointer-events: none;
       }
-      @keyframes blink {
+      @keyframes blink-cursor {
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
       }
@@ -293,7 +295,7 @@
   <body>
     <div class="crt" id="riddle-box">
       <span class="typewriter-container">
-        <span id="riddle-text"></span><span class="cursor" id="riddle-cursor"></span>
+        <span id="riddle-text"></span><span id="riddle-cursor" class="blink-cursor">|</span>
       </span>
     </div>
 
@@ -319,11 +321,11 @@
 
     <div style="font-family:OCR A Std" class="completion-overlay" id="completion-overlay">
       <span class="typewriter-container">
-        <span class="completion-message" id="final-message"></span><span class="completion-cursor" id="final-cursor"></span>
+        <span class="completion-message" id="final-message"></span><span id="final-cursor" class="blink-cursor">|</span>
       </span>
       <!-- ZOHO CAMPAIGNS FORM (hidden by default, revealed after fade) -->
       <div id="zoho-campaigns-form" style="display:none; width:100%; max-width:600px; margin:0 auto;">
-        <!-- FULL ZOHO FORM CODE GOES HERE (AS IN YOUR ORIGINAL 717-LINE FILE) -->
+        <!-- YOUR FULL ZOHO FORM GOES HERE -->
       </div>
       <!-- END ZOHO FORM -->
     </div>
@@ -339,7 +341,6 @@ While cracks appear in every line.
 Eyes wide shut, we seek the key,
 Solve the puzzle and begin to see.`;
       const riddleText = document.getElementById("riddle-text");
-      const riddleCursor = document.getElementById("riddle-cursor");
       let riddleIndex = 0;
       function typeRiddle() {
         if (riddleIndex < riddle.length) {
@@ -542,11 +543,10 @@ Solve the puzzle and begin to see.`;
       // FINAL MESSAGE TYPEWRITER
       function showFinalMessage() {
         const finalMsg = document.getElementById("final-message");
-        const finalCursor = document.getElementById("final-cursor");
         const text = "you persevered, where most don’t even try...";
         let idx = 0;
         finalMsg.textContent = "";
-        finalCursor.style.display = "inline-block";
+        document.getElementById("final-cursor").style.display = "inline";
         function typeFinal() {
           if (idx < text.length) {
             finalMsg.textContent += text[idx];
@@ -561,7 +561,7 @@ Solve the puzzle and begin to see.`;
                 zohoForm.classList.add('visible');
               }, 50);
               setTimeout(() => {
-                finalCursor.style.display = "none";
+                document.getElementById("final-cursor").style.display = "none";
               }, 1200);
             }, 1500);
           }
