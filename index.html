@@ -50,14 +50,15 @@
           font-size: 0.69rem;
         }
       }
-      /* AMENDMENT: MOBILE riddle box - force each riddle line to a single line, shrink font if needed */
+      /* AMENDMENT: MOBILE riddle box - increase font size for riddle text */
       @media (max-width: 600px) {
         #riddle-text {
-          font-size: 0.56rem;
-          white-space: pre;
-          overflow-x: auto;
-          display: block;
-          max-width: 100vw;
+          font-size: 0.72rem; /* Increased from previous smaller size */
+          white-space: normal;
+          word-break: break-word;
+          overflow-wrap: break-word;
+          text-align: center;
+          max-width: 100%;
         }
       }
       .cursor {
@@ -237,7 +238,6 @@
       <div style="font-family:OCR A Std; display:inline-block;" class="completion-message" id="final-message"></div>
       <div id="zoho-campaigns-form" style="display:none;">
         <div class="zoho-form-inner-wrapper">
-<!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
 <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3zbe03df9d942164034b7a52413ddd2de2d8307e7c4e1dabf9b3993994fac09cdf','ZCFORMVIEW',false,'acc',false,'2')"></script>
 <script type="text/javascript">
