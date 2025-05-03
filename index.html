@@ -58,33 +58,15 @@
         animation: blink 0.7s infinite;
         vertical-align: bottom;
       }
-      /* --- CHANGE 1: Force riddle lines to single line on mobile --- */
+      /* --- Only change: force riddle lines to single line --- */
       @media (max-width: 600px) {
-        #riddle-text .riddle-line {
+        #riddle-text {
+          overflow-x: auto;
+        }
+        #riddle-text span {
           display: block;
           white-space: nowrap;
-          overflow-x: auto;
           text-align: left;
-          font-size: 1rem;
-          letter-spacing: 0.01em;
-          width: 100%;
-        }
-        #riddle-box {
-          min-width: 0;
-          width: 340px;
-          max-width: 99vw;
-          font-size: 0.92rem;
-          padding-left: 0;
-          padding-right: 0;
-        }
-      }
-      @media (max-width: 370px) {
-        #riddle-box {
-          width: 99vw;
-          font-size: 0.83rem;
-        }
-        #riddle-text .riddle-line {
-          font-size: 0.9rem;
         }
       }
       .letters-container {
@@ -244,16 +226,7 @@
   </head>
   <body>
     <div class="crt" id="riddle-box">
-      <div style="font-family:OCR A Std; text-align: center;" id="riddle-text">
-        <span class="riddle-line">They built a house on shifting sand,</span><br>
-        <span class="riddle-line">Then sold the myth with sleight of hand.</span><br>
-        <span class="riddle-line">Truth trades hands behind closed doors,</span><br>
-        <span class="riddle-line">Sanitized for distant shores.</span><br>
-        <span class="riddle-line">The loudest claim "It’s all just fine",</span><br>
-        <span class="riddle-line">While cracks appear in every line.</span><br>
-        <span class="riddle-line">Eyes wide shut, we seek the key,</span><br>
-        <span class="riddle-line">Solve the puzzle and begin to see.</span>
-      </div>
+      <div style="font-family:OCR A Std; text-align: center;" id="riddle-text"></div>
     </div>
     <div style="font-family:OCR A Std" class="letters-container" id="letters-container"></div>
     <div style="font-family:OCR A Std" class="drop-zone" id="drop-zone">
@@ -483,6 +456,44 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
       </div>
     </div>
     <script>
+      // Typewriter effect for riddle text
+      const riddle = `They built a house on shifting sand,
+Then sold the myth with sleight of hand.
+Truth trades hands behind closed doors,
+Sanitized for distant shores.
+The loudest claim "It’s all just fine",
+While cracks appear in every line.
+Eyes wide shut, we seek the key,
+Solve the puzzle and begin to see.`;
+
+      const riddleText = document.getElementById("riddle-text");
+      let riddleIndex = 0;
+      let riddleTyped = "";
+      function updateRiddleDisplay() {
+        // wrap each line in a span for CSS
+        const lines = riddleTyped.replace(/\n/g, "\n").split('\n');
+        riddleText.innerHTML = lines.map(line => `<span>${line}</span>`).join('<br>') +
+          '<span class="cursor" id="riddle-cursor"></span>';
+      }
+      function typeRiddle() {
+        if (riddleIndex < riddle.length) {
+          riddleTyped += riddle[riddleIndex];
+          updateRiddleDisplay();
+          riddleIndex++;
+          setTimeout(typeRiddle, 40);
+        } else {
+          updateRiddleDisplay();
+          setTimeout(() => {
+            const lettersContainer = document.getElementById("letters-container");
+            const dropZone = document.getElementById("drop-zone");
+            lettersContainer.style.display = "block";
+            initializeDropZones();
+            dropZone.style.display = "flex";
+          }, 300);
+        }
+      }
+      typeRiddle();
+
       // Word Scramble Game Setup
       const phrase = "CAN YOU HANDLE THE TRUTH?";
       const cleanPhrase = phrase.replace(/\s/g, "");
@@ -692,11 +703,6 @@ transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit
       }
       window.addEventListener("click", startAudio);
       window.addEventListener("touchstart", startAudio);
-
-      // Initialize puzzle UI after DOMContentLoaded, since riddle is now static lines
-      window.onload = function() {
-        initializeDropZones();
-      };
     </script>
   </body>
 </html>
