@@ -22,6 +22,17 @@
         align-items: center;
         justify-content: flex-start;
       }
+      /* BEGIN: Prevent scroll on main puzzle page for mobile */
+      body.noscroll, html.noscroll {
+        overflow: hidden !important;
+        height: 100vh !important;
+        position: fixed !important;
+        width: 100vw !important;
+        overscroll-behavior: none;
+        touch-action: none;
+      }
+      /* END: Prevent scroll on main puzzle page for mobile */
+
       .crt {
         background: repeating-linear-gradient(
           to bottom,
@@ -169,6 +180,14 @@
     padding-left: 16px;
     padding-right: 16px;
     box-sizing: border-box;
+  }
+  /* Reduce padding between riddle and letters on mobile */
+  .crt {
+    margin-bottom: 12px !important;
+    padding-bottom: 12px !important;
+  }
+  .letters-container {
+    margin-top: 0 !important;
   }
 }
       .completion-cursor {
@@ -447,6 +466,12 @@ Solve the puzzle and begin to see.`;
             initializeDropZones();
             dropZone.style.display = "flex";
           }, 300);
+
+          // --- LOCK BODY SCROLL ON MOBILE/SMALL SCREENS ---
+          if (window.innerWidth <= 650) {
+            document.body.classList.add('noscroll');
+            document.documentElement.classList.add('noscroll');
+          }
         }
       }
       typeRiddle();
@@ -620,6 +645,10 @@ Solve the puzzle and begin to see.`;
             }
             typeFinal();
           }, 500);
+
+          // --- UNLOCK BODY SCROLL when puzzle is completed ---
+          document.body.classList.remove('noscroll');
+          document.documentElement.classList.remove('noscroll');
         }
       }
 
