@@ -22,6 +22,58 @@
         align-items: center;
         justify-content: flex-start;
       }
+
+      /* Background Video Container */
+      .video-background-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .background-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+      }
+
+      /* Portrait orientation */
+      .background-video.portrait {
+        display: none;
+      }
+
+      /* Landscape orientation */
+      .background-video.landscape {
+        display: none;
+      }
+
+      /* Show portrait video on portrait screens */
+      @media (orientation: portrait) {
+        .background-video.portrait {
+          display: block;
+        }
+        .background-video.landscape {
+          display: none;
+        }
+      }
+
+      /* Show landscape video on landscape screens */
+      @media (orientation: landscape) {
+        .background-video.portrait {
+          display: none;
+        }
+        .background-video.landscape {
+          display: block;
+        }
+      }
+
       /* BEGIN: Prevent scroll on main puzzle page for mobile */
       body.noscroll, html.noscroll {
         overflow: hidden !important;
@@ -50,6 +102,8 @@
         text-align: center;
         box-sizing: border-box;
         display: block;
+        position: relative;
+        z-index: 1;
       }
       #riddle-text {
         font-size: 0.65rem;
@@ -89,6 +143,7 @@
         height: 30vh;
         margin-bottom: 10px;
         display: none;
+        z-index: 1;
       }
       .draggable-letter {
         position: absolute;
@@ -122,6 +177,8 @@
         gap: 8px;
         margin-bottom: 20px;
         flex-shrink: 0;
+        position: relative;
+        z-index: 1;
       }
       .drop-row {
         display: flex;
@@ -210,6 +267,8 @@
         box-sizing: border-box;
         overflow: auto;
         padding: 2vw 0;
+        position: relative;
+        z-index: 10000;
       }
       #zoho-campaigns-form.visible {
         opacity: 1;
@@ -254,6 +313,18 @@
     </style>
   </head>
   <body>
+    <!-- Background Video Container -->
+    <div class="video-background-container">
+      <video class="background-video portrait" autoplay muted loop playsinline>
+        <source src="handportrait.mov" type="video/quicktime">
+        Your browser does not support the video tag.
+      </video>
+      <video class="background-video landscape" autoplay muted loop playsinline>
+        <source src="handlandscape.mov" type="video/quicktime">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
     <div class="crt" id="riddle-box">
       <div style="font-family:OCR A Std; text-align: center;" id="riddle-text"></div>
     </div>
@@ -433,6 +504,29 @@
       </div>
     </div>
     <script>
+      // Handle orientation changes and video switching
+      function handleOrientationChange() {
+        const portraitVideo = document.querySelector('.background-video.portrait');
+        const landscapeVideo = document.querySelector('.background-video.landscape');
+        
+        if (window.matchMedia("(orientation: portrait)").matches) {
+          portraitVideo.style.display = 'block';
+          landscapeVideo.style.display = 'none';
+          portraitVideo.play().catch(err => console.log('Portrait video play error:', err));
+        } else {
+          portraitVideo.style.display = 'none';
+          landscapeVideo.style.display = 'block';
+          landscapeVideo.play().catch(err => console.log('Landscape video play error:', err));
+        }
+      }
+
+      // Listen for orientation changes
+      window.addEventListener('orientationchange', handleOrientationChange);
+      window.addEventListener('resize', handleOrientationChange);
+      
+      // Initial setup
+      handleOrientationChange();
+
       // Typewriter effect for riddle text
       const riddle = `They built the system on shifting sand,
 Then sold the myth with sleight of hand.
@@ -619,7 +713,7 @@ Solve the puzzle and begin to see.`;
           setTimeout(() => {
             document.getElementById("completion-overlay").style.display = "flex";
             const finalMsg = document.getElementById("final-message");
-            const text = "you persevered, where most don’t even try...";
+            const text = "you persevered, where most don't even try...";
             let idx = 0;
             function updateFinalDisplay(typed) {
               finalMsg.innerHTML = typed + '<span class="completion-cursor" id="final-cursor"></span>';
