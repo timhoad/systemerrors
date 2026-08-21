@@ -329,51 +329,37 @@
 @media (max-width: 600px) {
 
   #zcOptinSuccessPopup {
-  display: none;
-  position: fixed !important;
-  z-index: 99999 !important;
+    position: fixed !important;
 
-  width: 520px !important;
-  max-width: calc(100vw - 40px) !important;
-  height: 300px !important;
-  max-height: calc(100vh - 40px) !important;
-
-  top: 50% !important;
-  left: 50% !important;
-  right: auto !important;
-  bottom: auto !important;
-
-  transform: translate(-50%, -50%) !important;
-
-  box-sizing: border-box !important;
-  overflow: visible !important;
-
-  background-color: #FFFFFF !important;
-  border: 1px solid #E6E6E6 !important;
-  box-shadow: 0 1px 10px #424242 !important;
-
-  padding: 50px !important;
-}
-
-@media (max-width: 600px) {
-  #zcOptinSuccessPopup {
     width: calc(100vw - 30px) !important;
     max-width: calc(100vw - 30px) !important;
 
-    height: 340px !important;
+    height: 300px !important;
+    min-height: 300px !important;
     max-height: calc(100vh - 30px) !important;
 
-    top: 50% !important;
-    left: 50% !important;
+    top: 50vh !important;
+    left: 50vw !important;
     right: auto !important;
     bottom: auto !important;
 
+    margin: 0 !important;
+
     transform: translate(-50%, -50%) !important;
 
-    padding: 35px !important;
+    padding: 30px !important;
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+  }
+
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
   }
 }
-
 
     </style>
   </head>
