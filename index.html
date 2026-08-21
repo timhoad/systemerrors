@@ -785,6 +785,43 @@ Solve the puzzle and begin to see.`;
       }
       window.addEventListener("click", startAudio);
       window.addEventListener("touchstart", startAudio);
+
+
+      // Keep Zoho success popup as a floating centred window
+  function fixZohoSuccessPopup() {
+    const popup = document.getElementById("zcOptinSuccessPopup");
+
+    if (!popup) return;
+
+    popup.style.position = "fixed";
+    popup.style.top = "50%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%)";
+    popup.style.width = "700px";
+    popup.style.height = "auto";
+    popup.style.maxWidth = "calc(100vw - 24px)";
+    popup.style.maxHeight = "calc(100vh - 24px)";
+    popup.style.boxSizing = "border-box";
+    popup.style.overflow = "auto";
+    popup.style.zIndex = "99999";
+  }
+
+  // Watch for Zoho changing/showing the popup
+  const zohoPopupWatcher = new MutationObserver(function () {
+    const popup = document.getElementById("zcOptinSuccessPopup");
+
+    if (popup && popup.style.display !== "none") {
+      fixZohoSuccessPopup();
+    }
+  });
+
+  zohoPopupWatcher.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["style", "class"]
+  });
+
     </script>
   </body>
 </html>
