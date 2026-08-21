@@ -88,7 +88,9 @@
       /* END: Prevent scroll on main puzzle page for mobile */
 
       .crt {
-        background: #111;
+        background: repeating-linear-gradient(
+          to bottom,
+          #111, #111 2px, #0d0d0d 4px, #111 6px
         );
         border: 2px solid white;
         border-radius: 12px;
@@ -104,7 +106,6 @@
         display: block;
         position: relative;
         z-index: 1;
-        isolation: isolate;
       }
       #riddle-text {
         font-size: 0.65rem;
