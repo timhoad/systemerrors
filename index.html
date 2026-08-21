@@ -387,14 +387,83 @@
 
 }
 
-/* DESKTOP ONLY - move Zoho popup content down */
-@media (min-width: 601px) {
+/* =========================================================
+   ZOHO SUCCESS POPUP - RETURN HOME BUTTON
+   ========================================================= */
+
+/* Keep the popup itself centred.
+   Only control the contents inside it. */
+#zcOptinSuccessPopup {
+  display: none;
+  overflow: hidden !important;
+}
+
+/* Success-panel content */
+#zcOptinSuccessPopup #zcOptinSuccessPanel {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+/* Zoho's existing return-home copy */
+#zcOptinSuccessPopup #returnHomeButton {
+  display: block !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  margin: 30px auto 0 auto !important;
+  padding: 10px 18px !important;
+  box-sizing: border-box !important;
+
+  text-align: center !important;
+  white-space: normal !important;
+
+  cursor: pointer !important;
+
+  font-family: "OCR A Std", Courier New, monospace !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  color: #000 !important;
+
+  border: 2px solid #000 !important;
+  background: #fff !important;
+}
+
+/* Make it visually respond to being clicked */
+#zcOptinSuccessPopup #returnHomeButton:hover {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
   #zcOptinSuccessPopup {
-    padding-top: 100px !important;
+    padding: 35px 20px 25px 20px !important;
+  }
+
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    text-align: center !important;
+  }
+
+  #zcOptinSuccessPopup #returnHomeButton {
+    margin: 25px auto 0 auto !important;
+    padding: 9px 12px !important;
+    font-size: 11px !important;
   }
 }
 
+/* DESKTOP */
+@media (min-width: 601px) {
 
+  #zcOptinSuccessPopup {
+    padding: 35px 35px 30px 35px !important;
+  }
+
+  #zcOptinSuccessPopup #returnHomeButton {
+    margin-top: 30px !important;
+  }
+}
 
     </style>
   </head>
@@ -580,7 +649,7 @@
             </div>
           </div>
           <div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
-          <div id="zcOptinSuccessPopup" <div id="zcOptinSuccessPopup"
+          <div id="zcOptinSuccessPopup"
      style="
        display:none;
        position:fixed !important;
