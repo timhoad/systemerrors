@@ -385,14 +385,7 @@
     text-align: center !important;
   }
 
-}
 
-/* DESKTOP ONLY - move Zoho popup content down */
-@media (min-width: 601px) {
-  #zcOptinSuccessPopup {
-    padding-top: 100px !important;
-  }
-}
 
 /* =========================================================
    RETURN TO HOMEPAGE BUTTON - ZOHO POPUP
@@ -423,13 +416,14 @@
   color: #fff !important;
 }
 
-/* Keep desktop Zoho popup content vertically balanced */
+/* DESKTOP POPUP CONTENT POSITION */
 @media (min-width: 601px) {
   #zcOptinSuccessPopup #zcOptinSuccessPanel {
-    padding-top: 25px !important;
+    padding-top: 0 !important;
     box-sizing: border-box !important;
   }
 }
+
 
     </style>
   </head>
@@ -615,7 +609,7 @@
             </div>
           </div>
           <div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
-          <div id="zcOptinSuccessPopup" <div id="zcOptinSuccessPopup"
+      <div id="zcOptinSuccessPopup"
      style="
        display:none;
        position:fixed !important;
@@ -636,7 +630,8 @@
        padding:60px 35px 35px 35px !important;
        box-sizing:border-box !important;
        overflow:hidden !important;
-     ">          <span style="position:absolute;top:10px;right:10px;z-index:99999;cursor:pointer;" id="closeSuccess">
+     ">
+         <span style="position:absolute;top:10px;right:10px;z-index:99999;cursor:pointer;" id="closeSuccess">
               <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
             </span>
             <div id="zcOptinSuccessPanel"></div>
