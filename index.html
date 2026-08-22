@@ -388,23 +388,44 @@
 }
 
 /* =========================================================
-   ZOHO SUCCESS POPUP - RETURN HOME TEXT
+   ZOHO SUCCESS POPUP - FINAL POSITIONING
    ========================================================= */
 
-/* DESKTOP */
+/* Keep popup centred */
+#zcOptinSuccessPopup {
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
 @media (min-width: 601px) {
+
+  #zcOptinSuccessPopup {
+    height: 460px !important;
+    max-height: calc(100vh - 30px) !important;
+
+    padding: 85px 35px 35px 35px !important;
+  }
+
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
 
   #zcOptinSuccessPopup #returnHomeButton {
     display: block !important;
     width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
 
-    /* Space between main copy and return-home text */
-    margin-top: 25px !important;
-
-    /* Keep the element vertically compact */
+    margin: 35px 0 0 0 !important;
     padding: 0 !important;
+
+    box-sizing: border-box !important;
 
     text-align: center !important;
 
@@ -416,23 +437,42 @@
 
     border: none !important;
     background: transparent !important;
+  }
 }
 
 
-/* MOBILE */
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 600px) {
+
+  #zcOptinSuccessPopup {
+    width: calc(100vw - 30px) !important;
+    max-width: calc(100vw - 30px) !important;
+
+    height: 420px !important;
+    min-height: 420px !important;
+    max-height: calc(100vh - 30px) !important;
+
+    padding: 70px 20px 25px 20px !important;
+  }
+
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
 
   #zcOptinSuccessPopup #returnHomeButton {
     display: block !important;
     width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
 
-    /* Space between main copy and return-home text */
-    margin-top: 20px !important;
-
-    /* Keep the element vertically compact */
+    margin: 25px 0 0 0 !important;
     padding: 0 !important;
+
+    box-sizing: border-box !important;
 
     text-align: center !important;
 
@@ -632,26 +672,34 @@
           </div>
           <div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
           <div id="zcOptinSuccessPopup"
-     style="
-       display:none;
-       position:fixed !important;
-       z-index:99999 !important;
-       width:520px !important;
-       max-width:calc(100vw - 30px) !important;
-       height:420px !important;
-       max-height:calc(100vh - 30px) !important;
-       top:50% !important;
-       left:50% !important;
-       right:auto !important;
-       bottom:auto !important;
-       transform:translate(-50%,-50%) !important;
-       margin:0 !important;
-       background-color:#FFFFFF;
-       border:1px solid #E6E6E6;
-       box-shadow:0 1px 10px #424242;
-       padding:60px 35px 35px 35px !important;
-       box-sizing:border-box !important;
-       overflow:hidden !important;
+ style="
+   display:none;
+   position:fixed !important;
+   z-index:99999 !important;
+
+   width:520px !important;
+   max-width:calc(100vw - 30px) !important;
+
+   height:460px !important;
+   max-height:calc(100vh - 30px) !important;
+
+   top:50% !important;
+   left:50% !important;
+   right:auto !important;
+   bottom:auto !important;
+
+   transform:translate(-50%,-50%) !important;
+   margin:0 !important;
+
+   background-color:#FFFFFF;
+   border:1px solid #E6E6E6;
+   box-shadow:0 1px 10px #424242;
+
+   padding:85px 35px 35px 35px !important;
+
+   box-sizing:border-box !important;
+   overflow:hidden !important;
+ ">
      ">          <span style="position:absolute;top:10px;right:10px;z-index:99999;cursor:pointer;" id="closeSuccess">
               <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
             </span>
