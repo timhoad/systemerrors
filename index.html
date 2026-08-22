@@ -465,54 +465,55 @@
 }
 
 /* =========================================================
-   ZOHO SUCCESS POPUP - FINAL POSITIONING / CLOSE LINK
+   ZOHO SUCCESS POPUP - CONTENT POSITIONING
    ========================================================= */
 
+/* Keep popup itself centred */
 #zcOptinSuccessPopup {
-  padding-top: 100px !important;
-  padding-bottom: 30px !important;
   box-sizing: border-box !important;
+  overflow: hidden !important;
 }
 
-/* Keep the Zoho success content inside the popup */
+/* Push ALL Zoho popup content down */
 #zcOptinSuccessPopup #zcOptinSuccessPanel {
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
   text-align: center !important;
+  padding-top: 45px !important;
 }
 
-/* Zoho-generated "CLOSE AND RETURN TO HOMEPAGE" copy */
+/* Zoho-generated CLOSE AND RETURN TO HOMEPAGE */
 #zcOptinSuccessPopup #returnHomeButton {
   display: block !important;
   width: 100% !important;
   margin: 35px auto 0 auto !important;
   padding: 10px 0 !important;
-  text-align: center !important;
   box-sizing: border-box !important;
+
+  text-align: center !important;
   cursor: pointer !important;
+
   font-family: "Courier New", monospace !important;
   font-size: 13px !important;
-  font-weight: normal !important;
   color: #000 !important;
-  text-decoration: none !important;
-}
 
-/* Make it behave visually like a button when hovered */
-#zcOptinSuccessPopup #returnHomeButton:hover {
-  text-decoration: underline !important;
+  position: relative !important;
+  z-index: 100000 !important;
+  pointer-events: auto !important;
 }
 
 /* Mobile */
 @media (max-width: 600px) {
-  #zcOptinSuccessPopup {
-    padding-top: 80px !important;
-    padding-bottom: 25px !important;
+
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    padding-top: 55px !important;
   }
 
   #zcOptinSuccessPopup #returnHomeButton {
     margin-top: 30px !important;
-    font-size: 12px !important;
+    text-align: center !important;
+    padding: 12px 0 !important;
   }
 }
 
@@ -1010,44 +1011,60 @@ Solve the puzzle and begin to see.`;
       window.addEventListener("click", startAudio);
       window.addEventListener("touchstart", startAudio);
 
-      (function () {
+/* =========================================================
+   ZOHO SUCCESS POPUP - HOMEPAGE CLOSE FUNCTIONALITY
+   ========================================================= */
 
-  function returnToHomepage() {
-    window.location.href = "/";
+(function () {
+
+  var HOMEPAGE_URL = "https://timhoad.github.io/systemerrors/";
+
+  function returnToHomepage(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    window.location.href = HOMEPAGE_URL;
   }
 
   function setupZohoPopupClose() {
-    var popup = document.getElementById("zcOptinSuccessPopup");
-
-    if (!popup) return;
 
     /* X button */
     var closeButton = document.getElementById("closeSuccess");
 
     if (closeButton) {
+      closeButton.style.cursor = "pointer";
+      closeButton.style.pointerEvents = "auto";
+      closeButton.style.zIndex = "100000";
+
       closeButton.onclick = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        returnToHomepage();
+        returnToHomepage(event);
       };
     }
 
-    /* Zoho-generated CLOSE AND RETURN TO HOMEPAGE copy */
+    /* Zoho-generated CLOSE AND RETURN TO HOMEPAGE */
     var returnHomeButton = document.getElementById("returnHomeButton");
 
     if (returnHomeButton) {
-      returnHomeButton.onclick = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        returnToHomepage();
-      };
 
       returnHomeButton.style.cursor = "pointer";
+      returnHomeButton.style.pointerEvents = "auto";
+      returnHomeButton.style.position = "relative";
+      returnHomeButton.style.zIndex = "100000";
+
+      returnHomeButton.onclick = function (event) {
+        returnToHomepage(event);
+      };
+
+      /* Also handle touch devices */
+      returnHomeButton.ontouchend = function (event) {
+        returnToHomepage(event);
+      };
     }
   }
 
-  /* Zoho creates/populates the success popup after submission,
-     so watch for it rather than running only once. */
+  /* Zoho creates the success popup dynamically */
   var observer = new MutationObserver(function () {
     setupZohoPopupClose();
   });
@@ -1057,10 +1074,10 @@ Solve the puzzle and begin to see.`;
     subtree: true
   });
 
-  /* Also attempt setup immediately */
   setupZohoPopupClose();
 
 })();
+
     </script>
   </body>
 </html>
