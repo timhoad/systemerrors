@@ -312,6 +312,32 @@
           transform: scale(1.09);
         }
       }
+
+      /* --- Popup centering + logo padding fix --- */
+      #zcOptinSuccessPopup {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-width: 800px !important;
+        height: auto !important;
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        padding: 45px 35px 35px 35px !important;
+        box-sizing: border-box !important;
+      }
+
+      #zcOptinOverLay {
+        height: 100vh !important;
+      }
+
+      @media (max-width: 600px) {
+        #zcOptinSuccessPopup {
+          width: 94vw !important;
+          padding: 35px 20px 25px 20px !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -497,7 +523,11 @@
           </div>
           <div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
           <div id="zcOptinSuccessPopup" style="display:none;z-index: 9999;width: 800px; height: 40%;top: 84px;position: fixed; left: 26%;background-color: #FFFFFF;border-color: #E6E6E6; border-style: solid; border-width: 1px;  box-shadow: 0 1px 10px #424242;padding: 35px;">
-            <span style="position: absolute;top: -16px;right:-14px;z-index:99999;cursor: pointer;" id="closeSuccess">
+                        <span style="position: absolute;top: -16px;right:-14px;z-index:99999;cursor: pointer;" 
+                  id="closeSuccess" 
+                  role="button" 
+                  tabindex="0" 
+                  aria-label="Close and return to homepage">
               <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
             </span>
             <div id="zcOptinSuccessPanel"></div>
@@ -785,6 +815,30 @@ Solve the puzzle and begin to see.`;
       }
       window.addEventListener("click", startAudio);
       window.addEventListener("touchstart", startAudio);
+
+            const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
+      audio.loop = true;
+      function startAudio() {
+        audio.play().catch((err) => {
+          console.warn("Autoplay blocked:", err);
+        });
+        window.removeEventListener("click", startAudio);
+        window.removeEventListener("touchstart", startAudio);
+      }
+      window.addEventListener("click", startAudio);
+      window.addEventListener("touchstart", startAudio);
+
+      // Close popup button → redirect to homepage
+      document.getElementById('closeSuccess').addEventListener('click', function() {
+        window.location.href = '/'; // change if your homepage isn't at root
+      });
+      document.getElementById('closeSuccess').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.location.href = '/';
+        }
+      });
+    </script>
     </script>
   </body>
 </html>
