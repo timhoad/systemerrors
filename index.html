@@ -465,60 +465,41 @@
 }
 
 /* =========================================================
-   ZOHO SUCCESS POPUP - GENERATED CONTENT
+   ZOHO SUCCESS POPUP - CONTENT POSITIONING
    ========================================================= */
 
-/* Keep the popup itself centred */
+/* Keep popup itself centred */
 #zcOptinSuccessPopup {
   box-sizing: border-box !important;
   overflow: hidden !important;
 }
 
-/*
-   The Zoho success message is dynamically inserted into
-   #zcOptinSuccessPanel.
-
-   Give the generated panel enough room at the top so that
-   the logo/content is not clipped.
-*/
+/* Push ALL Zoho popup content down */
 #zcOptinSuccessPopup #zcOptinSuccessPanel {
-  position: relative !important;
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
   text-align: center !important;
-  padding-top: 70px !important;
+  padding-top: 45px !important;
 }
 
-/* Zoho's generated return-home element */
+/* Zoho-generated CLOSE AND RETURN TO HOMEPAGE */
 #zcOptinSuccessPopup #returnHomeButton {
   display: block !important;
-  position: relative !important;
   width: 100% !important;
+  margin: 35px auto 0 auto !important;
+  padding: 10px 0 !important;
   box-sizing: border-box !important;
 
-  margin-top: 40px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-
-  padding: 12px 5px !important;
-
   text-align: center !important;
-
   cursor: pointer !important;
-  pointer-events: auto !important;
-
-  z-index: 100001 !important;
 
   font-family: "Courier New", monospace !important;
   font-size: 13px !important;
-  line-height: 1.4 !important;
   color: #000 !important;
-}
 
-/* Make the actual text inside it clickable too */
-#zcOptinSuccessPopup #returnHomeButton * {
-  cursor: pointer !important;
+  position: relative !important;
+  z-index: 100000 !important;
   pointer-events: auto !important;
 }
 
@@ -526,14 +507,13 @@
 @media (max-width: 600px) {
 
   #zcOptinSuccessPopup #zcOptinSuccessPanel {
-    padding-top: 70px !important;
+    padding-top: 55px !important;
   }
 
   #zcOptinSuccessPopup #returnHomeButton {
-    margin-top: 35px !important;
-    padding: 12px 5px !important;
+    margin-top: 30px !important;
     text-align: center !important;
-    font-size: 12px !important;
+    padding: 12px 0 !important;
   }
 }
 
@@ -1050,14 +1030,10 @@ Solve the puzzle and begin to see.`;
 
   function setupZohoPopupClose() {
 
-    /* =====================================================
-       X BUTTON
-       ===================================================== */
-
+    /* X button */
     var closeButton = document.getElementById("closeSuccess");
 
     if (closeButton) {
-
       closeButton.style.cursor = "pointer";
       closeButton.style.pointerEvents = "auto";
       closeButton.style.zIndex = "100000";
@@ -1065,101 +1041,32 @@ Solve the puzzle and begin to see.`;
       closeButton.onclick = function (event) {
         returnToHomepage(event);
       };
-
-      closeButton.ontouchend = function (event) {
-        returnToHomepage(event);
-      };
     }
 
-
-    /* =====================================================
-       ZOHO: CLOSE AND RETURN TO HOMEPAGE
-       ===================================================== */
-
-    var returnHomeButton =
-      document.getElementById("returnHomeButton");
+    /* Zoho-generated CLOSE AND RETURN TO HOMEPAGE */
+    var returnHomeButton = document.getElementById("returnHomeButton");
 
     if (returnHomeButton) {
 
-      /* Make the whole Zoho-generated area clickable */
       returnHomeButton.style.cursor = "pointer";
       returnHomeButton.style.pointerEvents = "auto";
       returnHomeButton.style.position = "relative";
-      returnHomeButton.style.zIndex = "100001";
+      returnHomeButton.style.zIndex = "100000";
 
-      /* Desktop / mouse click */
       returnHomeButton.onclick = function (event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        window.location.href =
-          "https://timhoad.github.io/systemerrors/";
-
-        return false;
+        returnToHomepage(event);
       };
 
-
-      /* Mobile / touch */
+      /* Also handle touch devices */
       returnHomeButton.ontouchend = function (event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        window.location.href =
-          "https://timhoad.github.io/systemerrors/";
-
-        return false;
+        returnToHomepage(event);
       };
-
-
-      /*
-         If Zoho puts another element inside the
-         returnHomeButton div, make that clickable too.
-      */
-      var children =
-        returnHomeButton.querySelectorAll("*");
-
-      children.forEach(function (child) {
-
-        child.style.cursor = "pointer";
-        child.style.pointerEvents = "auto";
-
-        child.onclick = function (event) {
-
-          event.preventDefault();
-          event.stopPropagation();
-
-          window.location.href =
-            "https://timhoad.github.io/systemerrors/";
-
-          return false;
-        };
-
-        child.ontouchend = function (event) {
-
-          event.preventDefault();
-          event.stopPropagation();
-
-          window.location.href =
-            "https://timhoad.github.io/systemerrors/";
-
-          return false;
-        };
-
-      });
     }
   }
 
-
-  /* =====================================================
-     ZOHO CREATES THE POPUP DYNAMICALLY
-     ===================================================== */
-
+  /* Zoho creates the success popup dynamically */
   var observer = new MutationObserver(function () {
-
     setupZohoPopupClose();
-
   });
 
   observer.observe(document.body, {
@@ -1167,8 +1074,6 @@ Solve the puzzle and begin to see.`;
     subtree: true
   });
 
-
-  /* Also run immediately */
   setupZohoPopupClose();
 
 })();
