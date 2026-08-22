@@ -464,6 +464,58 @@
   }
 }
 
+/* =========================================================
+   ZOHO SUCCESS POPUP - FINAL POSITIONING / CLOSE LINK
+   ========================================================= */
+
+#zcOptinSuccessPopup {
+  padding-top: 100px !important;
+  padding-bottom: 30px !important;
+  box-sizing: border-box !important;
+}
+
+/* Keep the Zoho success content inside the popup */
+#zcOptinSuccessPopup #zcOptinSuccessPanel {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+/* Zoho-generated "CLOSE AND RETURN TO HOMEPAGE" copy */
+#zcOptinSuccessPopup #returnHomeButton {
+  display: block !important;
+  width: 100% !important;
+  margin: 35px auto 0 auto !important;
+  padding: 10px 0 !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  font-family: "Courier New", monospace !important;
+  font-size: 13px !important;
+  font-weight: normal !important;
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+/* Make it behave visually like a button when hovered */
+#zcOptinSuccessPopup #returnHomeButton:hover {
+  text-decoration: underline !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  #zcOptinSuccessPopup {
+    padding-top: 80px !important;
+    padding-bottom: 25px !important;
+  }
+
+  #zcOptinSuccessPopup #returnHomeButton {
+    margin-top: 30px !important;
+    font-size: 12px !important;
+  }
+}
+
     </style>
   </head>
   <body>
@@ -957,6 +1009,58 @@ Solve the puzzle and begin to see.`;
       }
       window.addEventListener("click", startAudio);
       window.addEventListener("touchstart", startAudio);
+
+      (function () {
+
+  function returnToHomepage() {
+    window.location.href = "/";
+  }
+
+  function setupZohoPopupClose() {
+    var popup = document.getElementById("zcOptinSuccessPopup");
+
+    if (!popup) return;
+
+    /* X button */
+    var closeButton = document.getElementById("closeSuccess");
+
+    if (closeButton) {
+      closeButton.onclick = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        returnToHomepage();
+      };
+    }
+
+    /* Zoho-generated CLOSE AND RETURN TO HOMEPAGE copy */
+    var returnHomeButton = document.getElementById("returnHomeButton");
+
+    if (returnHomeButton) {
+      returnHomeButton.onclick = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        returnToHomepage();
+      };
+
+      returnHomeButton.style.cursor = "pointer";
+    }
+  }
+
+  /* Zoho creates/populates the success popup after submission,
+     so watch for it rather than running only once. */
+  var observer = new MutationObserver(function () {
+    setupZohoPopupClose();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+  /* Also attempt setup immediately */
+  setupZohoPopupClose();
+
+})();
     </script>
   </body>
 </html>
