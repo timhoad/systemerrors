@@ -388,52 +388,25 @@
 }
 
 /* =========================================================
-   ZOHO SUCCESS POPUP - POSITIONING
+   ZOHO SUCCESS POPUP - RETURN HOME TEXT
    ========================================================= */
 
-/* Keep the existing popup centred and contained */
-#zcOptinSuccessPopup {
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-
-/* =========================================================
-   DESKTOP
-   ========================================================= */
-
+/* DESKTOP */
 @media (min-width: 601px) {
 
-  /*
-   Move the Zoho-generated content down inside
-   the existing popup.
-
-   This does NOT move or resize the popup itself.
-  */
-  #zcOptinSuccessPopup #zcOptinSuccessPanel {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    text-align: center !important;
-    padding-top: 70px !important;
-  }
-
-  /*
-   Zoho-generated:
-   CLOSE TO RETURN TO HOMEPAGE
-
-   Keep it as a separate line with space
-   between it and the main message.
-  */
   #zcOptinSuccessPopup #returnHomeButton {
     display: block !important;
     width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box !important;
 
-    margin: 35px 0 0 0 !important;
+    /* Space between main copy and return-home text */
+    margin-top: 25px !important;
+
+    /* Keep the element vertically compact */
     padding: 0 !important;
 
     text-align: center !important;
-    white-space: normal !important;
 
     font-family: "OCR A Std", "Courier New", monospace !important;
     font-size: 13px !important;
@@ -443,47 +416,25 @@
 
     border: none !important;
     background: transparent !important;
-
-    cursor: default !important;
-    pointer-events: none !important;
-  }
 }
 
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
+/* MOBILE */
 @media (max-width: 600px) {
 
-  /*
-   Move the entire Zoho content down so the
-   logo remains visible.
-
-   The popup itself remains centred.
-  */
-  #zcOptinSuccessPopup #zcOptinSuccessPanel {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    text-align: center !important;
-    padding-top: 60px !important;
-  }
-
-  /*
-   Keep the bottom message separate from
-   the main message.
-  */
   #zcOptinSuccessPopup #returnHomeButton {
     display: block !important;
     width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box !important;
 
-    margin: 30px 0 0 0 !important;
+    /* Space between main copy and return-home text */
+    margin-top: 20px !important;
+
+    /* Keep the element vertically compact */
     padding: 0 !important;
 
     text-align: center !important;
-    white-space: normal !important;
 
     font-family: "OCR A Std", "Courier New", monospace !important;
     font-size: 11px !important;
@@ -493,9 +444,6 @@
 
     border: none !important;
     background: transparent !important;
-
-    cursor: default !important;
-    pointer-events: none !important;
   }
 }
 
