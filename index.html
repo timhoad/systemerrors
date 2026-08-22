@@ -388,132 +388,114 @@
 }
 
 /* =========================================================
-   ZOHO SUCCESS POPUP - RETURN HOME BUTTON
+   ZOHO SUCCESS POPUP - POSITIONING
    ========================================================= */
 
-/* Keep the popup itself centred.
-   Only control the contents inside it. */
+/* Keep the existing popup centred and contained */
 #zcOptinSuccessPopup {
+  box-sizing: border-box !important;
   overflow: hidden !important;
-}
-
-/* Success-panel content */
-#zcOptinSuccessPopup #zcOptinSuccessPanel {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  text-align: center !important;
-}
-
-/* Zoho's existing return-home copy */
-#zcOptinSuccessPopup #returnHomeButton {
-  display: block !important;
-  width: fit-content !important;
-  max-width: 100% !important;
-  margin: 30px auto 0 auto !important;
-  padding: 10px 18px !important;
-  box-sizing: border-box !important;
-
-  text-align: center !important;
-  white-space: normal !important;
-
-  cursor: pointer !important;
-
-  font-family: "OCR A Std", Courier New, monospace !important;
-  font-size: 13px !important;
-  line-height: 1.4 !important;
-  color: #000 !important;
-
-  border: 2px solid #000 !important;
-  background: #fff !important;
-}
-
-/* Make it visually respond to being clicked */
-#zcOptinSuccessPopup #returnHomeButton:hover {
-  background: #000 !important;
-  color: #fff !important;
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-
-  #zcOptinSuccessPopup {
-    padding: 35px 20px 25px 20px !important;
-  }
-
-  #zcOptinSuccessPopup #zcOptinSuccessPanel {
-    text-align: center !important;
-  }
-
-  #zcOptinSuccessPopup #returnHomeButton {
-    margin: 25px auto 0 auto !important;
-    padding: 9px 12px !important;
-    font-size: 11px !important;
-  }
-}
-
-/* DESKTOP */
-@media (min-width: 601px) {
-
-  #zcOptinSuccessPopup {
-    padding: 35px 35px 30px 35px !important;
-  }
-
-  #zcOptinSuccessPopup #returnHomeButton {
-    margin-top: 30px !important;
-  }
 }
 
 /* =========================================================
-   ZOHO SUCCESS POPUP - CONTENT POSITIONING
+   DESKTOP
    ========================================================= */
 
-/* Keep popup itself centred */
-#zcOptinSuccessPopup {
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
+@media (min-width: 601px) {
 
-/* Push ALL Zoho popup content down */
-#zcOptinSuccessPopup #zcOptinSuccessPanel {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  text-align: center !important;
-  padding-top: 45px !important;
-}
+  /*
+   Move the Zoho-generated content down inside
+   the existing popup.
 
-/* Zoho-generated CLOSE AND RETURN TO HOMEPAGE */
-#zcOptinSuccessPopup #returnHomeButton {
-  display: block !important;
-  width: 100% !important;
-  margin: 35px auto 0 auto !important;
-  padding: 10px 0 !important;
-  box-sizing: border-box !important;
-
-  text-align: center !important;
-  cursor: pointer !important;
-
-  font-family: "Courier New", monospace !important;
-  font-size: 13px !important;
-  color: #000 !important;
-
-  position: relative !important;
-  z-index: 100000 !important;
-  pointer-events: auto !important;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-
+   This does NOT move or resize the popup itself.
+  */
   #zcOptinSuccessPopup #zcOptinSuccessPanel {
-    padding-top: 55px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    padding-top: 70px !important;
   }
 
+  /*
+   Zoho-generated:
+   CLOSE TO RETURN TO HOMEPAGE
+
+   Keep it as a separate line with space
+   between it and the main message.
+  */
   #zcOptinSuccessPopup #returnHomeButton {
-    margin-top: 30px !important;
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    margin: 35px 0 0 0 !important;
+    padding: 0 !important;
+
     text-align: center !important;
-    padding: 12px 0 !important;
+    white-space: normal !important;
+
+    font-family: "OCR A Std", "Courier New", monospace !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+
+    color: #000 !important;
+
+    border: none !important;
+    background: transparent !important;
+
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /*
+   Move the entire Zoho content down so the
+   logo remains visible.
+
+   The popup itself remains centred.
+  */
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    padding-top: 60px !important;
+  }
+
+  /*
+   Keep the bottom message separate from
+   the main message.
+  */
+  #zcOptinSuccessPopup #returnHomeButton {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    margin: 30px 0 0 0 !important;
+    padding: 0 !important;
+
+    text-align: center !important;
+    white-space: normal !important;
+
+    font-family: "OCR A Std", "Courier New", monospace !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+
+    color: #000 !important;
+
+    border: none !important;
+    background: transparent !important;
+
+    cursor: default !important;
+    pointer-events: none !important;
   }
 }
 
