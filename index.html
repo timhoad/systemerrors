@@ -388,32 +388,95 @@
 }
 
 /* =========================================================
-   ZOHO RETURN-HOME TEXT
+   ZOHO SUCCESS POPUP - CONTENT POSITIONING
    ========================================================= */
 
-#zcOptinSuccessPopup #returnHomeButton {
-  display: block !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
+/*
+   IMPORTANT:
+   The popup itself is already correctly sized and centred.
+   These rules only move the CONTENT inside the popup.
+*/
 
-  margin: 30px auto 0 auto !important;
-  padding: 0 !important;
 
-  text-align: center !important;
+/* =========================================================
+   DESKTOP
+   ========================================================= */
 
-  font-family: "OCR A Std", "Courier New", monospace !important;
-  font-size: 13px !important;
-  line-height: 1.4 !important;
+@media (min-width: 601px) {
 
-  color: #000 !important;
-  border: none !important;
-  background: transparent !important;
+  /*
+     Push the existing Zoho logo + main success copy
+     down inside the popup.
+  */
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    padding-top: 45px !important;
+    box-sizing: border-box !important;
+  }
+
+  /*
+     Force CLOSE TO RETURN TO HOMEPAGE onto its
+     own line with a visible gap.
+  */
+  #zcOptinSuccessPopup #returnHomeButton {
+    display: block !important;
+    width: 100% !important;
+
+    margin-top: 35px !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+    white-space: normal !important;
+
+    font-family: "OCR A Std", "Courier New", monospace !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+
+    color: #000 !important;
+    background: transparent !important;
+    border: none !important;
+  }
 }
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 600px) {
+
+  /*
+     Push the existing Zoho logo + main success copy
+     down inside the popup.
+  */
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    padding-top: 45px !important;
+    box-sizing: border-box !important;
+  }
+
+  /*
+     Keep the return-home text on its own line.
+  */
   #zcOptinSuccessPopup #returnHomeButton {
-    margin-top: 20px !important;
+    display: block !important;
+    width: 100% !important;
+
+    margin-top: 25px !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+    white-space: normal !important;
+
+    font-family: "OCR A Std", "Courier New", monospace !important;
     font-size: 11px !important;
+    line-height: 1.4 !important;
+
+    color: #000 !important;
+    background: transparent !important;
+    border: none !important;
   }
 }
 
