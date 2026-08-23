@@ -354,15 +354,13 @@
 #zcOptinSuccessPopup #zcOptinSuccessPanel {
   width: 100% !important;
   max-width: 100% !important;
-
   box-sizing: border-box !important;
-
   text-align: center !important;
-
-  /* Do NOT add extra vertical positioning here */
   padding: 0 !important;
-
   margin: 0 !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
 }
 
 
@@ -859,9 +857,10 @@
        box-sizing:border-box !important;
        overflow:hidden !important;
      ">
-            <span style="position: absolute;top: 10px;right:10px;z-index:99999;cursor: pointer;" id="closeSuccess">
-              <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
-            </span>
+            <span id="closeSuccess"
+      style="position:absolute; top:10px; right:10px; z-index:99999; cursor:pointer;">
+  <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
+</span>
             <div id="zcOptinSuccessPanel"></div>
           </div>
         </div>
