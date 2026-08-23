@@ -1352,17 +1352,40 @@ Solve the puzzle and begin to see.`;
         letter.addEventListener("pointerdown", onPointerDown);
       });
 
-      const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
-      audio.loop = true;
-      function startAudio() {
-        audio.play().catch((err) => {
-          console.warn("Autoplay blocked:", err);
-        });
-        window.removeEventListener("click", startAudio);
-        window.removeEventListener("touchstart", startAudio);
-      }
-      window.addEventListener("click", startAudio);
-      window.addEventListener("touchstart", startAudio);
+   /* =========================================================
+   SITE AUDIO
+   Isolated audio-only functionality
+   ========================================================= */
+
+const audio = new Audio("https://archive.org/download/rumbling/rumbling.mp3");
+
+audio.loop = true;
+audio.preload = "auto";
+audio.volume = 1;
+
+let audioStarted = false;
+
+function startAudio() {
+  if (audioStarted) return;
+
+  audio.play()
+    .then(() => {
+      audioStarted = true;
+
+      window.removeEventListener("click", startAudio);
+      window.removeEventListener("touchstart", startAudio);
+      window.removeEventListener("pointerdown", startAudio);
+
+      console.log("Audio started successfully");
+    })
+    .catch((err) => {
+      console.warn("Audio did not start:", err);
+    });
+}
+
+window.addEventListener("click", startAudio);
+window.addEventListener("touchstart", startAudio, { passive: true });
+window.addEventListener("pointerdown", startAudio);
 
  document.getElementById("closeSuccess").addEventListener("click", function () {
   window.location.href = "https://timhoad.github.io/systemerrors/";
