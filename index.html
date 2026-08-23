@@ -312,6 +312,106 @@
           transform: scale(1.09);
         }
       }
+
+/* =========================================================
+   ZOHO SUCCESS POPUP
+   CENTRE POPUP AND KEEP ALL CONTENT INSIDE
+   ========================================================= */
+
+#zcOptinSuccessPopup {
+  position: fixed !important;
+
+  /* Desktop popup dimensions */
+  width: 520px !important;
+  height: 420px !important;
+  max-width: calc(100vw - 30px) !important;
+  max-height: calc(100vh - 30px) !important;
+
+  /* True viewport centre */
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+
+  /* Give the Zoho content room at the top */
+  padding: 90px 35px 35px 35px !important;
+
+  overflow: hidden !important;
+
+  z-index: 99999 !important;
+}
+
+
+/* =========================================================
+   ZOHO SUCCESS CONTENT
+   ========================================================= */
+
+#zcOptinSuccessPopup #zcOptinSuccessPanel {
+  width: 100% !important;
+  max-width: 100% !important;
+
+  box-sizing: border-box !important;
+
+  text-align: center !important;
+
+  /* Do NOT add extra vertical positioning here */
+  padding: 0 !important;
+
+  margin: 0 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  #zcOptinSuccessPopup {
+    width: calc(100vw - 30px) !important;
+    max-width: calc(100vw - 30px) !important;
+
+    height: 420px !important;
+    min-height: 420px !important;
+    max-height: calc(100vh - 30px) !important;
+
+    /* True mobile centre */
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    /* Move the complete Zoho content down */
+    padding: 75px 20px 25px 20px !important;
+
+    overflow: hidden !important;
+
+    z-index: 99999 !important;
+  }
+
+  #zcOptinSuccessPopup #zcOptinSuccessPanel {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
     </style>
   </head>
   <body>
