@@ -346,52 +346,85 @@
   z-index: 99999 !important;
 }
 
+
 /* =========================================================
-   ZOHO SUCCESS CONTENT
+   ZOHO SUCCESS CONTENT PANEL
    ========================================================= */
 
 #zcOptinSuccessPopup #zcOptinSuccessPanel {
   width: 100% !important;
   max-width: 100% !important;
+
   box-sizing: border-box !important;
+
   text-align: center !important;
-  padding: 30px 0 0 0 !important;
+
+  padding: 0 !important;
   margin: 0 !important;
 }
 
 
 /* =========================================================
-   FIX ZOHO SUCCESS PAGE INTERNAL SCROLL CONTAINER
+   FIX ZOHO SUCCESS PAGE CONTENT POSITION
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKSPAGE {
+  position: absolute !important;
+  inset: 0 !important;
+
+  box-sizing: border-box !important;
+
+  /* Move the actual Zoho success content down */
+  padding: 70px 30px 30px 30px !important;
+
+  /* Prevent an internal scrolling viewport */
+  overflow: hidden !important;
+
+  background-color: #000000 !important;
+}
+
+
+/* =========================================================
+   REMOVE EXTRA CONTAINER PADDING
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKS_PAGE_CONTAINER {
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE CONTAINER
    ========================================================= */
 
 #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
-  height: auto !important;
-  max-height: none !important;
-  overflow: visible !important;
+  margin: 0 auto !important;
+
+  padding: 20px !important;
+
   box-sizing: border-box !important;
+
+  width: 100% !important;
+  max-width: 700px !important;
+
+  background-color: #000000 !important;
 }
+
+
+/* =========================================================
+   REMOVE ZOHO INTERNAL SCROLL CONTAINER
+   ========================================================= */
 
 #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT > div {
   height: auto !important;
   max-height: none !important;
+
   overflow: visible !important;
-}
 
-
-/* =========================================================
-   POSITION ZOHO THANK-YOU CONTENT
-   ========================================================= */
-
-#zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
-  margin: 0 !important;
-  padding: 20px !important;
   box-sizing: border-box !important;
 }
 
-#zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT > div > div:first-child {
-  padding: 5px !important;
-  margin: 0 !important;
-}
 
 /* =========================================================
    MOBILE
@@ -418,7 +451,7 @@
 
     box-sizing: border-box !important;
 
-    /* Outer popup spacing */
+    /* Keep outer popup dimensions stable */
     padding: 60px 20px 25px 20px !important;
 
     overflow: hidden !important;
@@ -426,6 +459,8 @@
     z-index: 99999 !important;
   }
 
+
+  /* Success content panel */
 
   #zcOptinSuccessPopup #zcOptinSuccessPanel {
     width: 100% !important;
@@ -435,12 +470,61 @@
 
     text-align: center !important;
 
-    padding-top: 40px !important;
-    padding-right: 0 !important;
-    padding-bottom: 0 !important;
-    padding-left: 0 !important;
-
+    padding: 0 !important;
     margin: 0 !important;
+  }
+
+
+  /* Actual Zoho success page */
+
+  #zcOptinSuccessPopup #THANKSPAGE {
+    position: absolute !important;
+    inset: 0 !important;
+
+    box-sizing: border-box !important;
+
+    /* Move success content down on mobile */
+    padding: 70px 20px 20px 20px !important;
+
+    overflow: hidden !important;
+
+    background-color: #000000 !important;
+  }
+
+
+  /* Remove extra mobile container padding */
+
+  #zcOptinSuccessPopup #THANKS_PAGE_CONTAINER {
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+
+  /* Success message container */
+
+  #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
+    margin: 0 auto !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    width: 100% !important;
+    max-width: 700px !important;
+
+    background-color: #000000 !important;
+  }
+
+
+  /* Remove internal scrolling */
+
+  #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT > div {
+    height: auto !important;
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    box-sizing: border-box !important;
   }
 
 }
