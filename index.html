@@ -365,7 +365,7 @@
 
 
 /* =========================================================
-   FIX ZOHO SUCCESS PAGE CONTENT POSITION
+   ZOHO SUCCESS PAGE
    ========================================================= */
 
 #zcOptinSuccessPopup #THANKSPAGE {
@@ -374,10 +374,8 @@
 
   box-sizing: border-box !important;
 
-  /* Move the actual Zoho success content down */
   padding: 30px 30px 30px 30px !important;
 
-  /* Prevent an internal scrolling viewport */
   overflow: hidden !important;
 
   background-color: #000000 !important;
@@ -427,6 +425,19 @@
 
 
 /* =========================================================
+   STOP ZOHO SUCCESS CONTENT FROM VERTICALLY CENTRING
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKSPAGE table {
+  height: auto !important;
+}
+
+#zcOptinSuccessPopup #THANKSPAGE td[valign="middle"] {
+  vertical-align: top !important;
+}
+
+
+/* =========================================================
    MOBILE
    ========================================================= */
 
@@ -452,7 +463,7 @@
     box-sizing: border-box !important;
 
     /* Keep outer popup dimensions stable */
-    padding: 60px 20px 25px 20px !important;
+    padding: 60px 25px 25px 25px !important;
 
     overflow: hidden !important;
 
@@ -483,9 +494,8 @@
 
     box-sizing: border-box !important;
 
-    /* Move success content down on mobile */
     padding: 30px 20px 20px 20px !important;
-    
+
     overflow: hidden !important;
 
     background-color: #000000 !important;
@@ -527,8 +537,18 @@
     box-sizing: border-box !important;
   }
 
-}
 
+  /* Stop mobile content vertically centring */
+
+  #zcOptinSuccessPopup #THANKSPAGE table {
+    height: auto !important;
+  }
+
+  #zcOptinSuccessPopup #THANKSPAGE td[valign="middle"] {
+    vertical-align: top !important;
+  }
+
+}
     </style>
   </head>
   <body>
