@@ -1352,7 +1352,7 @@ Solve the puzzle and begin to see.`;
         letter.addEventListener("pointerdown", onPointerDown);
       });
 
-   /* =========================================================
+ /* =========================================================
    SITE AUDIO
    Isolated audio-only functionality
    ========================================================= */
@@ -1365,33 +1365,10 @@ audio.loop = true;
 audio.preload = "auto";
 audio.volume = 1;
 
-/* =========================================================
-   AUDIO AMPLIFICATION
-   ========================================================= */
-
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-const audioSource = audioContext.createMediaElementSource(audio);
-const audioGain = audioContext.createGain();
-
-/* 2x amplification */
-audioGain.gain.value = 2;
-
-audioSource.connect(audioGain);
-audioGain.connect(audioContext.destination);
-
-
-/* =========================================================
-   AUDIO START
-   ========================================================= */
-
 let audioStarted = false;
 
 function startAudio() {
   if (audioStarted) return;
-
-  if (audioContext.state === "suspended") {
-    audioContext.resume();
-  }
 
   audio.play()
     .then(() => {
