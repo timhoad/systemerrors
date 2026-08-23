@@ -315,19 +315,17 @@
 
 /* =========================================================
    ZOHO SUCCESS POPUP
-   CENTRE POPUP AND KEEP ALL CONTENT INSIDE
    ========================================================= */
 
 #zcOptinSuccessPopup {
   position: fixed !important;
 
-  /* Desktop popup dimensions */
   width: 520px !important;
   height: 420px !important;
+
   max-width: calc(100vw - 30px) !important;
   max-height: calc(100vh - 30px) !important;
 
-  /* True viewport centre */
   top: 50% !important;
   left: 50% !important;
   right: auto !important;
@@ -338,7 +336,6 @@
 
   box-sizing: border-box !important;
 
-  /* Outer popup spacing */
   padding: 60px 35px 35px 35px !important;
 
   overflow: hidden !important;
@@ -374,7 +371,7 @@
 
   box-sizing: border-box !important;
 
-  padding: 30px 30px 30px 30px !important;
+  padding: 0 !important;
 
   overflow: hidden !important;
 
@@ -383,35 +380,37 @@
 
 
 /* =========================================================
-   REMOVE EXTRA CONTAINER PADDING
+   REMOVE ZOHO CONTAINER SPACING
    ========================================================= */
 
 #zcOptinSuccessPopup #THANKS_PAGE_CONTAINER {
   padding: 0 !important;
+  margin: 0 !important;
+
   box-sizing: border-box !important;
 }
 
 
 /* =========================================================
-   SUCCESS MESSAGE CONTAINER
+   SUCCESS CONTENT
    ========================================================= */
 
 #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
-  margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 700px !important;
 
-  padding: 20px !important;
+  margin: 0 auto !important;
 
   box-sizing: border-box !important;
 
-  width: 100% !important;
-  max-width: 700px !important;
+  padding: 70px 20px 20px 20px !important;
 
   background-color: #000000 !important;
 }
 
 
 /* =========================================================
-   REMOVE ZOHO INTERNAL SCROLL CONTAINER
+   REMOVE INTERNAL SCROLLING
    ========================================================= */
 
 #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT > div {
@@ -425,15 +424,50 @@
 
 
 /* =========================================================
-   STOP ZOHO SUCCESS CONTENT FROM VERTICALLY CENTRING
+   FORCE SUCCESS CONTENT TO START AT TOP
    ========================================================= */
 
 #zcOptinSuccessPopup #THANKSPAGE table {
   height: auto !important;
 }
 
-#zcOptinSuccessPopup #THANKSPAGE td[valign="middle"] {
+#zcOptinSuccessPopup #THANKSPAGE td {
   vertical-align: top !important;
+}
+
+
+/* =========================================================
+   LOGO CONTAINER
+   ========================================================= */
+
+#zcOptinSuccessPopup #imgBlockDiv {
+  display: block !important;
+
+  width: 100% !important;
+
+  text-align: center !important;
+
+  margin: 20px auto 0 auto !important;
+
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+#zcOptinSuccessPopup #imgBlockDiv img[name="LOGO"] {
+  display: block !important;
+
+  width: 100px !important;
+  height: auto !important;
+
+  margin: 0 auto !important;
+
+  max-width: 100% !important;
 }
 
 
@@ -451,7 +485,6 @@
     min-height: 420px !important;
     max-height: calc(100vh - 30px) !important;
 
-    /* True mobile centre */
     top: 50% !important;
     left: 50% !important;
     right: auto !important;
@@ -462,7 +495,6 @@
 
     box-sizing: border-box !important;
 
-    /* Keep outer popup dimensions stable */
     padding: 60px 25px 25px 25px !important;
 
     overflow: hidden !important;
@@ -494,7 +526,7 @@
 
     box-sizing: border-box !important;
 
-    padding: 30px 20px 20px 20px !important;
+    padding: 0 !important;
 
     overflow: hidden !important;
 
@@ -502,25 +534,27 @@
   }
 
 
-  /* Remove extra mobile container padding */
+  /* Mobile container */
 
   #zcOptinSuccessPopup #THANKS_PAGE_CONTAINER {
     padding: 0 !important;
+    margin: 0 !important;
+
     box-sizing: border-box !important;
   }
 
 
-  /* Success message container */
+  /* Mobile success content */
 
   #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
-    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 700px !important;
 
-    padding: 20px !important;
+    margin: 0 auto !important;
 
     box-sizing: border-box !important;
 
-    width: 100% !important;
-    max-width: 700px !important;
+    padding: 70px 20px 20px 20px !important;
 
     background-color: #000000 !important;
   }
@@ -538,14 +572,45 @@
   }
 
 
-  /* Stop mobile content vertically centring */
+  /* Force mobile content to top */
 
   #zcOptinSuccessPopup #THANKSPAGE table {
     height: auto !important;
   }
 
-  #zcOptinSuccessPopup #THANKSPAGE td[valign="middle"] {
+  #zcOptinSuccessPopup #THANKSPAGE td {
     vertical-align: top !important;
+  }
+
+
+  /* Mobile logo container */
+
+  #zcOptinSuccessPopup #imgBlockDiv {
+    display: block !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+
+    margin: 20px auto 0 auto !important;
+
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* Mobile logo */
+
+  #zcOptinSuccessPopup #imgBlockDiv img[name="LOGO"] {
+    display: block !important;
+
+    width: 100px !important;
+    height: auto !important;
+
+    margin: 0 auto !important;
+
+    max-width: 100% !important;
   }
 
 }
