@@ -315,7 +315,6 @@
 
 /* =========================================================
    ZOHO SUCCESS POPUP
-   CENTRE POPUP + CUSTOM LOGO
    ========================================================= */
 
 #zcOptinSuccessPopup {
@@ -338,14 +337,8 @@
 
   box-sizing: border-box !important;
 
-  /* Desktop content position */
-  padding: 95px 35px 35px 35px !important;
-
-  /* Custom replacement logo */
-  background-image: url("https://raw.githubusercontent.com/timhoad/systemerrors/main/handblack.jpg") !important;
-  background-repeat: no-repeat !important;
-  background-position: center 25px !important;
-  background-size: 100px auto !important;
+  /* Current desktop content position */
+  padding: 85px 35px 35px 35px !important;
 
   overflow: hidden !important;
 
@@ -354,7 +347,7 @@
 
 
 /* =========================================================
-   ZOHO SUCCESS CONTENT PANEL
+   SUCCESS CONTENT PANEL
    ========================================================= */
 
 #zcOptinSuccessPopup #zcOptinSuccessPanel {
@@ -367,6 +360,116 @@
 
   padding: 0 !important;
   margin: 0 !important;
+}
+
+
+/* =========================================================
+   ZOHO SUCCESS PAGE
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKSPAGE {
+  position: absolute !important;
+  inset: 0 !important;
+
+  box-sizing: border-box !important;
+
+  /*
+     IMPORTANT:
+     Keep the existing success-copy position.
+     The logo is added independently below.
+  */
+  padding: 85px 30px 30px 30px !important;
+
+  overflow: hidden !important;
+
+  background-color: #000000 !important;
+
+  text-align: center !important;
+}
+
+
+/* =========================================================
+   REMOVE EXTRA ZOHO CONTAINER PADDING
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKS_PAGE_CONTAINER {
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE CONTAINER
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
+  margin: 0 auto !important;
+
+  padding: 20px !important;
+
+  box-sizing: border-box !important;
+
+  width: 100% !important;
+  max-width: 700px !important;
+
+  background-color: #000000 !important;
+}
+
+
+/* =========================================================
+   REMOVE INTERNAL ZOHO SCROLLING
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT > div {
+  height: auto !important;
+  max-height: none !important;
+
+  overflow: visible !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   STOP SUCCESS CONTENT FROM VERTICALLY CENTRING
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKSPAGE table {
+  height: auto !important;
+}
+
+#zcOptinSuccessPopup #THANKSPAGE td[valign="middle"] {
+  vertical-align: top !important;
+}
+
+
+/* =========================================================
+   ADD CUSTOM LOGO
+   =========================================================
+   
+   This creates the logo independently of Zoho's missing
+   #img / LOGO element.
+
+   It only applies to the SUCCESS popup.
+   It does NOT affect the existing-subscriber popup.
+   ========================================================= */
+
+#zcOptinSuccessPopup #THANKSPAGE::before {
+  content: "" !important;
+
+  display: block !important;
+
+  width: 100px !important;
+  height: 100px !important;
+
+  margin: 0 auto 15px auto !important;
+
+  background-image: url("https://raw.githubusercontent.com/timhoad/systemerrors/main/handblack.jpg") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: contain !important;
+
+  box-sizing: border-box !important;
 }
 
 
@@ -395,14 +498,10 @@
 
     box-sizing: border-box !important;
 
-    /* Mobile content position */
+    /*
+       Current mobile copy position
+    */
     padding: 100px 25px 25px 25px !important;
-
-    /* Custom replacement logo */
-    background-image: url("https://raw.githubusercontent.com/timhoad/systemerrors/main/handblack.jpg") !important;
-    background-repeat: no-repeat !important;
-    background-position: center 25px !important;
-    background-size: 100px auto !important;
 
     overflow: hidden !important;
 
@@ -410,7 +509,9 @@
   }
 
 
-  /* Success content panel */
+  /* =======================================================
+     MOBILE SUCCESS CONTENT PANEL
+     ======================================================= */
 
   #zcOptinSuccessPopup #zcOptinSuccessPanel {
     width: 100% !important;
@@ -422,6 +523,107 @@
 
     padding: 0 !important;
     margin: 0 !important;
+  }
+
+
+  /* =======================================================
+     MOBILE SUCCESS PAGE
+     ======================================================= */
+
+  #zcOptinSuccessPopup #THANKSPAGE {
+    position: absolute !important;
+    inset: 0 !important;
+
+    box-sizing: border-box !important;
+
+    /*
+       Keep mobile copy position.
+    */
+    padding: 100px 20px 20px 20px !important;
+
+    overflow: hidden !important;
+
+    background-color: #000000 !important;
+
+    text-align: center !important;
+  }
+
+
+  /* =======================================================
+     MOBILE CONTAINER
+     ======================================================= */
+
+  #zcOptinSuccessPopup #THANKS_PAGE_CONTAINER {
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+
+  /* =======================================================
+     MOBILE SUCCESS MESSAGE
+     ======================================================= */
+
+  #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
+    margin: 0 auto !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box !important;
+
+    width: 100% !important;
+    max-width: 700px !important;
+
+    background-color: #000000 !important;
+  }
+
+
+  /* =======================================================
+     REMOVE MOBILE INTERNAL SCROLLING
+     ======================================================= */
+
+  #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT > div {
+    height: auto !important;
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* =======================================================
+     STOP MOBILE CONTENT VERTICAL CENTRING
+     ======================================================= */
+
+  #zcOptinSuccessPopup #THANKSPAGE table {
+    height: auto !important;
+  }
+
+  #zcOptinSuccessPopup #THANKSPAGE td[valign="middle"] {
+    vertical-align: top !important;
+  }
+
+
+  /* =======================================================
+     MOBILE CUSTOM LOGO
+     ======================================================= */
+
+  #zcOptinSuccessPopup #THANKSPAGE::before {
+    content: "" !important;
+
+    display: block !important;
+
+    width: 100px !important;
+    height: 100px !important;
+
+    margin: 0 auto 15px auto !important;
+
+    background-image: url("https://raw.githubusercontent.com/timhoad/systemerrors/main/handblack.jpg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: contain !important;
+
+    box-sizing: border-box !important;
   }
 
 }
