@@ -338,7 +338,7 @@
 
   box-sizing: border-box !important;
 
-  /* Keep popup dimensions stable */
+  /* Do not use outer padding for content positioning */
   padding: 0 !important;
 
   overflow: hidden !important;
@@ -365,7 +365,7 @@
 
 
 /* =========================================================
-   FORCE THANK YOU PAGE TO START AT TOP
+   ZOHO SUCCESS PAGE
    ========================================================= */
 
 #zcOptinSuccessPopup #THANKSPAGE {
@@ -383,7 +383,9 @@
 
   box-sizing: border-box !important;
 
-  padding: 0 !important;
+  /* THIS controls the vertical position of the success copy */
+  padding: 60px 30px 30px 30px !important;
+
   margin: 0 !important;
 
   overflow: hidden !important;
@@ -486,7 +488,7 @@
 
     box-sizing: border-box !important;
 
-    /* Keep dimensions stable */
+    /* No outer padding */
     padding: 0 !important;
 
     overflow: hidden !important;
@@ -495,7 +497,9 @@
   }
 
 
-  /* Success content panel */
+  /* =======================================================
+     MOBILE SUCCESS CONTENT PANEL
+     ======================================================= */
 
   #zcOptinSuccessPopup #zcOptinSuccessPanel {
     width: 100% !important;
@@ -510,7 +514,9 @@
   }
 
 
-  /* Actual Zoho success page */
+  /* =======================================================
+     MOBILE THANK YOU PAGE
+     ======================================================= */
 
   #zcOptinSuccessPopup #THANKSPAGE {
     display: block !important;
@@ -527,7 +533,9 @@
 
     box-sizing: border-box !important;
 
-    padding: 0 !important;
+    /* THIS controls mobile copy position */
+    padding: 60px 20px 20px 20px !important;
+
     margin: 0 !important;
 
     overflow: hidden !important;
@@ -536,7 +544,9 @@
   }
 
 
-  /* Remove table height */
+  /* =======================================================
+     MOBILE TABLE
+     ======================================================= */
 
   #zcOptinSuccessPopup #THANKSPAGE > table {
     width: 100% !important;
@@ -549,14 +559,18 @@
   }
 
 
-  /* Force content to top */
+  /* =======================================================
+     FORCE MOBILE CONTENT TO TOP
+     ======================================================= */
 
   #zcOptinSuccessPopup #THANKSPAGE td[valign="middle"] {
     vertical-align: top !important;
   }
 
 
-  /* Thank You Page container */
+  /* =======================================================
+     MOBILE THANK YOU PAGE CONTAINER
+     ======================================================= */
 
   #zcOptinSuccessPopup #THANKS_PAGE_CONTAINER {
     width: 100% !important;
@@ -568,7 +582,9 @@
   }
 
 
-  /* Success message container */
+  /* =======================================================
+     MOBILE SUCCESS MESSAGE CONTAINER
+     ======================================================= */
 
   #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT {
     width: 100% !important;
@@ -583,7 +599,9 @@
   }
 
 
-  /* Remove internal scrolling */
+  /* =======================================================
+     REMOVE MOBILE INTERNAL SCROLLING
+     ======================================================= */
 
   #zcOptinSuccessPopup #THANKS_PAGE_BODY_PARENT > div {
     height: auto !important;
