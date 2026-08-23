@@ -354,13 +354,15 @@
 #zcOptinSuccessPopup #zcOptinSuccessPanel {
   width: 100% !important;
   max-width: 100% !important;
+
   box-sizing: border-box !important;
+
   text-align: center !important;
+
+  /* Do NOT add extra vertical positioning here */
   padding: 0 !important;
+
   margin: 0 !important;
-  position: relative !important;
-  top: 0 !important;
-  left: 0 !important;
 }
 
 
@@ -1147,10 +1149,8 @@ Solve the puzzle and begin to see.`;
       window.addEventListener("click", startAudio);
       window.addEventListener("touchstart", startAudio);
 
-      document.addEventListener("click", function (event) {
-  if (event.target.closest("#closeSuccess")) {
-    window.location.href = "https://timhoad.github.io/systemerrors/";
-  }
+ document.getElementById("closeSuccess").addEventListener("click", function () {
+  window.location.href = "https://timhoad.github.io/systemerrors/";
 });
     </script>
   </body>
