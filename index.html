@@ -157,26 +157,7 @@
         animation: pulse 3s infinite ease-in-out;
         user-select: none;
         touch-action: none;
-
-        /* =========================================================
-   SAFARI DESKTOP ONLY
-   PREVENT NATIVE TEXT SELECTION ON SCRAMBLE LETTERS
-   ========================================================= */
-
-@supports (-webkit-hyphens: none) {
-
-  @media (hover: hover) and (pointer: fine) {
-
-    .draggable-letter {
-      -webkit-user-select: none !important;
-      user-select: none !important;
-      -webkit-user-drag: none !important;
-      -webkit-touch-callout: none !important;
-    }
-
-  }
-
-}
+      }
       @keyframes pulse {
         0%, 100% { transform: scale(1); opacity: 0.8; }
         50% { transform: scale(1.1); opacity: 1; }
@@ -1244,7 +1225,16 @@ Solve the puzzle and begin to see.`;
       let currentLetter = null;
       let pointerOffsetX = 0, pointerOffsetY = 0;
       function onPointerDown(event) {
-        currentLetter = event.target;
+  // Safari desktop only: prevent native text selection
+  const isSafariDesktop =
+    /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
+    !/iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isSafariDesktop) {
+    event.preventDefault();
+  }
+
+  currentLetter = event.target;
         if (!currentLetter.dataset.origLeft) {
           currentLetter.dataset.origLeft = currentLetter.style.left;
           currentLetter.dataset.origTop = currentLetter.style.top;
