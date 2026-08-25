@@ -157,7 +157,26 @@
         animation: pulse 3s infinite ease-in-out;
         user-select: none;
         touch-action: none;
-      }
+
+        /* =========================================================
+   SAFARI DESKTOP ONLY
+   PREVENT NATIVE TEXT SELECTION ON SCRAMBLE LETTERS
+   ========================================================= */
+
+@supports (-webkit-hyphens: none) {
+
+  @media (hover: hover) and (pointer: fine) {
+
+    .draggable-letter {
+      -webkit-user-select: none !important;
+      user-select: none !important;
+      -webkit-user-drag: none !important;
+      -webkit-touch-callout: none !important;
+    }
+
+  }
+
+}
       @keyframes pulse {
         0%, 100% { transform: scale(1); opacity: 0.8; }
         50% { transform: scale(1.1); opacity: 1; }
