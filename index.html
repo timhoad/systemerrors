@@ -1265,45 +1265,15 @@ Solve the puzzle and begin to see.`;
         const letterCenterY = letterRect.top + letterRect.height / 2;
         let dropped = false;
         const slots = document.querySelectorAll(".drop-slot");
-
-/* =========================================================
-   OLDER MAC CHROME ONLY
-   Small tolerance for coordinate/rendering differences
-   Chrome 150 and earlier on macOS
-   ========================================================= */
-
-const userAgent = navigator.userAgent;
-const chromeMatch = userAgent.match(/Chrome\/(\d+)/);
-
-const isMac = /Macintosh/i.test(userAgent);
-
-const isChrome =
-  /Chrome/i.test(userAgent) &&
-  !/Edg/i.test(userAgent) &&
-  !/OPR/i.test(userAgent) &&
-  !/CriOS/i.test(userAgent);
-
-const chromeVersion = chromeMatch ? parseInt(chromeMatch[1], 10) : 0;
-
-const isOlderMacChrome =
-  isMac &&
-  isChrome &&
-  chromeVersion > 0 &&
-  chromeVersion <= 150;
-
-const dropTolerance = isOlderMacChrome ? 8 : 0;
-
-
-slots.forEach((slot, index) => {
-  const slotRect = slot.getBoundingClientRect();
-
-  if (
-    letterCenterX >= slotRect.left - dropTolerance &&
-    letterCenterX <= slotRect.right + dropTolerance &&
-    letterCenterY >= slotRect.top - dropTolerance &&
-    letterCenterY <= slotRect.bottom + dropTolerance &&
-    !slot.classList.contains("filled")
-  ) {
+        slots.forEach((slot, index) => {
+          const slotRect = slot.getBoundingClientRect();
+          if (
+            letterCenterX >= slotRect.left &&
+            letterCenterX <= slotRect.right &&
+            letterCenterY >= slotRect.top &&
+            letterCenterY <= slotRect.bottom &&
+            !slot.classList.contains("filled")
+          ) {
             const correctChar = cleanPhrase[index];
             if (currentLetter.textContent === correctChar) {
               slot.textContent = currentLetter.textContent;
