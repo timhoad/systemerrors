@@ -1222,8 +1222,35 @@ Solve the puzzle and begin to see.`;
         return position;
       }
 
-      let currentLetter = null;
-      let pointerOffsetX = 0, pointerOffsetY = 0;
+     let currentLetter = null;
+let pointerOffsetX = 0, pointerOffsetY = 0;
+
+/* =========================================================
+   OLDER MAC CHROME DETECTION
+   ========================================================= */
+
+const userAgent = navigator.userAgent;
+
+const chromeMatch = userAgent.match(/Chrome\/(\d+)/);
+
+const isMac = /Macintosh/i.test(userAgent);
+
+const isChrome =
+  /Chrome/i.test(userAgent) &&
+  !/Edg/i.test(userAgent) &&
+  !/OPR/i.test(userAgent) &&
+  !/CriOS/i.test(userAgent);
+
+const chromeVersion =
+  chromeMatch ? parseInt(chromeMatch[1], 10) : 0;
+
+const isOlderMacChrome =
+  isMac &&
+  isChrome &&
+  chromeVersion > 0 &&
+  chromeVersion <= 150;
+
+let activePointerId = null;
       function onPointerDown(event) {
   // Safari desktop only: prevent native text selection
   const isSafariDesktop =
@@ -1240,6 +1267,10 @@ Solve the puzzle and begin to see.`;
           currentLetter.dataset.origTop = currentLetter.style.top;
         }
         currentLetter.setPointerCapture(event.pointerId);
+        // Older Mac Chrome fallback: remember which pointer is dragging
+if (isOlderMacChrome) {
+  activePointerId = event.pointerId;
+}
         const letterRect = currentLetter.getBoundingClientRect();
         pointerOffsetX = event.clientX - letterRect.left;
         pointerOffsetY = event.clientY - letterRect.top;
@@ -1297,7 +1328,9 @@ Solve the puzzle and begin to see.`;
         currentLetter.removeEventListener("pointerup", onPointerUp);
         currentLetter.removeEventListener("pointercancel", onPointerUp);
         currentLetter = null;
-        if (correctCount === cleanPhrase.length) {
+activePointerId = null;
+
+if (correctCount === cleanPhrase.length) {
           setTimeout(() => {
             document.getElementById("completion-overlay").style.display = "flex";
             const finalMsg = document.getElementById("final-message");
@@ -1346,7 +1379,24 @@ Solve the puzzle and begin to see.`;
           }, 50);
         }
       }
+// Older Mac Chrome fallback: catch pointer release at window level
+window.addEventListener("pointerup", (event) => {
+  if (!isOlderMacChrome) return;
+  if (!currentLetter) return;
+  if (activePointerId !== event.pointerId) return;
 
+  onPointerUp(event);
+  activePointerId = null;
+});
+
+window.addEventListener("pointercancel", (event) => {
+  if (!isOlderMacChrome) return;
+  if (!currentLetter) return;
+  if (activePointerId !== event.pointerId) return;
+
+  onPointerUp(event);
+  activePointerId = null;
+});
       // Add pointer events to letters
       letters.forEach((char, i) => {
         const letter = document.createElement("div");
